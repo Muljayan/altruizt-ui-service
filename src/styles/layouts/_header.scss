@@ -1,0 +1,49 @@
+header {
+  .top-bar {
+    padding: 1rem 2rem;
+
+    .branding {
+      display: flex;
+      flex-direction: row;
+
+      .circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $primary;
+      }
+
+      .name {
+        margin-left: 1rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .nav-bar {
+    padding: 1rem 2rem;
+    background-color: $primary;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+
+        a {
+
+          &,
+          &:hover,
+          &:visited {
+            color: $white;
+            text-decoration: none;
+            margin-right: 1rem;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}

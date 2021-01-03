@@ -1,0 +1,14 @@
+.progress-bar {
+  width: 100%;
+  margin: 1rem 0;
+  background-color: $white;
+  height: 1.5rem;
+  border-radius: 10px;
+
+  .bar {
+    background-color: #b6ff97;
+    width: 50%;
+    height: 100%;
+    border-radius: 10px;
+  }
+}

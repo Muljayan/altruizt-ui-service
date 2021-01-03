@@ -1,0 +1,23 @@
+
+.btn-container {
+
+  a,
+  a:visited,
+  a:link,
+  button {
+    background-color: $primary;
+    color: $white;
+    padding: 0.5rem 3rem;
+    text-decoration: none;
+    display: inline-block;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: darken($color: $primary, $amount: 2);
+    }
+  }
+
+}
