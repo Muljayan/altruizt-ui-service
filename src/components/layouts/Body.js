@@ -7,7 +7,7 @@ const Body = (props) => {
   const mainWidth = sidebar ? 9 : 12;
   return (
     <div className="row">
-      <main key="main" className={`col-lg-${mainWidth} p-2`}>
+      <main key="main" className={`col-lg-${mainWidth} p-1`}>
         <h1>{title}</h1>
         {children}
       </main>

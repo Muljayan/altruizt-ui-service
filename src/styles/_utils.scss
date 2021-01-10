@@ -2,10 +2,34 @@
   font-weight: bold;
 }
 
+.center {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.card {
+  background-color: $off-white;
+  border-radius: 10px;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
 // Spacing
 @for $i from 1 through 5 {
   .p-#{$i} {
     padding: calc(#{$i}*1rem);
+  }
+
+  .pl-#{$i} {
+    padding-left: calc(#{$i}*1rem);
+  }
+
+  .pr-#{$i} {
+    padding-right: calc(#{$i}*1rem);
   }
 
   .px-#{$i} {

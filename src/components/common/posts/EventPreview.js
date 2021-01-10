@@ -1,11 +1,11 @@
 import React from 'react';
 
 const EventPreview = () => (
-  <div className="event-preview row mt-2 p-2">
+  <div className="post-preview card row mt-2 p-2">
     <div className="col-lg-3 image">
       <img src="/dummy-images/opportunity.jpg" alt="" />
     </div>
-    <div className="col-lg-9 content">
+    <div className="col-lg-9 pl-1 content">
       <h3>Relief for dogs in Animal Shelter</h3>
       <div className="categories">
         <div className="tag">
@@ -26,10 +26,10 @@ const EventPreview = () => (
       </div>
       <div className="row">
         <div className="col-md-6">
-          <div className="organization-type">Beneficiaries</div>
-          <div className="organizations">
+          <div className="headings">Beneficiaries</div>
+          <div className="stats">
             <img src="/dummy-icons/volunteer-organization.png" alt="volunteer-organization" />
-            <div className="stat">
+            <div className="pl-1 stat">
               <b>+5</b>
               {' '}
               Others
@@ -37,10 +37,10 @@ const EventPreview = () => (
           </div>
         </div>
         <div className="col-md-6">
-          <div className="organization-type">Volunteers</div>
-          <div className="organizations">
+          <div className="headings">Volunteers</div>
+          <div className="stats">
             <img src="/dummy-icons/volunteer-organization.png" alt="volunteer-organization" />
-            <div className="stat">
+            <div className="pl-1 stat">
               <b>+5</b>
               {' '}
               Others

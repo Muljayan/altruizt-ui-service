@@ -33,10 +33,19 @@ $grays: ("100": $gray-100,
   "900": $gray-900) !default;
 // fusv-enable
 
+$red: #b53235 !default;
 $pink: #d63384 !default;
+$blue: #31b0b5 !default;
+$light-green: #6eb531 !default;
+$brown: #b57731 !default;
 
 // scss-docs-start colors-map
-$colors: ("pink": $pink,
+$colors: ("primary": $primary,
+  "red": $red,
+  "pink": $pink,
+  "blue": $blue,
+  "light-green": $light-green,
+  "brown": $brown,
   "white": $white,
   "gray": $gray-600,
   "gray-dark": $gray-800) !default;
@@ -240,19 +249,8 @@ $aspect-ratios: ("1x1": 100%,
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-$font-family-sans-serif: system-ui,
--apple-system,
-"Segoe UI",
-Roboto,
-"Helvetica Neue",
-Arial,
-"Noto Sans",
-"Liberation Sans",
-sans-serif,
-"Apple Color Emoji",
-"Segoe UI Emoji",
-"Segoe UI Symbol",
-"Noto Color Emoji" !default;
+$font-family-sans-serif: 'Roboto',
+sans-serif !default;
 // stylelint-enable value-keyword-case
 $font-family-base: var(--#{$variable-prefix}font-sans-serif) !default;
 $font-family-code: var(--#{$variable-prefix}font-monospace) !default;
@@ -294,7 +292,7 @@ $font-sizes: (1: $h1-font-size,
 
 $headings-font-family: null !default;
 $headings-font-style: null !default;
-$headings-font-weight: 500 !default;
+$headings-font-weight: bold !default;
 $headings-line-height: 1.2 !default;
 $headings-color: null !default;
 

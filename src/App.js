@@ -30,56 +30,56 @@ const App = () => (
       <Header />
       <Switch>
         {/* Home */}
-        <Route path="/">
+        <Route exact path="/">
           <Home />
         </Route>
 
         {/* Dashboards */}
-        <Route path="/dashboards/approvals">
+        <Route exact path="/dashboards/approvals">
           <ApprovalsDashboard />
         </Route>
-        <Route path="/dashboards/events">
+        <Route exact path="/dashboards/events">
           <EventsDashboard />
         </Route>
-        <Route path="/dashboards/organizations">
+        <Route exact path="/dashboards/organizations">
           <OrganizationsDashboard />
         </Route>
-        <Route path="/dashboards/pledges">
+        <Route exact path="/dashboards/pledges">
           <PledgesDashboard />
         </Route>
 
         {/* Events */}
-        <Route path="/events">
+        <Route exact path="/events">
           <Events />
         </Route>
-        <Route path="/events/create">
+        <Route exact path="/events/create">
           <CreateEvent />
         </Route>
-        <Route path="/events/:id">
+        <Route exact path="/events/:id">
           <EventProfile />
         </Route>
-        <Route path="/events/:id/update">
+        <Route exact path="/events/:id/update">
           <UpdateEvent />
         </Route>
 
         {/* Opportunities */}
-        <Route path="/opportunities">
+        <Route exact path="/opportunities">
           <Opportunities />
         </Route>
-        <Route path="/opportunities/:id">
+        <Route exact path="/opportunities/:id">
           <OpportunitiesProfile />
         </Route>
 
         {/* Organizations */}
-        <Route path="/organizations">
+        <Route exact path="/organizations">
           <Organizations />
         </Route>
-        <Route path="/organizations/:id">
+        <Route exact path="/organizations/:id">
           <OrganizationsProfile />
         </Route>
 
         {/* Profile */}
-        <Route path="/profile">
+        <Route exact path="/profile">
           <Profile />
         </Route>
 
