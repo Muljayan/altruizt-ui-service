@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import ResourceItem from './ResourceItem';
 
-const Resources = (props) => {
+const ResourceList = (props) => {
   const { title } = props;
   return (
     <CommonContainer
@@ -45,8 +45,8 @@ const Resources = (props) => {
   );
 };
 
-Resources.propTypes = {
+ResourceList.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-export default Resources;
+export default ResourceList;

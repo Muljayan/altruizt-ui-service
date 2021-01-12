@@ -15,9 +15,14 @@ const CommonContainer = (props) => {
   }
   return (
     <div className="container-common">
-      <div className={`header-${color}`}>
-        {header}
-      </div>
+      {
+        title
+        && (
+          <div className={`header-${color}`}>
+            {header}
+          </div>
+        )
+      }
       {
         children && (
           <div className="body">
@@ -30,13 +35,14 @@ const CommonContainer = (props) => {
 };
 
 CommonContainer.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node,
   color: PropTypes.string,
   link: PropTypes.string,
 };
 
 CommonContainer.defaultProps = {
+  title: null,
   color: 'primary',
   link: null,
   children: null,
