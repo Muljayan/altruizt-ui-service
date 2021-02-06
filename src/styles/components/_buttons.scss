@@ -22,3 +22,54 @@
 
 }
 
+
+.btn {
+  // text-transform: uppercase;
+  color: $white;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+@each $color,
+$value in $theme-colors {
+  .btn-#{$color} {
+    background-color: $value;
+    
+    &:hover {
+      background-color: darken($value, 5%)
+    }
+  }
+  .btn-outline-#{$color} {
+    background-color: transparent;
+    color: $value;
+    border: 1px $value solid;
+    
+    &:hover {
+      border: 1px $value darken($value, 5%);
+    }
+  }
+}
+
+.load-more{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4rem;
+  button{
+    outline: none;
+    border: none;
+    background-color: $primary;
+    @include font-size($h4-font-size);
+    color: $white;
+    padding: 0.5rem 2rem;
+    margin: 0;
+    &:hover{
+      background-color: darken($color: $primary, $amount: 5);
+    }
+  }
+}

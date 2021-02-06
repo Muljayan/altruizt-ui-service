@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const CommonContainer = (props) => {
   const {
@@ -8,9 +9,9 @@ const CommonContainer = (props) => {
   let header = <h4>{title}</h4>;
   if (link) {
     header = (
-      <a href="/">
-        <h4>+ Create Event</h4>
-      </a>
+      <Link to={link}>
+        <h4>{title}</h4>
+      </Link>
     );
   }
   return (

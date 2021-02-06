@@ -23,12 +23,22 @@ import OrganizationsProfile from 'pages/organizations/OrganizationsProfile';
 import Profile from 'pages/profile/Profile';
 
 import './styles/global.scss';
+import Login from 'pages/auth/Login';
+import Register from 'pages/auth/Register';
 
 const App = () => (
   <>
     <Router>
       <Header />
       <Switch>
+        {/* Auth */}
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
+
         {/* Home */}
         <Route exact path="/">
           <Home />

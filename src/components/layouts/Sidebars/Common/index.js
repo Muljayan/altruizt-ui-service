@@ -8,7 +8,7 @@ const Sidebar = () => (
     <CommonContainer
       title="+ Create Event"
       color="red"
-      link="/"
+      link="/events/create"
     />
     <YourCategories />
     <CommonContainer
