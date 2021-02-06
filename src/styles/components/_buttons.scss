@@ -36,7 +36,7 @@
 }
 
 @each $color,
-$value in $theme-colors {
+$value in $colors {
   .btn-#{$color} {
     background-color: $value;
     

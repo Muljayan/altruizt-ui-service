@@ -5,6 +5,7 @@ import TextField from 'components/common/input/TextField';
 import TextArea from 'components/common/input/TextArea';
 import Select from 'components/common/input/Select';
 import ResourceAdder from 'components/scenes/auth/register/ResourceAdder';
+import API from 'utils/API';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -14,6 +15,7 @@ const Register = () => {
   const [address, setAddress] = useState('');
   const [registrationNumber, setRegistrationNumber] = useState('');
   const [description, setDescription] = useState('');
+  const [website, setWebsite] = useState('');
   const [userType, setUserType] = useState(null);
   const [organizationType, setOrganizationType] = useState(null);
   // const [categoriesType, setCategoriesType] = useState(null);
@@ -47,29 +49,38 @@ const Register = () => {
 
   const _onSubmit = (e) => {
     e.preventDefault();
-    if (!userType) {
-      console.log('usertype not selected');
-      return null;
-    }
-    if (isAnOrganization && !organizationType) {
-      console.log('Select type of organization!');
-      return null;
-    }
+    try {
+      if (!userType) {
+        alert('usertype not selected');
+        return;
+      }
+      if (isAnOrganization && !organizationType) {
+        alert('Select type of organization!');
+        return;
+      }
 
-    const data = {
-      name,
-      email,
-      password,
-      phone,
-      address,
-      registrationNumber: isACorporate ? registrationNumber : null,
-      description,
-      categories,
-      categoriesFollowed,
-    };
-    console.log(data);
-
-    return null;
+      const data = {
+        name,
+        email,
+        isAnOrganization,
+        isACorporate,
+        userType,
+        organizationType,
+        password,
+        phone,
+        address,
+        website,
+        companyRegistrationNumber: isACorporate ? registrationNumber : null,
+        description,
+        categories,
+        categoriesFollowed,
+        resources: isAnOrganization ? resources : [],
+      };
+      console.log(data);
+      API.post('/auth/register', data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -138,6 +149,14 @@ const Register = () => {
             colSize={6}
             required={isAnOrganization}
           />
+          <TextField
+            label="Website"
+            id="website"
+            value={website}
+            onChange={setWebsite}
+            colSize={6}
+            required={isAnOrganization}
+          />
           {
             isACorporate
             && (
@@ -173,10 +192,16 @@ const Register = () => {
             isMulti
           />
         </div>
-        <ResourceAdder
-          resources={resources}
-          setResources={setResources}
-        />
+        {
+          userType?.value === 'organization'
+          && (
+            <ResourceAdder
+              resources={resources}
+              setResources={setResources}
+            />
+          )
+        }
+        <hr className="my-5" />
         <div className="row">
           <div className="col-12">
             <div className="field mx-1">

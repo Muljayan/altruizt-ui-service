@@ -14,17 +14,17 @@ const ResourceList = (props) => {
         <ResourceItem
           label="Sugar"
           value="999,999,999"
-          units="kg"
+          unit="kg"
         />
         <ResourceItem
           label="Dhal"
           value="999,999,999"
-          units="kg"
+          unit="kg"
         />
         <ResourceItem
           label="Rice"
           value="999,999,999"
-          units="kg"
+          unit="kg"
         />
         <ResourceItem
           label="PPE Masks"
@@ -33,12 +33,12 @@ const ResourceList = (props) => {
         <ResourceItem
           label="Sugar"
           value="999,999,999"
-          units="kg"
+          unit="kg"
         />
         <ResourceItem
           label="Dhal"
           value="999,999,999"
-          units="kg"
+          unit="kg"
         />
       </div>
     </CommonContainer>

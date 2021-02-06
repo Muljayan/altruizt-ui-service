@@ -88,3 +88,20 @@ html {
     font-weight: normal !important;
   }
 }
+
+// Table
+
+table {
+  width: 100%;
+
+  th {
+    background-color: $off-white
+  }
+
+  th,
+  td {
+    padding: 0.25rem 0.5rem;
+    border-right: 1px solid $font-color;
+    border-left: 1px solid $font-color;
+  }
+}

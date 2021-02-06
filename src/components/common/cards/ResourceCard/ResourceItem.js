@@ -5,7 +5,7 @@ const ResourceItem = (props) => {
   const {
     label,
     value,
-    units,
+    unit,
   } = props;
   return (
     <div className="col-md-6">
@@ -16,7 +16,7 @@ const ResourceItem = (props) => {
         <div className="col-8">
           {value}
           {' '}
-          {units}
+          {unit}
         </div>
       </div>
     </div>
@@ -26,11 +26,11 @@ const ResourceItem = (props) => {
 ResourceItem.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  units: PropTypes.string,
+  unit: PropTypes.string,
 };
 
 ResourceItem.defaultProps = {
-  units: 'units',
+  unit: 'unit',
 };
 
 export default ResourceItem;

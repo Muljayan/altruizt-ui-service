@@ -4,12 +4,13 @@ import Select from 'components/common/input/Select';
 import TextField from 'components/common/input/TextField';
 import Autofiller from 'components/common/autofiller';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
+import ResourceTable from './ResourceTable';
 
 const ResourceAdder = (props) => {
   const { resources, setResources } = props;
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
-  const [units, setUnits] = useState(null);
+  const [unit, setUnits] = useState(null);
   const [disableUnitPicker, setDisableUnitPicker] = useState(false);
 
   const categoriesTypeOptions = [
@@ -32,25 +33,38 @@ const ResourceAdder = (props) => {
   };
 
   const _addItem = () => {
-    if (!name || !quantity || !units) {
+    if (!name || !quantity || !unit) {
       alert('Fields not complete!');
-    } else {
-      const filteredResources = [...resources]
-        .filter((resource) => resource.name === name);
-
-      if (filteredResources.length === 0) {
-        const data = {
-          name,
-          quantity,
-          units: units.value,
-        };
-        setResources([...resources, data]);
-      } else {
-        alert('Item already added!');
-      }
+      return null;
     }
+
+    if (Number(quantity) <= 0) {
+      alert('Quantity should be greater than 0');
+      return null;
+    }
+
+    const filteredResources = [...resources]
+      .filter((resource) => resource.name === name);
+
+    if (filteredResources.length === 0) {
+      const data = {
+        name,
+        quantity,
+        unit: unit.value,
+      };
+      setResources([...resources, data]);
+      return null;
+    }
+    alert('Item already added!');
+    return null;
   };
-  console.log(resources);
+
+  const _removeResource = (selectedItem) => {
+    const filteredResources = [...resources]
+      .filter((resource) => resource.name !== selectedItem.name);
+    setResources(filteredResources);
+  };
+
   return (
     <>
       <CommonContainer
@@ -74,10 +88,10 @@ const ResourceAdder = (props) => {
           type="number"
         />
         <Select
-          label="Units (kg, l, m)"
+          label="Unit (kg, l, m)"
           colSize={6}
           options={categoriesTypeOptions}
-          value={units}
+          value={unit}
           onChange={setUnits}
           disable={disableUnitPicker}
         />
@@ -85,6 +99,18 @@ const ResourceAdder = (props) => {
           <button type="button" onClick={_addItem} className="btn btn-outline-primary">Add Item</button>
         </div>
       </div>
+      {
+        resources?.length > 0
+          ? (
+            <div className="mx-1 mb-2">
+              <ResourceTable
+                resources={resources}
+                removeResource={_removeResource}
+              />
+            </div>
+          )
+          : <div className="message mx-1">No resources added</div>
+      }
     </>
   );
 };
