@@ -33,7 +33,7 @@ const Searcher = (props) => {
 
   const _fetchData = async () => {
     try {
-      const res = await API.post('/autocomplete/resources', { text: searchText });
+      const res = await API.post(`/autocomplete/${type}`, { text: searchText });
       setSuggestions(res.data);
     } catch (err) {
       console.log(err);
@@ -43,12 +43,6 @@ const Searcher = (props) => {
   useEffect(() => {
     _fetchData();
   }, [searchText]);
-  console.log({ searchText, selected });
-  if (!selected) {
-    console.log('if');
-  } else {
-    console.log('else');
-  }
 
   const suggestionsList = suggestions.map((suggestion) => (
     <SuggestionItem
@@ -67,7 +61,7 @@ const Searcher = (props) => {
           onChange={_onChange}
           value={searchText}
           id={id}
-          type={type}
+          type="text"
           required={required}
         />
       </div>
@@ -87,14 +81,13 @@ Searcher.propTypes = {
   id: PropTypes.string.isRequired,
   colSize: PropTypes.number,
   label: PropTypes.string.isRequired,
-  type: PropTypes.string,
+  type: PropTypes.string.isRequired,
   onSuggestionSelect: PropTypes.func,
   required: PropTypes.bool,
 };
 
 Searcher.defaultProps = {
   colSize: 12,
-  type: 'text',
   required: false,
   onSuggestionSelect: null,
 };

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Select from 'components/common/input/Select';
+import Select from 'components/common/input/selectors/Select';
 import TextField from 'components/common/input/TextField';
 import Autofiller from 'components/common/autofiller';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import ResourceTable from './ResourceTable';
 
 const ResourceAdder = (props) => {
-  const { resources, setResources } = props;
+  const { label, resources, setResources } = props;
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [unit, setUnits] = useState(null);
@@ -68,13 +68,14 @@ const ResourceAdder = (props) => {
   return (
     <>
       <CommonContainer
-        title="Resources Needed/Available"
+        title={label}
       />
       <div className="row mb-2">
         <Autofiller
           label="Find Item"
           id="item"
           colSize={12}
+          type="resources"
           onSuggestionSelect={_selectedFromSuggestions}
           searchText={name}
           setSearchText={setName}
@@ -109,13 +110,14 @@ const ResourceAdder = (props) => {
               />
             </div>
           )
-          : <div className="message mx-1">No resources added</div>
+          : <div className="message mx-1 mb-2">No resources added</div>
       }
     </>
   );
 };
 
 ResourceAdder.propTypes = {
+  label: PropTypes.string.isRequired,
   resources: PropTypes.array.isRequired,
   setResources: PropTypes.func.isRequired,
 };

@@ -4,6 +4,8 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import jwt from 'jsonwebtoken';
 
 import Header from 'components/layouts/Header';
 
@@ -21,23 +23,52 @@ import OpportunitiesProfile from 'pages/opportunities/OpportunitiesProfile';
 import Organizations from 'pages/organizations/Organizations';
 import OrganizationsProfile from 'pages/organizations/OrganizationsProfile';
 import Profile from 'pages/profile/Profile';
+import ProfileEdit from 'pages/profile/ProfileEdit';
 
 import './styles/global.scss';
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
+import PrivateRoute from 'components/common/routes/PrivateRoute';
+import store from 'store';
+import { CLEAR_CURRENT_USER, SET_CURRENT_USER } from 'actions/types';
+import AuthRoute from 'components/common/routes/AuthRoute';
+
+// Check if token exists
+const token = localStorage.jwtToken;
+if (token) {
+  const decoded = jwt.decode(token);
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user
+    console.log('token expired');
+    store.dispatch({ type: CLEAR_CURRENT_USER });
+  } else {
+    console.log('token not expired');
+    store.dispatch({ type: SET_CURRENT_USER, payload: token });
+  }
+}
 
 const App = () => (
-  <>
+  <Provider
+    store={store}
+  >
     <Router>
       <Header />
       <Switch>
         {/* Auth */}
-        <Route exact path="/login">
+        <AuthRoute
+          exact
+          path="/login"
+        >
           <Login />
-        </Route>
-        <Route exact path="/register">
+        </AuthRoute>
+        <AuthRoute
+          exact
+          path="/register"
+        >
           <Register />
-        </Route>
+        </AuthRoute>
 
         {/* Home */}
         <Route exact path="/">
@@ -45,18 +76,18 @@ const App = () => (
         </Route>
 
         {/* Dashboards */}
-        <Route exact path="/dashboards/approvals">
+        <PrivateRoute exact path="/dashboards/approvals">
           <ApprovalsDashboard />
-        </Route>
-        <Route exact path="/dashboards/events">
+        </PrivateRoute>
+        <PrivateRoute exact path="/dashboards/events">
           <EventsDashboard />
-        </Route>
-        <Route exact path="/dashboards/organizations">
+        </PrivateRoute>
+        <PrivateRoute exact path="/dashboards/organizations">
           <OrganizationsDashboard />
-        </Route>
-        <Route exact path="/dashboards/pledges">
+        </PrivateRoute>
+        <PrivateRoute exact path="/dashboards/pledges">
           <PledgesDashboard />
-        </Route>
+        </PrivateRoute>
 
         {/* Events */}
         <Route exact path="/events">
@@ -89,13 +120,16 @@ const App = () => (
         </Route>
 
         {/* Profile */}
-        <Route exact path="/profile">
+        <PrivateRoute exact path="/profile">
           <Profile />
-        </Route>
+        </PrivateRoute>
+        <PrivateRoute exact path="/profile/edit">
+          <ProfileEdit />
+        </PrivateRoute>
 
       </Switch>
     </Router>
-  </>
+  </Provider>
 );
 
 export default App;

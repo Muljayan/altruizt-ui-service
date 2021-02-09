@@ -1,17 +1,30 @@
 import React from 'react';
+import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
+
 import Link from './Link';
 
-const NavBar = () => (
-  <nav className="nav-bar">
-    <ul>
-      <Link label="Home" to="/" />
-      <Link label="Opportunities" to="/opportunities" />
-      <Link label="Events" to="/events" />
-      <Link label="Organizations" to="/organizations" />
-      <Link label="Followings" to="/followings" />
-      <Link label="Profile" to="/profile" />
-    </ul>
-  </nav>
+const getAuthStatus = createSelector(
+  (state) => state.auth,
+  (auth) => auth,
 );
+
+const NavBar = () => {
+  const { isAuthenticated, user } = useSelector(getAuthStatus);
+  return (
+    <nav className="nav-bar">
+      <ul className="main-links">
+        <Link label="Home" to="/" />
+        <Link label="Opportunities" to="/opportunities" />
+        <Link label="Events" to="/events" />
+        <Link label="Organizations" to="/organizations" />
+        <Link hide={!isAuthenticated} label="Followings" to="/followings" />
+      </ul>
+      <ul>
+        <Link hide={!isAuthenticated} label={user.name} to="/profile" />
+      </ul>
+    </nav>
+  );
+};
 
 export default NavBar;

@@ -24,4 +24,7 @@ Profile
 
 Change log
 
-Changed tax_number => company_registration_number in database and uis
+Changed tax_number => identification_number in database and uis (To get any unique number relevant to organization)
+ 
+user_categories => organization_categories
+categories_followed

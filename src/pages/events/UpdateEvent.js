@@ -3,7 +3,7 @@ import Body from 'components/layouts/Body';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import TextField from 'components/common/input/TextField';
 import TextArea from 'components/common/input/TextArea';
-import Select from 'components/common/input/Select';
+import Select from 'components/common/input/selectors/Select';
 
 const UpdateEvent = () => (
   <Body

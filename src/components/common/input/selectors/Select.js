@@ -12,6 +12,7 @@ const Select = (props) => {
     isMulti,
     onChange,
     disable,
+    hide,
   } = props;
   // const [__, setSelectedOption] = useState(null);
   // const colSize = 6;
@@ -48,25 +49,32 @@ const Select = (props) => {
   };
 
   return (
-    <div className={`col-md-${colSize}`}>
-      <div className="field mx-1">
-        <label htmlFor="">
-          <h4>{label}</h4>
-        </label>
-        <ReactSelect
-          defaultValue={defaultValue}
-          onChange={_onChange}
-          value={value}
-          // value={null}
-          options={options}
-          isClearable
-          isSearchable
-          styles={customStyles}
-          isMulti={isMulti}
-          isDisabled={disable}
-        />
-      </div>
-    </div>
+    <>
+      {
+        !hide
+        && (
+          <div className={`col-md-${colSize}`}>
+            <div className="field mx-1">
+              <label htmlFor="">
+                <h4>{label}</h4>
+              </label>
+              <ReactSelect
+                defaultValue={defaultValue}
+                onChange={_onChange}
+                value={value}
+                // value={null}
+                options={options}
+                isClearable
+                isSearchable
+                styles={customStyles}
+                isMulti={isMulti}
+                isDisabled={disable}
+              />
+            </div>
+          </div>
+        )
+      }
+    </>
   );
 };
 
@@ -76,9 +84,13 @@ Select.propTypes = {
   colSize: PropTypes.number,
   options: PropTypes.array.isRequired,
   isMulti: PropTypes.bool,
-  value: PropTypes.object,
+  value: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   onChange: PropTypes.func.isRequired,
   disable: PropTypes.bool,
+  hide: PropTypes.bool,
 };
 
 Select.defaultProps = {
@@ -86,6 +98,7 @@ Select.defaultProps = {
   colSize: 6,
   isMulti: false,
   disable: false,
+  hide: false,
   value: null,
 };
 

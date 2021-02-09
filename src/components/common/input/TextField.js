@@ -5,11 +5,13 @@ const TextField = (props) => {
   const {
     id,
     value,
+    placeholder,
     onChange,
     colSize,
     label,
     type,
     required,
+    hide,
   } = props;
 
   const _onChange = (e) => {
@@ -17,14 +19,28 @@ const TextField = (props) => {
   };
 
   return (
-    <div className={`col-md-${colSize}`}>
-      <div className="field mx-1">
-        <label htmlFor={id}>
-          <h4>{label}</h4>
-        </label>
-        <input id={id} onChange={_onChange} value={value} type={type} required={required} />
-      </div>
-    </div>
+    <>
+      {
+        !hide
+        && (
+          <div className={`col-md-${colSize}`}>
+            <div className="field mx-1">
+              <label htmlFor={id}>
+                <h4>{label}</h4>
+              </label>
+              <input
+                id={id}
+                onChange={_onChange}
+                value={value}
+                type={type}
+                required={required}
+                placeholder={placeholder}
+              />
+            </div>
+          </div>
+        )
+      }
+    </>
   );
 };
 
@@ -35,13 +51,17 @@ TextField.propTypes = {
   colSize: PropTypes.number,
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
+  hide: PropTypes.bool,
 };
 
 TextField.defaultProps = {
   colSize: 12,
   type: 'text',
+  placeholder: '',
   required: false,
+  hide: false,
 };
 
 export default TextField;

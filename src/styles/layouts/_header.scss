@@ -21,8 +21,14 @@ header {
   }
 
   .nav-bar {
+    display: flex;
+    flex-direction: row;
     padding: 1rem 2rem;
     background-color: $primary;
+
+    .main-links {
+      flex: 1;
+    }
 
     ul {
       list-style: none;

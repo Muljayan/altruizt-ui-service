@@ -8,7 +8,7 @@ const Body = (props) => {
   return (
     <div className="row">
       <main key="main" className={`col-lg-${mainWidth} p-1`}>
-        <h1>{title}</h1>
+        <h1 className="mb-2 mt-1">{title}</h1>
         {children}
       </main>
       {sidebar}

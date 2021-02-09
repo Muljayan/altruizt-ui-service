@@ -3,9 +3,10 @@ import Body from 'components/layouts/Body';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import TextField from 'components/common/input/TextField';
 import TextArea from 'components/common/input/TextArea';
-import Select from 'components/common/input/Select';
-import ResourceAdder from 'components/scenes/auth/register/ResourceAdder';
+import Select from 'components/common/input/selectors/Select';
+import ResourceAdder from 'components/common/adders/ResourceAdder';
 import API from 'utils/API';
+import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
-  const [registrationNumber, setRegistrationNumber] = useState('');
+  const [identificationNumber, setIdentificationNumber] = useState('');
   const [description, setDescription] = useState('');
   const [website, setWebsite] = useState('');
   const [userType, setUserType] = useState(null);
@@ -28,24 +29,9 @@ const Register = () => {
     { value: 'organization', label: 'Organization' },
   ];
 
-  const organizationTypeOptions = [
-    { value: 3, label: 'Corporate' },
-    { value: 4, label: 'Charity' },
-    { value: 5, label: 'Volunteer Organization' },
-  ];
-
-  const categoriesTypeOptions = [
-    { value: 1, label: 'Disaster Relief' },
-    { value: 2, label: 'Environmental Conservation' },
-    { value: 3, label: 'Marine Conservation' },
-    { value: 4, label: 'Animal Welfare' },
-    { value: 5, label: 'Education and Professional Development' },
-    { value: 6, label: 'Child Welfare' },
-    { value: 7, label: 'Education and Development' },
-  ];
-
   const isAnOrganization = (userType?.value === userTypeOptions[1].value);
-  const isACorporate = (organizationType?.value === organizationTypeOptions[0].value);
+  const isACorporate = (organizationType?.label === 'Corporate');
+  const isABeneficiary = (organizationType?.label === 'Beneficiary');
 
   const _onSubmit = (e) => {
     e.preventDefault();
@@ -62,21 +48,18 @@ const Register = () => {
       const data = {
         name,
         email,
-        isAnOrganization,
-        isACorporate,
-        userType,
-        organizationType,
+        userType: userType.value,
+        organizationType: organizationType.value,
         password,
         phone,
         address,
         website,
-        companyRegistrationNumber: isACorporate ? registrationNumber : null,
+        identificationNumber,
         description,
         categories,
         categoriesFollowed,
         resources: isAnOrganization ? resources : [],
       };
-      console.log(data);
       API.post('/auth/register', data);
     } catch (err) {
       console.log(err);
@@ -99,11 +82,11 @@ const Register = () => {
             onChange={setUserType}
           />
           {
-            (userType?.value === userTypeOptions[1].value)
+            (isAnOrganization)
             && (
-              <Select
+              <DataFetchSelect
+                type="organization-types"
                 label="What kind of organization do you represent?"
-                options={organizationTypeOptions}
                 value={organizationType}
                 onChange={setOrganizationType}
               />
@@ -148,6 +131,7 @@ const Register = () => {
             onChange={setAddress}
             colSize={6}
             required={isAnOrganization}
+            hide={!isAnOrganization}
           />
           <TextField
             label="Website"
@@ -156,46 +140,48 @@ const Register = () => {
             onChange={setWebsite}
             colSize={6}
             required={isAnOrganization}
+            hide={!isAnOrganization}
           />
-          {
-            isACorporate
-            && (
-              <TextField
-                label="Company Registration Number"
-                id="registrationNumber"
-                value={registrationNumber}
-                onChange={setRegistrationNumber}
-                colSize={6}
-                required={isACorporate}
-              />
-            )
-          }
+
+          <TextField
+            label="Company Registration Number"
+            id="registrationNumber"
+            placeholder="This can be any id number (eg: Company registration number, etc)"
+            value={identificationNumber}
+            onChange={setIdentificationNumber}
+            colSize={12}
+            required={isACorporate}
+            hide={!isAnOrganization}
+          />
           <TextArea
-            label="About your Organization"
+            label="Description"
             id="description"
             value={description}
             onChange={setDescription}
           />
-          <Select
-            label="Which category does your organization fall under ?"
-            colSize={12}
-            options={categoriesTypeOptions}
-            value={categories}
-            onChange={setCategories}
-          />
-          <Select
+          <DataFetchSelect
+            type="categories"
             label="Choose the categories you like to follow"
             colSize={12}
-            options={categoriesTypeOptions}
             value={categoriesFollowed}
             onChange={setCategoriesFollowed}
             isMulti
           />
+          <DataFetchSelect
+            type="categories"
+            label="Which category does your organization fall under ?"
+            colSize={12}
+            value={categories}
+            onChange={setCategories}
+            isMulti
+            hide={!isAnOrganization}
+          />
         </div>
         {
-          userType?.value === 'organization'
+          isAnOrganization
           && (
             <ResourceAdder
+              label={isABeneficiary ? 'Resources Needed' : 'Resources Available'}
               resources={resources}
               setResources={setResources}
             />

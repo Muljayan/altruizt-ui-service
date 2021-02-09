@@ -9,19 +9,19 @@ const getAuthStatus = createSelector(
   (auth) => auth.isAuthenticated,
 );
 
-const PrivateRoute = (props) => {
+const AuthRoute = (props) => {
   const { children, path } = props;
   const isAuthenticated = useSelector(getAuthStatus);
   return (
     <Route
       exact
       path={path}
-      render={({ location }) => (isAuthenticated ? (
+      render={({ location }) => (!isAuthenticated ? (
         children
       ) : (
         <Redirect
           to={{
-            pathname: '/login',
+            pathname: '/',
             state: { from: location },
           }}
         />
@@ -30,9 +30,9 @@ const PrivateRoute = (props) => {
   );
 };
 
-PrivateRoute.propTypes = {
+AuthRoute.propTypes = {
   children: PropTypes.node.isRequired,
   path: PropTypes.string.isRequired,
 };
 
-export default PrivateRoute;
+export default AuthRoute;
