@@ -1,0 +1,13 @@
+.inpage-notifier{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  height: 60vh;
+  // flex: 1;
+  img{
+    width: 10rem;
+    margin-bottom: 2rem;
+  }
+}

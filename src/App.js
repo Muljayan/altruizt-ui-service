@@ -28,10 +28,14 @@ import ProfileEdit from 'pages/profile/ProfileEdit';
 import './styles/global.scss';
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
+import NotFound from 'pages/errors/NotFound';
+
 import PrivateRoute from 'components/common/routes/PrivateRoute';
-import store from 'store';
-import { CLEAR_CURRENT_USER, SET_CURRENT_USER } from 'actions/types';
 import AuthRoute from 'components/common/routes/AuthRoute';
+
+import { CLEAR_CURRENT_USER, SET_CURRENT_USER } from 'actions/types';
+
+import store from 'store';
 
 // Check if token exists
 const token = localStorage.jwtToken;
@@ -93,15 +97,15 @@ const App = () => (
         <Route exact path="/events">
           <Events />
         </Route>
-        <Route exact path="/events/create">
-          <CreateEvent />
-        </Route>
-        <Route exact path="/events/:id">
+        <Route exact path="/events/profile/:id">
           <EventProfile />
         </Route>
-        <Route exact path="/events/:id/update">
+        <PrivateRoute exact path="/events/create">
+          <CreateEvent />
+        </PrivateRoute>
+        <PrivateRoute exact path="/events/profile/:id/update">
           <UpdateEvent />
-        </Route>
+        </PrivateRoute>
 
         {/* Opportunities */}
         <Route exact path="/opportunities">
@@ -126,7 +130,7 @@ const App = () => (
         <PrivateRoute exact path="/profile/edit">
           <ProfileEdit />
         </PrivateRoute>
-
+        <Route component={NotFound} />
       </Switch>
     </Router>
   </Provider>

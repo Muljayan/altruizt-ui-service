@@ -33,7 +33,7 @@ const Register = () => {
   const isACorporate = (organizationType?.label === 'Corporate');
   const isABeneficiary = (organizationType?.label === 'Beneficiary');
 
-  const _onSubmit = (e) => {
+  const _onSubmit = async (e) => {
     e.preventDefault();
     try {
       if (!userType) {
@@ -60,7 +60,7 @@ const Register = () => {
         categoriesFollowed,
         resources: isAnOrganization ? resources : [],
       };
-      API.post('/auth/register', data);
+      await API.post('/auth/register', data);
     } catch (err) {
       console.log(err);
     }

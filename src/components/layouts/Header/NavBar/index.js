@@ -20,9 +20,19 @@ const NavBar = () => {
         <Link label="Organizations" to="/organizations" />
         <Link hide={!isAuthenticated} label="Followings" to="/followings" />
       </ul>
-      <ul>
-        <Link hide={!isAuthenticated} label={user.name} to="/profile" />
-      </ul>
+      {
+        isAuthenticated
+          ? (
+            <ul>
+              <Link label={user.name} to="/profile" />
+            </ul>
+          )
+          : (
+            <ul>
+              <Link label="Login" to="/login" />
+            </ul>
+          )
+      }
     </nav>
   );
 };

@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Body = (props) => {
-  // eslint-disable-next-line react/prop-types
   const { children, sidebar, title } = props;
   const mainWidth = sidebar ? 9 : 12;
   return (
@@ -14,6 +13,17 @@ const Body = (props) => {
       {sidebar}
     </div>
   );
+};
+
+Body.propTypes = {
+  children: PropTypes.node.isRequired,
+  sidebar: PropTypes.node,
+  title: PropTypes.string,
+};
+
+Body.defaultProps = {
+  sidebar: null,
+  title: null,
 };
 
 export default Body;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SuggestionItem from './SuggestionItem';
 import API from '../../../utils/API';
 
-const Searcher = (props) => {
+const AutoFiller = (props) => {
   const [suggestions, setSuggestions] = useState([]);
   const [selected, setSelected] = useState(false);
   const {
@@ -75,7 +75,7 @@ const Searcher = (props) => {
   );
 };
 
-Searcher.propTypes = {
+AutoFiller.propTypes = {
   searchText: PropTypes.string.isRequired,
   setSearchText: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
@@ -86,10 +86,10 @@ Searcher.propTypes = {
   required: PropTypes.bool,
 };
 
-Searcher.defaultProps = {
+AutoFiller.defaultProps = {
   colSize: 12,
   required: false,
   onSuggestionSelect: null,
 };
 
-export default Searcher;
+export default AutoFiller;
