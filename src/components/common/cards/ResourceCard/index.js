@@ -4,42 +4,21 @@ import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import ResourceItem from './ResourceItem';
 
 const ResourceList = (props) => {
-  const { title } = props;
+  const { title, resources } = props;
+  const resourceList = resources.map((resource) => (
+    <ResourceItem
+      key={resource.id}
+      label={resource.name}
+      value={resource.quantity}
+      unit={resource.uni}
+    />
+  ));
   return (
     <CommonContainer
       title={title}
     >
-
       <div className="row">
-        <ResourceItem
-          label="Sugar"
-          value="999,999,999"
-          unit="kg"
-        />
-        <ResourceItem
-          label="Dhal"
-          value="999,999,999"
-          unit="kg"
-        />
-        <ResourceItem
-          label="Rice"
-          value="999,999,999"
-          unit="kg"
-        />
-        <ResourceItem
-          label="PPE Masks"
-          value="999,999,999"
-        />
-        <ResourceItem
-          label="Sugar"
-          value="999,999,999"
-          unit="kg"
-        />
-        <ResourceItem
-          label="Dhal"
-          value="999,999,999"
-          unit="kg"
-        />
+        {resourceList}
       </div>
     </CommonContainer>
   );
@@ -47,6 +26,7 @@ const ResourceList = (props) => {
 
 ResourceList.propTypes = {
   title: PropTypes.string.isRequired,
+  resources: PropTypes.array.isRequired,
 };
 
 export default ResourceList;

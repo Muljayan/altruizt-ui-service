@@ -6,6 +6,7 @@ import Select from './Select';
 const DataFetchSelect = (props) => {
   const {
     type,
+    placeholder,
     defaultValue,
     label,
     colSize,
@@ -32,6 +33,7 @@ const DataFetchSelect = (props) => {
 
   return (
     <Select
+      placeholder={placeholder}
       defaultValue={defaultValue}
       label={label}
       colSize={colSize}
@@ -47,6 +49,7 @@ const DataFetchSelect = (props) => {
 
 DataFetchSelect.propTypes = {
   type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   defaultValue: PropTypes.object,
   label: PropTypes.string.isRequired,
   colSize: PropTypes.number,
@@ -61,6 +64,7 @@ DataFetchSelect.propTypes = {
 };
 
 DataFetchSelect.defaultProps = {
+  placeholder: 'Search...',
   defaultValue: null,
   colSize: 6,
   isMulti: false,

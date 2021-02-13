@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 const Select = (props) => {
   const {
     defaultValue,
+    placeholder,
     value,
     label,
     colSize,
@@ -63,6 +64,7 @@ const Select = (props) => {
                 onChange={_onChange}
                 value={value}
                 // value={null}
+                placeholder={placeholder}
                 options={options}
                 isClearable
                 isSearchable
@@ -80,6 +82,7 @@ const Select = (props) => {
 
 Select.propTypes = {
   defaultValue: PropTypes.object,
+  placeholder: PropTypes.string,
   label: PropTypes.string.isRequired,
   colSize: PropTypes.number,
   options: PropTypes.array.isRequired,
@@ -95,6 +98,7 @@ Select.propTypes = {
 
 Select.defaultProps = {
   defaultValue: null,
+  placeholder: 'Search....',
   colSize: 6,
   isMulti: false,
   disable: false,

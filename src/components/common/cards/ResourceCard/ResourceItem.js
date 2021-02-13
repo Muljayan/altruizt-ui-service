@@ -25,7 +25,10 @@ const ResourceItem = (props) => {
 
 ResourceItem.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   unit: PropTypes.string,
 };
 

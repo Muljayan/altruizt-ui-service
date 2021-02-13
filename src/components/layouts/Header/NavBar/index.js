@@ -16,8 +16,8 @@ const NavBar = () => {
       <ul className="main-links">
         <Link label="Home" to="/" />
         <Link label="Opportunities" to="/opportunities" />
-        <Link label="Events" to="/events" />
         <Link label="Organizations" to="/organizations" />
+        <Link hide={!isAuthenticated} label="Events" to="/events" />
         <Link hide={!isAuthenticated} label="Followings" to="/followings" />
       </ul>
       {

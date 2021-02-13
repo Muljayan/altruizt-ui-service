@@ -1,32 +1,33 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import Chart from './Chart';
 
-const EventProgress = () => (
-  <>
-    <CommonContainer
-      title="Resource Collection Progress"
+const EventProgress = (props) => {
+  const { resources } = props;
+
+  const progressCharts = resources.map((resource) => (
+    <Chart
+      key={resource.id}
+      label={resource.name}
+      value={(resource.receivedQuantity || 0) / resource.neededQuantity}
     />
-    <div className="row">
-      <Chart
-        value={50}
-        label="Rice"
+  ));
+
+  return (
+    <>
+      <CommonContainer
+        title="Resource Collection Progress"
       />
-      <Chart
-        value={60}
-        label="Dhal"
-      />
-      <Chart
-        value={70}
-        label="Sugar"
-      />
-      <Chart
-        value={50}
-        label="PPE"
-      />
-    </div>
-  </>
-);
+      <div className="row">
+        {progressCharts}
+      </div>
+    </>
+  );
+};
+
+EventProgress.propTypes = {
+  resources: PropTypes.array.isRequired,
+};
 
 export default EventProgress;
