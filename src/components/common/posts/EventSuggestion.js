@@ -8,7 +8,7 @@ const EventSuggestion = (props) => {
   console.log({ data });
 
   const eventList = data.events.map((event) => (
-    <div className="suggestion">
+    <div key={event.id} className="suggestion">
       <Link className="" to={`/events/profile/${event.id}`}>
         <img src="/dummy-images/opportunity.jpg" alt="" />
         <h6>{event.name}</h6>

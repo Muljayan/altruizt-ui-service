@@ -81,17 +81,22 @@ const Register = () => {
             value={userType}
             onChange={setUserType}
           />
-          {
-            (isAnOrganization)
-            && (
-              <DataFetchSelect
-                type="organization-types"
-                label="What kind of organization do you represent?"
-                value={organizationType}
-                onChange={setOrganizationType}
-              />
-            )
-          }
+          <DataFetchSelect
+            type="organization-types"
+            label="What kind of organization do you represent?"
+            value={organizationType}
+            onChange={setOrganizationType}
+            hide={!isAnOrganization}
+          />
+          <DataFetchSelect
+            type="categories"
+            label="Which category does your organization fall under ?"
+            colSize={12}
+            value={categories}
+            onChange={setCategories}
+            isMulti
+            hide={!isAnOrganization}
+          />
           <TextField
             label="Name"
             colSize={6}
@@ -166,15 +171,6 @@ const Register = () => {
             value={categoriesFollowed}
             onChange={setCategoriesFollowed}
             isMulti
-          />
-          <DataFetchSelect
-            type="categories"
-            label="Which category does your organization fall under ?"
-            colSize={12}
-            value={categories}
-            onChange={setCategories}
-            isMulti
-            hide={!isAnOrganization}
           />
         </div>
         {

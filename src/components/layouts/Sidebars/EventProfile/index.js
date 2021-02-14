@@ -8,7 +8,7 @@ const EventSidebar = (props) => {
   const {
     contactName, phone, location, bankName,
     bankNumber, bankBranch, startDate, endDate,
-    eventFollowed, eventPledged,
+    // eventFollowed, eventPledged,
   } = data;
   console.log(data);
 
@@ -55,7 +55,7 @@ const EventSidebar = (props) => {
 };
 
 EventSidebar.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.object.isRequired,
 };
 
 export default EventSidebar;

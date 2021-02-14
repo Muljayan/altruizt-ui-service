@@ -18,6 +18,7 @@ import Events from 'pages/events/Events';
 import CreateEvent from 'pages/events/CreateEvent';
 import EventProfile from 'pages/events/EventProfile';
 import UpdateEvent from 'pages/events/UpdateEvent';
+import Followings from 'pages/Followings/Followings';
 import Opportunities from 'pages/opportunities/Opportunities';
 import OpportunitiesProfile from 'pages/opportunities/OpportunitiesProfile';
 import Organizations from 'pages/organizations/Organizations';
@@ -105,6 +106,9 @@ const App = () => (
         </PrivateRoute>
         <PrivateRoute exact path="/events/profile/:id/update">
           <UpdateEvent />
+        </PrivateRoute>
+        <PrivateRoute exact path="/followings">
+          <Followings />
         </PrivateRoute>
 
         {/* Opportunities */}
