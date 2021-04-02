@@ -10,6 +10,9 @@ const EventPreview = (props) => {
       <a href="/">{category.name}</a>
     </div>
   ));
+  console.log({ xx: data.progress });
+
+  const progressPercentage = `${(data && data.progress) || 0}%`;
 
   return (
     <div className="col-md-6 px-1">
@@ -69,7 +72,7 @@ const EventPreview = (props) => {
             </div>
           </div>
           <div className="progress-bar">
-            <div style={{ width: data.progress }} className="bar" />
+            <div style={{ width: progressPercentage }} className="bar" />
           </div>
           <div className="btn-container">
             <Link className="btn btn-primary" to={`/events/profile/${data.id}`}>

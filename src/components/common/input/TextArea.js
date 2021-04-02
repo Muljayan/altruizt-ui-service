@@ -9,6 +9,7 @@ const TextArea = (props) => {
     colSize,
     label,
     required,
+    placeholder,
   } = props;
 
   const _onChange = (e) => {
@@ -22,6 +23,7 @@ const TextArea = (props) => {
           <h4>{label}</h4>
         </label>
         <textarea
+          placeholder={placeholder}
           value={value}
           onChange={_onChange}
           required={required}
@@ -38,6 +40,7 @@ const TextArea = (props) => {
 TextArea.propTypes = {
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   colSize: PropTypes.number,
   label: PropTypes.string.isRequired,
@@ -47,6 +50,7 @@ TextArea.propTypes = {
 TextArea.defaultProps = {
   colSize: 12,
   required: false,
+  placeholder: '',
 };
 
 export default TextArea;

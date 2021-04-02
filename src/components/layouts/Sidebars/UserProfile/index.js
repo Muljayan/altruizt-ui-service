@@ -10,11 +10,7 @@ const UserProfileSidebar = () => (
         <ul>
           <Link
             name="View Profile"
-            link="/"
-          />
-          <Link
-            name="Edit Profile"
-            link="/"
+            link="/profile"
           />
           <Link
             name="Log Out"
@@ -26,35 +22,39 @@ const UserProfileSidebar = () => (
         <ul>
           <Link
             name="Events"
-            link="/"
+            link="/dashboard/events"
           />
           <Link
             name="Pledges"
-            link="/"
+            link="/dashboard/pledges"
           />
         </ul>
 
         <b>Super Admin</b>
         <ul>
           <Link
+            name="Approvals"
+            link="/dashboard/superadmin/approvals"
+          />
+          <Link
             name="Individuals"
-            link="/"
+            link="/dashboard/superadmin/individuals"
           />
           <Link
             name="Corporates"
-            link="/"
+            link="/dashboard/superadmin/corporates"
           />
           <Link
             name="Volunteer Organizations"
-            link="/"
+            link="/dashboard/superadmin/volunteers"
           />
           <Link
             name="Beneficiaries"
-            link="/"
+            link="/dashboard/superadmin/beneficiaries"
           />
           <Link
             name="Events"
-            link="/"
+            link="/dashboard/superadmin/events"
           />
         </ul>
       </div>

@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import API from 'utils/API';
+
+import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
+
+const getAuthStatus = createSelector(
+  (state) => state.auth,
+  (auth) => auth.isAuthenticated,
+);
 
 const EventSidebar = (props) => {
   const { data } = props;
+  const isAuthenticated = useSelector(getAuthStatus);
   const [pledged, setPledged] = useState(data.eventPledged);
   const [followed, setFollowed] = useState(data.eventFollowed);
   const {
@@ -12,22 +22,35 @@ const EventSidebar = (props) => {
   } = data;
   console.log(data);
 
-  const _pledge = () => {
-    console.log('pledge');
-    setPledged(!pledged);
+  const _pledge = async () => {
+    try {
+      await API.put(`/events/profile/${data.id}/pledge`);
+      setPledged(!pledged);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const _follow = () => {
-    console.log('follow');
-    setFollowed(!followed);
+  const _follow = async () => {
+    try {
+      await API.put(`/events/profile/${data.id}/follow`);
+      setFollowed(!followed);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div className="col-lg-3 sidebar p-1">
-      <div className="button-container">
-        <button onClick={_pledge} type="button" className={`btn btn-${pledged ? 'primary' : 'red'} mx-1 bold`}>{pledged ? 'Unpledge' : 'Pledge'}</button>
-        <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Unfollow' : 'Follow'}</button>
-      </div>
+      {
+        isAuthenticated
+        && (
+          <div className="button-container">
+            <button onClick={_pledge} type="button" className={`btn btn-${pledged ? 'primary' : 'red'} mx-1 bold`}>{pledged ? 'Pledged' : 'Pledge'}</button>
+            <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Followed' : 'Follow'}</button>
+          </div>
+        )
+      }
       <div className="post-preview card mt-2 p-2 mb-2">
         <div className="content">
           <div className="headings">Main Contact Person</div>

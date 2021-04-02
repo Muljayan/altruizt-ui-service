@@ -6,13 +6,20 @@ import Chart from './Chart';
 const EventProgress = (props) => {
   const { resources } = props;
 
-  const progressCharts = resources.map((resource) => (
-    <Chart
-      key={resource.id}
-      label={resource.name}
-      value={(resource.receivedQuantity || 0) / resource.neededQuantity}
-    />
-  ));
+  const progressCharts = resources.map((resource) => {
+    const value = Math.round(
+      (((resource.receivedQuantity || 0) / resource.neededQuantity) * 100) * 100,
+    ) / 100;
+    return (
+      (
+        <Chart
+          key={resource.id}
+          label={resource.name}
+          value={value}
+        />
+      )
+    );
+  });
 
   return (
     <>

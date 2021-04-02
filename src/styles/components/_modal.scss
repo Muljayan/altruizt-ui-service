@@ -1,0 +1,39 @@
+.modal-background {
+  z-index: 2;
+  background-color: rgba(151, 150, 150, 0.541);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.modal-container {
+  z-index: 4;
+  border-radius: 1rem;
+  background-color: $white;
+  min-height: 20vh;
+  min-width: 20vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 2rem;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  textarea {
+    width: 100%;
+    background-color: $off-white;
+    outline: none;
+    border: none;
+    padding: 1rem;
+  }
+
+}
+
+// .modal-content {
+
+// }

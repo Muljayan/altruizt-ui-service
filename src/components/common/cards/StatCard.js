@@ -14,7 +14,10 @@ const StatCard = (props) => {
 };
 
 StatCard.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   label: PropTypes.string.isRequired,
 };
 

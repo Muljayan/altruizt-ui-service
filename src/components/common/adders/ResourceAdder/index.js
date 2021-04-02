@@ -7,12 +7,14 @@ import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import ResourceTable from './ResourceTable';
 
 const ResourceAdder = (props) => {
-  const { label, resources, setResources } = props;
+  const {
+    label, resources, setResources,
+    resourcesReceived,
+  } = props;
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [unit, setUnits] = useState(null);
   const [disableUnitPicker, setDisableUnitPicker] = useState(false);
-
   const categoriesTypeOptions = [
     { value: 'kg', label: 'Kilograms' },
     { value: 'l', label: 'Liters' },
@@ -101,10 +103,11 @@ const ResourceAdder = (props) => {
         </div>
       </div>
       {
-        resources?.length > 0
+        resources.length > 0
           ? (
             <div className="mx-1 mb-2">
               <ResourceTable
+                resourcesReceived={resourcesReceived}
                 resources={resources}
                 removeResource={_removeResource}
               />
@@ -120,6 +123,11 @@ ResourceAdder.propTypes = {
   label: PropTypes.string.isRequired,
   resources: PropTypes.array.isRequired,
   setResources: PropTypes.func.isRequired,
+  resourcesReceived: PropTypes.array,
+};
+
+ResourceAdder.defaultProps = {
+  resourcesReceived: null,
 };
 
 export default ResourceAdder;

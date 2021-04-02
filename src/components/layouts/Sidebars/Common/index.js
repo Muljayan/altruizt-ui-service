@@ -1,11 +1,19 @@
-/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
+import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import EventSuggestion from 'components/common/posts/EventSuggestion';
 import API from 'utils/API';
 import YourCategories from './YourCategories';
 
+const getAuthStatus = createSelector(
+  (state) => state.auth,
+  (auth) => auth,
+);
+
 const Sidebar = () => {
+  const { isAuthenticated, organization } = useSelector(getAuthStatus);
+
   const [categories, setCategories] = useState([]);
 
   const _fetchData = async () => {
@@ -27,12 +35,24 @@ const Sidebar = () => {
 
   return (
     <div className="col-lg-3 sidebar p-1">
-      <CommonContainer
-        title="+ Create Event"
-        color="red"
-        link="/events/create"
-      />
-      <YourCategories />
+      {
+        organization
+        && (
+          <>
+            <CommonContainer
+              title="+ Create Event"
+              color="red"
+              link="/events/create"
+            />
+          </>
+        )
+      }
+      {
+        isAuthenticated
+        && (
+          <YourCategories />
+        )
+      }
       {suggestionList}
     </div>
   );

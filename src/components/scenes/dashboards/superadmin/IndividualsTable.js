@@ -3,67 +3,41 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTable, useSortBy, useRowSelect } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 
-const ResourceTable = (props) => {
+const IndividualsTable = (props) => {
   const {
-    resourcesReceived, resources,
-    removeResource,
+    individuals,
   } = props;
   const columns = React.useMemo(
     () => [
+      {
+        Header: 'Id',
+        accessor: 'id', // accessor is the "key" in the data
+      },
       {
         Header: 'Name',
         accessor: 'name', // accessor is the "key" in the data
       },
       {
-        Header: 'Quantity',
-        accessor: 'quantity',
+        Header: 'Description',
+        accessor: 'description', // accessor is the "key" in the data
       },
       {
-        Header: 'Unit',
-        accessor: 'unit',
+        Header: 'Email',
+        accessor: 'email', // accessor is the "key" in the data
+      },
+      {
+        Header: 'Phone',
+        accessor: 'phone', // accessor is the "key" in the data
       },
     ],
     [],
   );
   const tableInstance = useTable(
-    { columns, data: resources },
+    { columns, data: individuals },
     useSortBy,
-    useRowSelect,
-    (hooks) => {
-      // eslint-disable-next-line no-shadow
-      hooks.visibleColumns.push((columns) => [
-        ...columns,
-        {
-          id: 'delete',
-          // Make this column a groupByBoundary. This ensures that groupBy columns
-          // are placed after it
-          groupByBoundary: true,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: () => (
-            <div>
-              Delete
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <button
-              type="button"
-              disabled={!!resourcesReceived}
-              onClick={() => {
-                removeResource(row.original);
-              }}
-              className="btn btn-red"
-            >
-              Delete
-            </button>
-          ),
-        },
-      ]);
-    },
+    // useRowSelect,
   );
 
   const {
@@ -131,13 +105,8 @@ const ResourceTable = (props) => {
   );
 };
 
-ResourceTable.propTypes = {
-  resources: PropTypes.array.isRequired,
-  resourcesReceived: PropTypes.array,
+IndividualsTable.propTypes = {
+  individuals: PropTypes.array.isRequired,
 };
 
-ResourceTable.defaultProps = {
-  resourcesReceived: null,
-};
-
-export default ResourceTable;
+export default IndividualsTable;

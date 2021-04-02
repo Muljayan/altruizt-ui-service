@@ -1,6 +1,7 @@
 import React from 'react';
 import { createSelector } from 'reselect';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { CLEAR_CURRENT_USER } from 'actions/types';
 
 import Link from './Link';
 
@@ -10,7 +11,13 @@ const getAuthStatus = createSelector(
 );
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector(getAuthStatus);
+
+  const _logOut = () => {
+    dispatch({ type: CLEAR_CURRENT_USER });
+  };
+
   return (
     <nav className="nav-bar">
       <ul className="main-links">
@@ -32,6 +39,21 @@ const NavBar = () => {
               <Link label="Login" to="/login" />
             </ul>
           )
+      }
+      {
+        isAuthenticated
+        && (
+          <ul
+            onClick={_logOut}
+            onKeyPress={_logOut}
+            role="button"
+            tabIndex="0"
+          >
+            <li>
+              <img src="/icons/logout.svg" alt="logout" />
+            </li>
+          </ul>
+        )
       }
     </nav>
   );

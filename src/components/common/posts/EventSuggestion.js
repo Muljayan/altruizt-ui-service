@@ -5,7 +5,6 @@ import CommonContainer from 'components/layouts/Containers/CommonContainer';
 
 const EventSuggestion = (props) => {
   const { data } = props;
-  console.log({ data });
 
   const eventList = data.events.map((event) => (
     <div key={event.id} className="suggestion">

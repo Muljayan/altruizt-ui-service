@@ -1,92 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Body from 'components/layouts/Body';
-import CommonContainer from 'components/layouts/Containers/CommonContainer';
-import TextField from 'components/common/input/TextField';
-import TextArea from 'components/common/input/TextArea';
-import Select from 'components/common/input/selectors/Select';
+import UpdateForm from 'components/scenes/events/UpdateEvent/UpdateForm';
+import InPageNotifier from 'components/common/notifiers/InPageNotifier';
+import { useHistory } from 'react-router-dom';
 
-const UpdateEvent = () => (
-  <Body
-    title="Update Event"
-  >
-    <CommonContainer
-      title="General Details"
-    />
-    <div className="row mb-2">
-      <TextField
-        label="Event Name"
-      />
-      <TextField
-        label="Start Date"
-        colSize={6}
-        type="date"
-      />
-      <TextField
-        label="End Date"
-        colSize={6}
-        type="date"
-      />
-      <TextField
-        label="Event Location"
-        colSize={6}
-      />
-      <TextArea
-        label="Event Description"
-      />
-    </div>
+const UpdateEvent = () => {
+  const history = useHistory();
+  const [updatedEventId, setUpdatedEventId] = useState(null);
 
-    <CommonContainer
-      title="Bank Details"
-    />
-    <div className="row mb-2">
-      <TextField
-        label="Bank Name"
-      />
-      <TextField
-        label="Bank Branch"
-        colSize={6}
-      />
-      <TextField
-        label="Bank Number"
-        colSize={6}
-      />
-    </div>
+  const _addNewEvent = () => {
+    setUpdatedEventId(null);
+  };
 
-    <CommonContainer
-      title="Resources"
-    />
-    <div className="row mb-2">
-      <Select
-        label="Find Item"
-      />
-      <TextField
-        label="Bank Name"
-      />
-      <TextField
-        label="Quantity"
-        colSize={6}
-        type="number"
-      />
-    </div>
+  const _viewEvent = () => {
+    history.push(`/events/profile/${updatedEventId}`);
+    console.log('_viewEvent');
+  };
 
-    <CommonContainer
-      title="Collaborators"
-    />
-    <div className="row mb-2">
-      <Select
-        label="Find Item"
-      />
-    </div>
+  const _updateSuccess = (id) => {
+    setUpdatedEventId(id);
+  };
 
-    <CommonContainer
-      title="Beneficiaries"
-    />
-    <div className="row mb-2">
-      <Select
-        label="Find Item"
-      />
-    </div>
-  </Body>
-);
+  return (
+    <Body
+      title={updatedEventId ? null : 'Create Event'}
+    >
+      {
+        updatedEventId
+          ? (
+            <InPageNotifier
+              header="Success!"
+              title1="Your event is updated!"
+              buttonLabel1="View Event"
+              buttonFunction1={_viewEvent}
+              buttonLabel2="Create Event"
+              buttonFunction2={_addNewEvent}
+            />
+          )
+          : (
+            <UpdateForm
+              updateSuccess={_updateSuccess}
+            />
+          )
+      }
+    </Body>
+  );
+};
 
 export default UpdateEvent;

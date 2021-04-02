@@ -12,9 +12,10 @@
 @import "components/inputs";
 @import "components/searchbar";
 @import "components/posts";
+@import "components/modal";
 
 html {
-  max-width: 1600px;
+  // max-width: 1600px;
   margin: auto;
 }
 
@@ -67,6 +68,12 @@ html {
 
 
 .organizations-list {
+  .organizations-preview{
+    text-align: center;
+    .categories{
+      justify-content: center;
+    }
+  }
   & .organizations-preview:nth-child(odd) {
     padding-right: 1rem !important;
   }

@@ -10,7 +10,7 @@ const ResourceList = (props) => {
       key={resource.id}
       label={resource.name}
       value={resource.quantity}
-      unit={resource.uni}
+      unit={resource.unit}
     />
   ));
   return (

@@ -3,63 +3,106 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTable, useSortBy, useRowSelect } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
+import { useHistory } from 'react-router-dom';
 
-const ResourceTable = (props) => {
+const ApprovalToggle = (props) => {
   const {
-    resourcesReceived, resources,
-    removeResource,
+    onClick, clickParam, label, label2,
+  } = props;
+  let finalLabel = label;
+  if (label2) {
+    if (!clickParam.original.isActivated) {
+      finalLabel = label2;
+    }
+  }
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        onClick(clickParam);
+      }}
+      className={`btn btn-${clickParam.original.isActivated ? 'primary' : 'red'}`}
+    >
+      {finalLabel}
+    </button>
+  );
+};
+
+const Button = (props) => {
+  const history = useHistory();
+
+  const {
+    clickParam,
+  } = props;
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        history.push(`/organizations/profile/${clickParam.id}`);
+      }}
+      className="btn btn-primary"
+    >
+      View
+    </button>
+  );
+};
+
+const ApprovalsTable = (props) => {
+  const {
+    organizations,
+    toggleApprovalStatus,
   } = props;
   const columns = React.useMemo(
     () => [
       {
+        Header: 'Id',
+        accessor: 'id', // accessor is the "key" in the data
+      },
+      {
         Header: 'Name',
         accessor: 'name', // accessor is the "key" in the data
-      },
-      {
-        Header: 'Quantity',
-        accessor: 'quantity',
-      },
-      {
-        Header: 'Unit',
-        accessor: 'unit',
       },
     ],
     [],
   );
   const tableInstance = useTable(
-    { columns, data: resources },
+    { columns, data: organizations },
     useSortBy,
-    useRowSelect,
+    // useRowSelect,
     (hooks) => {
       // eslint-disable-next-line no-shadow
       hooks.visibleColumns.push((columns) => [
         ...columns,
         {
-          id: 'delete',
-          // Make this column a groupByBoundary. This ensures that groupBy columns
-          // are placed after it
+          id: 'approval',
           groupByBoundary: true,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
           Header: () => (
             <div>
-              Delete
+              Change Status
             </div>
           ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
           Cell: ({ row }) => (
-            <button
-              type="button"
-              disabled={!!resourcesReceived}
-              onClick={() => {
-                removeResource(row.original);
-              }}
-              className="btn btn-red"
-            >
-              Delete
-            </button>
+            <ApprovalToggle
+              onClick={toggleApprovalStatus}
+              clickParam={row}
+              label="Approved"
+              label2="Approve"
+            />
+          ),
+        },
+        {
+          id: 'view',
+          groupByBoundary: true,
+          Header: () => (
+            <div>
+              View
+            </div>
+          ),
+          Cell: ({ row }) => (
+            <Button
+              clickParam={row.original}
+            />
           ),
         },
       ]);
@@ -131,13 +174,8 @@ const ResourceTable = (props) => {
   );
 };
 
-ResourceTable.propTypes = {
-  resources: PropTypes.array.isRequired,
-  resourcesReceived: PropTypes.array,
+ApprovalsTable.propTypes = {
+  organizations: PropTypes.array.isRequired,
 };
 
-ResourceTable.defaultProps = {
-  resourcesReceived: null,
-};
-
-export default ResourceTable;
+export default ApprovalsTable;

@@ -4,12 +4,15 @@ import OrganizationCard from 'components/common/OrganizationCard';
 
 const Description = (props) => {
   const { data } = props;
+  console.log({ dataxx: data });
   const beneficiariesList = data.beneficiaries.map((beneficiary) => (
     <OrganizationCard key={beneficiary.id} data={beneficiary} />
   ));
   const organizersList = data.organizers.map((organizer) => (
     <OrganizationCard key={organizer.id} data={organizer} />
   ));
+
+  const progressPercentage = `${(data && data.progress) || 0}%`;
 
   return (
     <div className="post-preview card mt-2 p-2 mb-2">
@@ -25,7 +28,7 @@ const Description = (props) => {
           {organizersList}
         </div>
         <div className="progress-bar">
-          <div className="bar" />
+          <div style={{ width: progressPercentage }} className="bar" />
         </div>
       </div>
     </div>
