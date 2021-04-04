@@ -7,29 +7,26 @@ import DescriptionCard from 'components/common/cards/DescriptionCard';
 import StatCard from 'components/common/cards/StatCard';
 import EventPreview from 'components/common/posts/EventPreview';
 import API from 'utils/API';
+import * as linkGenerators from 'utils/linkGenerators';
 
 const OpportunitiesProfile = () => {
   const { id } = useParams();
-  const [title, setTitle] = useState('');
-  const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
-  const [website, setWebsite] = useState('');
-  const [description, setDescription] = useState('');
-  const [resources, setResources] = useState([]);
-  const [pastEvents, setPastEvents] = useState([]);
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [data, setData] = useState({
+    name: '',
+    image: '',
+    address: '',
+    phone: '',
+    website: '',
+    description: '',
+    resources: [],
+    pastEvents: [],
+    currentEvents: [],
+  });
 
   const _fetchData = async () => {
     try {
       const res = await API.get(`/organizations/profile/${id}`);
-      setTitle(res.data.name);
-      setAddress(res.data.address);
-      setPhone(res.data.phone);
-      setWebsite(res.data.website);
-      setDescription(res.data.description);
-      setResources(res.data.resources);
-      setCurrentEvents(res.data.currentEvents);
-      setPastEvents(res.data.pastEvents);
+      setData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -40,41 +37,41 @@ const OpportunitiesProfile = () => {
   }, []);
 
   const sidebarData = {
-    name: title,
-    address,
-    phone,
-    website,
+    name: data.name,
+    address: data.address,
+    phone: data.phone,
+    website: data.website,
   };
 
-  const currentEventsList = currentEvents.map((event) => (
+  const currentEventsList = data.currentEvents.map((event) => (
     <EventPreview key={event.id} data={event} />
   ));
-  const pastEventsList = pastEvents.map((event) => (
+  const pastEventsList = data.pastEvents.map((event) => (
     <EventPreview key={event.id} data={event} />
   ));
-
   return (
     <Body
       sidebar={<Sidebar data={sidebarData} />}
-      title={title}
+      title={data.name}
+      image={linkGenerators.userImage(data.image)}
     >
-      <DescriptionCard description={description} />
+      <DescriptionCard description={data.description} />
       <ResourceCard
         title="Resources Needed"
-        resources={resources}
+        resources={data.resources}
       />
       <div className="row">
         <StatCard
           label="Events Completed"
-          value={pastEvents.length}
+          value={data.pastEvents.length}
         />
         <StatCard
           label="Current Events"
-          value={currentEvents.length}
+          value={data.currentEvents.length}
         />
         <StatCard
           label="Resources Required"
-          value={resources.length}
+          value={data.resources.length}
         />
       </div>
 

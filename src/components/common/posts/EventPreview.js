@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import * as linkGenerators from 'utils/linkGenerators';
 
 const EventPreview = (props) => {
   const { data } = props;
@@ -10,7 +11,6 @@ const EventPreview = (props) => {
       <a href="/">{category.name}</a>
     </div>
   ));
-  console.log({ xx: data.progress });
 
   const progressPercentage = `${(data && data.progress) || 0}%`;
 
@@ -18,7 +18,7 @@ const EventPreview = (props) => {
     <div className="col-md-6 px-1">
       <div className="post-preview card row mt-2 p-2">
         <div className="col-lg-12 image">
-          {/* <img src="/dummy-images/opportunity.jpg" alt="" /> */}
+          <img src={linkGenerators.eventImage(data.image)} alt="" />
         </div>
         <div className="col-lg-12 pl-1 content">
           <h3>{data.title}</h3>
@@ -29,10 +29,10 @@ const EventPreview = (props) => {
             <div className="col-md-12">
               <div className="headings">Beneficiaries</div>
               <div className="stats">
-                {/* <img
-                  src="/dummy-icons/volunteer-organization.png"
+                <img
+                  src={linkGenerators.userImage(data.beneficiaries[0].image)}
                   alt="volunteer-organization"
-                /> */}
+                />
                 <div className="stat">
                   {data.beneficiaries[0].name}
                 </div>
@@ -56,18 +56,26 @@ const EventPreview = (props) => {
             <div className="col-md-12">
               <div className="headings">Organizers</div>
               <div className="stats">
-                {/* <img
-                  src="/dummy-icons/volunteer-organization.png"
+                <img
+                  src={linkGenerators.userImage(data.mainOrganizer.image)}
                   alt="volunteer-organization"
-                /> */}
+                />
                 <div className="stat">
                   {data.mainOrganizer.name}
                 </div>
-                <div className="pl-1 mb-1 stat">
-                  <b>+5</b>
-                  {' '}
-                  Others
-                </div>
+                {
+                  data.organizers.length > 0
+                  && (
+                    <div className="pl-1 mb-1 stat">
+                      <b>
+                        +
+                        {data.organizers.length}
+                      </b>
+                      {' '}
+                      Others
+                    </div>
+                  )
+                }
               </div>
             </div>
           </div>

@@ -9,8 +9,15 @@ import Select from 'components/common/input/selectors/Select';
 import ResourceAdder from 'components/common/adders/ResourceAdder';
 import API from 'utils/API';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
+import ImagePicker from 'components/common/input/ImagePicker';
+import * as linkGenerators from 'utils/linkGenerators';
 
 const Register = () => {
+  const [image, setImage] = useState({
+    type: null,
+    value: null,
+  });
+  const [initialImage, setInitialImage] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,6 +45,7 @@ const Register = () => {
   const _fetchData = async () => {
     const res = await API.get('/profile');
     setName(res.data.name);
+    setInitialImage(res.data.image);
     setEmail(res.data.email);
     setPhone(res.data.phone);
     setAddress(res.data.address);
@@ -59,10 +67,11 @@ const Register = () => {
     e.preventDefault();
     try {
       const data = {
+        image,
         name,
         email,
         userType: userType.value,
-        organizationType: organizationType.value,
+        organizationType: isAnOrganization ? organizationType.value : null,
         password,
         phone,
         address,
@@ -78,12 +87,25 @@ const Register = () => {
       console.log(err);
     }
   };
+  console.log({ categoriesFollowed });
 
   return (
     <Body
       title="Profile"
       sidebar={<Sidebar />}
     >
+      <CommonContainer
+        title="Profile Picture"
+      />
+      <div className="row">
+        <ImagePicker
+          id="profile-picture"
+          colSize={4}
+          initialImage={linkGenerators.userImage(initialImage)}
+          image={image}
+          onChange={setImage}
+        />
+      </div>
       <form onSubmit={_onSubmit}>
         <CommonContainer
           title="General Details"

@@ -9,6 +9,7 @@ import API from 'utils/API';
 import { useParams } from 'react-router-dom';
 import NotFound from 'pages/errors/NotFound';
 import Loader from 'components/common/Loader';
+import * as linkGenerators from 'utils/linkGenerators';
 
 const EventProfile = () => {
   const { id } = useParams();
@@ -18,7 +19,6 @@ const EventProfile = () => {
   const _fetchData = async () => {
     try {
       const res = await API.get(`/events/profile/${id}`);
-      console.log(res.data);
       setData(res.data);
       setLoading(false);
     } catch (err) {
@@ -43,6 +43,16 @@ const EventProfile = () => {
       sidebar={<EventSidebar data={data} />}
       title={data.title}
     >
+      {
+        data && data.image
+        && (
+          <div className="row event-image">
+            <div className="col-12">
+              <img src={linkGenerators.eventImage(data.image)} alt="" />
+            </div>
+          </div>
+        )
+      }
       <Description data={data} />
       <ResourceCard
         title="Resources Needed"

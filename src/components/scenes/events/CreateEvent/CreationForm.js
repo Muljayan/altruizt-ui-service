@@ -6,10 +6,15 @@ import TextArea from 'components/common/input/TextArea';
 import ResourceAdder from 'components/common/adders/ResourceAdder';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import API from 'utils/API';
+import ImagePicker from 'components/common/input/ImagePicker';
 
 const CreationForm = (props) => {
   const { creationSuccess } = props;
   const [title, setTitle] = useState('');
+  const [image, setImage] = useState({
+    type: null,
+    value: null,
+  });
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [location, setLocation] = useState('');
@@ -39,6 +44,7 @@ const CreationForm = (props) => {
 
       const data = {
         title,
+        image,
         startDate,
         endDate,
         contactName,
@@ -66,6 +72,14 @@ const CreationForm = (props) => {
       <CommonContainer
         title="General Details"
       />
+      <div className="row">
+        <ImagePicker
+          id="event-picture"
+          colSize={4}
+          image={image}
+          onChange={setImage}
+        />
+      </div>
       <div className="row mb-2">
         <TextField
           id="title"

@@ -20,6 +20,32 @@ html {
 }
 
 // ---------------------------------------------
+.body-title {
+  display: flex;
+  flex-direction: row;
+  // justify-content: center;
+  align-items: center;
+
+  .image-container {
+    width: 50px;
+    margin-right: 1rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+}
+
+// ---------------------------------------------
+// events
+.event-image{
+  img{
+    width: 100%;
+  }
+}
+// ---------------------------------------------
+
 
 .container-common {
   margin-bottom: 2rem;
@@ -68,12 +94,14 @@ html {
 
 
 .organizations-list {
-  .organizations-preview{
+  .organizations-preview {
     text-align: center;
-    .categories{
+
+    .categories {
       justify-content: center;
     }
   }
+
   & .organizations-preview:nth-child(odd) {
     padding-right: 1rem !important;
   }

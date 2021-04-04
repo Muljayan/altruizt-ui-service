@@ -1,5 +1,10 @@
 .post-preview {
   .logo {
+    img {
+      width: 100%;
+      max-width: 100px;
+    }
+
     margin-bottom: 1rem;
   }
 
@@ -22,7 +27,7 @@
     .stats {
 
       img {
-        width: 80px;
+        width: 50px;
       }
 
     }
@@ -35,9 +40,9 @@
       display: block;
       width: 100%;
       text-decoration: none !important;
-
       display: flex;
       flex-direction: row;
+
       img {
         height: 3rem;
       }
@@ -48,7 +53,8 @@
         margin-bottom: 0.25rem;
         color: $font-color;
       }
-      padding-bottom: 1rem;
+
+      // padding-bottom: 1rem;
     }
 
     border-bottom: 1px solid $font-color;
