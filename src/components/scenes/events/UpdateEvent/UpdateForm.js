@@ -9,10 +9,12 @@ import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import API from 'utils/API';
 import { dateInputFormat, selectorDataFormat } from 'utils/formatters';
 import ResourceReceivers from 'components/common/adders/ResourceReceivers';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
 const UpdateForm = (props) => {
+  const dispatchNotification = useNotificationDispatcher();
+
   const { id } = useParams();
-  // console.log({ id });
 
   const { updateSuccess } = props;
   const [loaded, setLoaded] = useState(false);
@@ -37,11 +39,17 @@ const UpdateForm = (props) => {
       e.preventDefault();
 
       if (resources.length < 1) {
-        alert('You have not added any resources!');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'You have not added any resources!',
+        });
         return;
       }
       if (beneficiaries.length < 1) {
-        alert('You have not added any beneficiaries!');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'You have not added any beneficiaries!',
+        });
         return;
       }
 

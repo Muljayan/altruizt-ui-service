@@ -14,6 +14,7 @@ const Select = (props) => {
     onChange,
     disable,
     hide,
+    id,
   } = props;
   // const [__, setSelectedOption] = useState(null);
   // const colSize = 6;
@@ -56,10 +57,11 @@ const Select = (props) => {
         && (
           <div className={`col-md-${colSize}`}>
             <div className="field mx-1">
-              <label htmlFor="">
+              <label htmlFor={id}>
                 <h4>{label}</h4>
               </label>
               <ReactSelect
+                id={id}
                 defaultValue={defaultValue}
                 onChange={_onChange}
                 value={value}
@@ -94,6 +96,7 @@ Select.propTypes = {
   onChange: PropTypes.func.isRequired,
   disable: PropTypes.bool,
   hide: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 Select.defaultProps = {
@@ -104,6 +107,7 @@ Select.defaultProps = {
   disable: false,
   hide: false,
   value: null,
+  id: null,
 };
 
 export default Select;

@@ -7,8 +7,10 @@ import ResourceAdder from 'components/common/adders/ResourceAdder';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import API from 'utils/API';
 import ImagePicker from 'components/common/input/ImagePicker';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
 const CreationForm = (props) => {
+  const dispatchNotification = useNotificationDispatcher();
   const { creationSuccess } = props;
   const [title, setTitle] = useState('');
   const [image, setImage] = useState({
@@ -34,11 +36,17 @@ const CreationForm = (props) => {
       e.preventDefault();
 
       if (resources.length < 1) {
-        alert('You have not added any resources!');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'You have not added any resources!',
+        });
         return;
       }
       if (beneficiaries.length < 1) {
-        alert('You have not added any beneficiaries!');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'You have not added any beneficiaries!',
+        });
         return;
       }
 

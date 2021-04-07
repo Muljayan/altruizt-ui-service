@@ -4,9 +4,12 @@ import Select from 'components/common/input/selectors/Select';
 import TextField from 'components/common/input/TextField';
 import Autofiller from 'components/common/autofiller';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 import ResourceTable from './ResourceTable';
 
 const ResourceAdder = (props) => {
+  const dispatchNotification = useNotificationDispatcher();
+
   const {
     label, resources, setResources,
     resourcesReceived,
@@ -17,8 +20,13 @@ const ResourceAdder = (props) => {
   const [disableUnitPicker, setDisableUnitPicker] = useState(false);
   const categoriesTypeOptions = [
     { value: 'kg', label: 'Kilograms' },
+    { value: 'g', label: 'grams' },
     { value: 'l', label: 'Liters' },
+    { value: 'oz', label: 'Ounce' },
     { value: 'm', label: 'Meter' },
+    { value: 'pieces', label: 'Pieces' },
+    { value: 'people', label: 'People' },
+    { value: 'units', label: 'Units' },
   ];
 
   const _selectedFromSuggestions = (value, payload) => {
@@ -36,12 +44,18 @@ const ResourceAdder = (props) => {
 
   const _addItem = () => {
     if (!name || !quantity || !unit) {
-      alert('Fields not complete!');
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Fields not complete!',
+      });
       return null;
     }
 
     if (Number(quantity) <= 0) {
-      alert('Quantity should be greater than 0');
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Quantity should be greater than 0!',
+      });
       return null;
     }
 
@@ -57,16 +71,22 @@ const ResourceAdder = (props) => {
       setResources([...resources, data]);
       return null;
     }
-    alert('Item already added!');
+    dispatchNotification({
+      title: 'Alert',
+      message: 'Item already added!',
+    });
     return null;
   };
 
   const _removeResource = (selectedItem) => {
+    // TODO this function is bugged due to defect in table module
+    // When deleting everything other than 1st item gets deleted
     const filteredResources = [...resources]
       .filter((resource) => resource.name !== selectedItem.name);
+    console.log({ filteredResources });
     setResources(filteredResources);
   };
-
+  console.log({ resources });
   return (
     <>
       <CommonContainer

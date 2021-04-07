@@ -46,7 +46,7 @@ const OrganizationProfileSidebar = (props) => {
         <b>Phone Number</b>
         <p>{phone}</p>
         <b>Website</b>
-        <p>{website}</p>
+        <p><a target="_blank" rel="noreferrer" href={website}>{website}</a></p>
       </CommonContainer>
     </div>
   );

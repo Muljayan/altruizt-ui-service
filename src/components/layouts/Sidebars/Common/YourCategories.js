@@ -1,5 +1,6 @@
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const YourCategories = () => (
 
@@ -7,9 +8,9 @@ const YourCategories = () => (
     title="Your Categories"
   >
     <div className="btn-container center">
-      <a href="/" className="btn btn-primary">
+      <Link className="btn btn-primary" to="/profile">
         Edit Categories
-      </a>
+      </Link>
     </div>
   </CommonContainer>
 );

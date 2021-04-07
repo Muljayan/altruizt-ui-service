@@ -9,8 +9,11 @@ import ResourceAdder from 'components/common/adders/ResourceAdder';
 import API from 'utils/API';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
 const Register = () => {
+  const dispatchNotification = useNotificationDispatcher();
+
   const history = useHistory();
 
   const [registered, setRegistered] = useState(false);
@@ -43,11 +46,17 @@ const Register = () => {
     e.preventDefault();
     try {
       if (!userType) {
-        alert('usertype not selected');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'User type not selected!',
+        });
         return;
       }
       if (isAnOrganization && !organizationType) {
-        alert('Select type of organization!');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Select type of organization!',
+        });
         return;
       }
 

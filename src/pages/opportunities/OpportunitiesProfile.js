@@ -49,6 +49,7 @@ const OpportunitiesProfile = () => {
   const pastEventsList = data.pastEvents.map((event) => (
     <EventPreview key={event.id} data={event} />
   ));
+  console.log(data);
   return (
     <Body
       sidebar={<Sidebar data={sidebarData} />}

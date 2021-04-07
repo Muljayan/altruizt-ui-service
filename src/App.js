@@ -43,6 +43,7 @@ import AuthRoute from 'components/common/routes/AuthRoute';
 import { CLEAR_CURRENT_USER, SET_CURRENT_USER } from 'actions/types';
 
 import store from 'store';
+import GlobalNotifier from 'components/common/notifiers/GlobalNotifier';
 
 // Check if token exists
 const token = localStorage.jwtToken;
@@ -163,6 +164,7 @@ const App = () => (
 
         <Route component={NotFound} />
       </Switch>
+      <GlobalNotifier />
     </Router>
   </Provider>
 );

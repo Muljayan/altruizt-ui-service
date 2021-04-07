@@ -5,6 +5,7 @@ import Select from './Select';
 
 const DataFetchSelect = (props) => {
   const {
+    id,
     type,
     placeholder,
     defaultValue,
@@ -33,6 +34,7 @@ const DataFetchSelect = (props) => {
 
   return (
     <Select
+      id={id}
       placeholder={placeholder}
       defaultValue={defaultValue}
       label={label}
@@ -61,6 +63,7 @@ DataFetchSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   disable: PropTypes.bool,
   hide: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 DataFetchSelect.defaultProps = {
@@ -71,6 +74,7 @@ DataFetchSelect.defaultProps = {
   disable: false,
   hide: false,
   value: null,
+  id: null,
 };
 
 export default DataFetchSelect;

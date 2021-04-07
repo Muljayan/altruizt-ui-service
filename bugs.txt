@@ -1,0 +1,3 @@
+Resources table delete function is bugged. Unexpected due to issues in table module used.
+
+All sidebars are shown irrespective of their user level.

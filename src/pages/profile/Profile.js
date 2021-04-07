@@ -11,8 +11,11 @@ import API from 'utils/API';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import ImagePicker from 'components/common/input/ImagePicker';
 import * as linkGenerators from 'utils/linkGenerators';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
-const Register = () => {
+const Profile = () => {
+  const dispatchNotification = useNotificationDispatcher();
+
   const [image, setImage] = useState({
     type: null,
     value: null,
@@ -28,7 +31,6 @@ const Register = () => {
   const [website, setWebsite] = useState('');
   const [userType, setUserType] = useState(null);
   const [organizationType, setOrganizationType] = useState(null);
-  // const [categoriesType, setCategoriesType] = useState(null);
   const [categories, setCategories] = useState(null);
   const [categoriesFollowed, setCategoriesFollowed] = useState(null);
   const [resources, setResources] = useState([]);
@@ -83,8 +85,16 @@ const Register = () => {
         resources: isAnOrganization ? resources : [],
       };
       await API.post('/profile/edit', data);
+      dispatchNotification({
+        title: 'Success',
+        message: 'Profile edited!',
+      });
     } catch (err) {
       console.log(err);
+      dispatchNotification({
+        title: 'Alert',
+        message: err.response.data.message,
+      });
     }
   };
   console.log({ categoriesFollowed });
@@ -203,6 +213,7 @@ const Register = () => {
             onChange={setDescription}
           />
           <DataFetchSelect
+            id="categories"
             type="categories"
             label="Choose the categories you like to follow"
             colSize={12}
@@ -235,4 +246,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Profile;

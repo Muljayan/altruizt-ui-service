@@ -10,18 +10,22 @@ const initialState = {
   user: null,
   organization: null,
   categoriesFollowed: [],
+  isSuperAdmin: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER: {
       setAuthToken(action.payload);
-      const { user, organization, categoriesFollowed } = jwt.decode(action.payload);
+      const {
+        user, organization, categoriesFollowed, isSuperAdmin,
+      } = jwt.decode(action.payload);
       return {
         isAuthenticated: !isEmpty(user),
         user,
         organization,
         categoriesFollowed,
+        isSuperAdmin,
       };
     }
     case CLEAR_CURRENT_USER: {
@@ -32,6 +36,7 @@ export default (state = initialState, action) => {
         user: null,
         organization: null,
         categoriesFollowed: [],
+        isSuperAdmin: false,
       };
     }
     default:

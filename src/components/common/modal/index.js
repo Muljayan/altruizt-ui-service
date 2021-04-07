@@ -82,8 +82,8 @@ const Modal = (props) => {
 
 Modal.propTypes = {
   open: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
   closeModal: PropTypes.func.isRequired,
   buttonText: PropTypes.string,
   buttonFunction: PropTypes.func,
@@ -92,6 +92,8 @@ Modal.propTypes = {
 };
 
 Modal.defaultProps = {
+  title: null,
+  description: null,
   buttonText: null,
   buttonFunction: null,
   text: null,

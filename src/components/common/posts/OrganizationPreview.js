@@ -43,7 +43,7 @@ const OrganizationPreview = (props) => {
           </div>
           <div className="btn-container">
             <Link
-              to={`/opportunities/profile/${id}`}
+              to={`/organizations/profile/${id}`}
               className="btn btn-primary"
             >
               Read More

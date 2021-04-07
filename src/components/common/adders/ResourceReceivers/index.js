@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import Select from 'components/common/input/selectors/Select';
 import TextField from 'components/common/input/TextField';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 import ResourceTable from './ResourceTable';
 
 const ResourceReceivers = (props) => {
+  const dispatchNotification = useNotificationDispatcher();
+
   const {
     label, resourcesNeeded, resources, setResources,
   } = props;
@@ -14,7 +17,10 @@ const ResourceReceivers = (props) => {
 
   const _addItem = () => {
     if (!quantity || !activeResource) {
-      alert('Fields not complete!');
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Fields not complete!',
+      });
       return null;
     }
     let found = false;

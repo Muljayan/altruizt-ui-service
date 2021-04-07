@@ -37,7 +37,7 @@ const Button = (props) => {
     <button
       type="button"
       onClick={() => {
-        history.push(`/opportunities/profile/${clickParam.id}`);
+        history.push(`/organizations/profile/${clickParam.id}`);
       }}
       className="btn btn-primary"
     >

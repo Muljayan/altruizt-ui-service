@@ -46,6 +46,7 @@ const NavBar = () => {
           <ul
             onClick={_logOut}
             onKeyPress={_logOut}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
             role="button"
             tabIndex="0"
           >
