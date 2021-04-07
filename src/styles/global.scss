@@ -96,18 +96,12 @@ html {
 .organizations-list {
   .organizations-preview {
     text-align: center;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 
     .categories {
       justify-content: center;
     }
-  }
-
-  & .organizations-preview:nth-child(odd) {
-    padding-right: 1rem !important;
-  }
-
-  & .organizations-preview:nth-child(even) {
-    padding-left: 1rem !important;
   }
 }
 
