@@ -11,18 +11,18 @@ const IndividualsTable = (props) => {
   } = props;
   const columns = React.useMemo(
     () => [
-      {
-        Header: 'Id',
-        accessor: 'id', // accessor is the "key" in the data
-      },
+      // {
+      //   Header: 'Id',
+      //   accessor: 'id', // accessor is the "key" in the data
+      // },
       {
         Header: 'Name',
         accessor: 'name', // accessor is the "key" in the data
       },
-      {
-        Header: 'Description',
-        accessor: 'description', // accessor is the "key" in the data
-      },
+      // {
+      //   Header: 'Description',
+      //   accessor: 'description', // accessor is the "key" in the data
+      // },
       {
         Header: 'Email',
         accessor: 'email', // accessor is the "key" in the data
@@ -32,7 +32,7 @@ const IndividualsTable = (props) => {
         accessor: 'phone', // accessor is the "key" in the data
       },
     ],
-    [],
+    [individuals],
   );
   const tableInstance = useTable(
     { columns, data: individuals },

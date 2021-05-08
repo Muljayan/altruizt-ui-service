@@ -12,6 +12,8 @@ const Description = (props) => {
     <OrganizationCard key={organizer.id} data={organizer} />
   ));
 
+  organizersList.unshift(<OrganizationCard key="main" data={data.mainOrganizer} />);
+
   const progressPercentage = `${(data && data.progress) || 0}%`;
 
   return (

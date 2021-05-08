@@ -7,11 +7,19 @@ const Modal = (props) => {
     title, description,
     closeModal,
     buttonText, buttonFunction,
+    textPlaceholder,
+    textRequired,
     text, onTextChange,
   } = props;
 
   const _onChange = (e) => {
     onTextChange(e.target.value);
+  };
+
+  const _onSubmit = (e) => {
+    console.log('_onSubmit');
+    e.preventDefault();
+    buttonFunction();
   };
 
   return (
@@ -20,59 +28,63 @@ const Modal = (props) => {
         open
         && (
           <>
-            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <div
-              className="modal-background"
-              onClick={closeModal}
-              onKeyPress={closeModal}
-              role="button"
-              tabIndex="0"
-            />
-            <div className="modal-container">
-              <div className="modal-content">
-                <div className="title mb-1">
-                  <h2>{title}</h2>
-                </div>
-                <p className="mb-1">{description}</p>
-                {
-                  (text || text === '')
-                  && (
-                    <textarea
-                      type="text"
-                      className="mb-1"
-                      value={text}
-                      onChange={_onChange}
-                    />
-                  )
-                }
-                <div className="action-buttons">
+            <form onSubmit={_onSubmit}>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+              <div
+                className="modal-background"
+                onClick={closeModal}
+                onKeyPress={closeModal}
+                role="button"
+                tabIndex="0"
+              />
+              <div className="modal-container">
+                <div className="modal-content">
+                  <div className="title mb-1">
+                    <h2>{title}</h2>
+                  </div>
+                  <p className="mb-1">{description}</p>
                   {
-                    (closeModal)
+                    (text || text === '')
                     && (
-                      <button
-                        type="button"
-                        onClick={closeModal}
-                        className="btn btn-red mx-1"
-                      >
-                        Close
-                      </button>
+                      <textarea
+                        type="text"
+                        className="mb-1"
+                        value={text}
+                        onChange={_onChange}
+                        required={textRequired}
+                        placeholder={textPlaceholder}
+                      />
                     )
                   }
-                  {
-                    (buttonText && buttonFunction)
-                    && (
-                      <button
-                        type="button"
-                        onClick={buttonFunction}
-                        className="btn btn-outline-primary mx-1"
-                      >
-                        {buttonText}
-                      </button>
-                    )
-                  }
+                  <div className="action-buttons">
+                    {
+                      (closeModal)
+                      && (
+                        <button
+                          type="button"
+                          onClick={closeModal}
+                          className="btn btn-red mx-1"
+                        >
+                          Close
+                        </button>
+                      )
+                    }
+                    {
+                      (buttonText && buttonFunction)
+                      && (
+                        <button
+                          type="submit"
+                          // onClick={buttonFunctionbutton}
+                          className="btn btn-outline-primary mx-1"
+                        >
+                          {buttonText}
+                        </button>
+                      )
+                    }
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </>
         )
       }
@@ -88,7 +100,9 @@ Modal.propTypes = {
   buttonText: PropTypes.string,
   buttonFunction: PropTypes.func,
   text: PropTypes.string,
-  onTextChange: PropTypes.string,
+  onTextChange: PropTypes.func,
+  textPlaceholder: PropTypes.string,
+  textRequired: PropTypes.bool,
 };
 
 Modal.defaultProps = {
@@ -98,6 +112,8 @@ Modal.defaultProps = {
   buttonFunction: null,
   text: null,
   onTextChange: null,
+  textRequired: false,
+  textPlaceholder: null,
 };
 
 export default Modal;

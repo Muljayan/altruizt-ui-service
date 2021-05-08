@@ -8,12 +8,14 @@ import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 import ResourceTable from './ResourceTable';
 
 const ResourceAdder = (props) => {
+  console.log('ResourceAdder');
   const dispatchNotification = useNotificationDispatcher();
 
   const {
     label, resources, setResources,
     resourcesReceived,
   } = props;
+  console.log({ resourcesReceived });
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
   const [unit, setUnits] = useState(null);
@@ -81,12 +83,11 @@ const ResourceAdder = (props) => {
   const _removeResource = (selectedItem) => {
     // TODO this function is bugged due to defect in table module
     // When deleting everything other than 1st item gets deleted
+    console.log('remove');
     const filteredResources = [...resources]
       .filter((resource) => resource.name !== selectedItem.name);
-    console.log({ filteredResources });
     setResources(filteredResources);
   };
-  console.log({ resources });
   return (
     <>
       <CommonContainer

@@ -11,7 +11,6 @@ const getAuthStatus = createSelector(
 
 const UserProfileSidebar = () => {
   const auth = useSelector(getAuthStatus);
-  console.log(auth);
   return (
     <div className="col-lg-3 sidebar p-1">
       <CommonContainer>
@@ -28,11 +27,18 @@ const UserProfileSidebar = () => {
             auth.organization
             && (
               <>
+                <b>Reports</b>
+                <ul>
+                  <Link
+                    name="Reports"
+                    link="#"
+                  />
+                </ul>
                 <b>Events</b>
                 <ul>
                   <Link
                     name="Events"
-                    link="/dashboard/events"
+                    link="/dashboard/manage/events"
                   />
                 </ul>
               </>
@@ -47,27 +53,27 @@ const UserProfileSidebar = () => {
                 <ul>
                   <Link
                     name="Approvals"
-                    link="/dashboard/superadmin/approvals"
+                    link="/dashboard/manage/approvals"
                   />
                   <Link
                     name="Individuals"
-                    link="/dashboard/superadmin/individuals"
+                    link="/dashboard/manage/individuals"
                   />
                   <Link
                     name="Corporates"
-                    link="/dashboard/superadmin/corporates"
+                    link="/dashboard/manage/corporates"
                   />
                   <Link
                     name="Volunteer Organizations"
-                    link="/dashboard/superadmin/volunteers"
+                    link="/dashboard/manage/volunteers"
                   />
                   <Link
                     name="Beneficiaries"
-                    link="/dashboard/superadmin/beneficiaries"
+                    link="/dashboard/manage/beneficiaries"
                   />
                   <Link
                     name="Events"
-                    link="/dashboard/superadmin/events"
+                    link="/dashboard/manage/events"
                   />
                 </ul>
               </>

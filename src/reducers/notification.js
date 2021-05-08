@@ -9,7 +9,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_NOTIFICATION: {
       const { title, message } = action.payload;
-      console.log({ payload: action.payload });
       return {
         title,
         message,

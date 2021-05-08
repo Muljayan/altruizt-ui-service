@@ -34,6 +34,7 @@ const UpdateForm = (props) => {
   const [collaborators, setCollaborators] = useState([]);
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [updateDescription, setUpdateDescription] = useState('');
+
   const _onSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -74,6 +75,10 @@ const UpdateForm = (props) => {
       await API.put(`/events/profile/${id}/update`, data);
       updateSuccess(id);
     } catch (err) {
+      dispatchNotification({
+        title: 'Alert',
+        message: err.response.data.message,
+      });
       console.log(err);
       console.log(err.response.data.message);
     }
@@ -82,6 +87,9 @@ const UpdateForm = (props) => {
   const _fetchData = async () => {
     try {
       const res = await API.get(`/events/profile/${id}`);
+      console.log({
+        data: res.data,
+      });
       setTitle(res.data.title);
       setStartDate(dateInputFormat(res.data.startDate));
       setEndDate(dateInputFormat(res.data.endDate));
@@ -107,10 +115,6 @@ const UpdateForm = (props) => {
   useEffect(() => {
     _fetchData();
   }, []);
-
-  const del = () => {
-    console.log({ resourcesReceived });
-  };
 
   return (
     <form onSubmit={_onSubmit}>
@@ -209,9 +213,8 @@ const UpdateForm = (props) => {
       <ResourceAdder
         label="Resources Needed"
         resources={resources}
-        setResources={setResources}
         resourcesReceived={resourcesReceived}
-        del={del}
+        setResources={setResources}
       />
       <ResourceReceivers
         label="Resources Received"

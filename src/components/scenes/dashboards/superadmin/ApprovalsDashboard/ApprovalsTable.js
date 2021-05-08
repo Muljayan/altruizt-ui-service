@@ -64,7 +64,7 @@ const ApprovalsTable = (props) => {
         accessor: 'name', // accessor is the "key" in the data
       },
     ],
-    [],
+    [organizations],
   );
   const tableInstance = useTable(
     { columns, data: organizations },

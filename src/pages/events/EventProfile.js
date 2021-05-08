@@ -10,17 +10,26 @@ import { useParams } from 'react-router-dom';
 import NotFound from 'pages/errors/NotFound';
 import Loader from 'components/common/Loader';
 import * as linkGenerators from 'utils/linkGenerators';
+import Modal from 'components/common/modal';
 
 const EventProfile = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [pledged, setPledged] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [contact, setContact] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+
+  const _closeModal = () => {
+    setOpenModal(false);
+  };
 
   const _fetchData = async () => {
     try {
       const res = await API.get(`/events/profile/${id}`);
       setData(res.data);
       setLoading(false);
+      setPledged(res.data.eventPledged);
     } catch (err) {
       setLoading(false);
     }
@@ -38,35 +47,63 @@ const EventProfile = () => {
     return <NotFound />;
   }
 
+  const _togglePledge = async () => {
+    try {
+      await API.put(`/events/profile/${data.id}/pledge`);
+      setPledged(!pledged);
+      _closeModal();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const _openModal = () => {
+    setOpenModal(true);
+  };
+
   return (
-    <Body
-      sidebar={<EventSidebar data={data} />}
-      title={data.title}
-    >
-      {
-        data && data.image
-        && (
-          <div className="row event-image">
-            <div className="col-12">
-              <img src={linkGenerators.eventImage(data.image)} alt="" />
+    <>
+      <Body
+        sidebar={<EventSidebar data={data} pledged={pledged} togglePledge={_openModal} />}
+        title={data.title}
+      >
+        {
+          data && data.image
+          && (
+            <div className="row event-image">
+              <div className="col-12">
+                <img src={linkGenerators.eventImage(data.image)} alt="" />
+              </div>
             </div>
-          </div>
-        )
-      }
-      <Description data={data} />
-      <ResourceCard
-        title="Resources Needed"
-        resources={data.resourcesNeeded}
+          )
+        }
+        <Description data={data} />
+        <ResourceCard
+          title="Resources Needed"
+          resources={data.resourcesNeeded}
+        />
+        <ResourceCard
+          title="Resources Obtained"
+          resources={data.resourcesReceived}
+        />
+        <EventProgress
+          resources={data.resourcesProgress}
+        />
+        <EventLogs />
+      </Body>
+      <Modal
+        open={openModal}
+        title="Alert!"
+        description={!pledged ? 'Are you sure you want to pledge for this event' : 'Revoke pledge'}
+        closeModal={_closeModal}
+        buttonText={pledged ? 'Unpledge' : 'Pledge'}
+        buttonFunction={_togglePledge}
+        textPlaceholder="Your email"
+        textRequired
+        text={!pledged ? contact : null}
+        onTextChange={!pledged ? setContact : null}
       />
-      <ResourceCard
-        title="Resources Obtained"
-        resources={data.resourcesReceived}
-      />
-      <EventProgress
-        resources={data.resourcesProgress}
-      />
-      <EventLogs />
-    </Body>
+    </>
   );
 };
 

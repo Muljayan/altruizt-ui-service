@@ -62,10 +62,10 @@ const OrganizationsTable = (props) => {
         Header: 'Name',
         accessor: 'name', // accessor is the "key" in the data
       },
-      {
-        Header: 'Description',
-        accessor: 'description', // accessor is the "key" in the data
-      },
+      // {
+      //   Header: 'Description',
+      //   accessor: 'description', // accessor is the "key" in the data
+      // },
       {
         Header: 'Email',
         accessor: 'email', // accessor is the "key" in the data
@@ -83,7 +83,7 @@ const OrganizationsTable = (props) => {
         accessor: 'identificationNumber', // accessor is the "key" in the data
       },
     ],
-    [],
+    [organizations],
   );
   const tableInstance = useTable(
     { columns, data: organizations },

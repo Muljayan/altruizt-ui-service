@@ -6,7 +6,6 @@ import * as linkGenerators from 'utils/linkGenerators';
 
 const EventSuggestion = (props) => {
   const { data } = props;
-  console.log({ data });
   const eventList = data.events.map((event) => (
     <div key={event.id} className="suggestion">
       <Link className="" to={`/events/profile/${event.id}`}>

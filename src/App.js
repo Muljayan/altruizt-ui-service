@@ -16,7 +16,7 @@ import IndividualsDashboard from 'pages/dashboards/superadmin/IndividualsDashboa
 import CorporatesDashboard from 'pages/dashboards/superadmin/CorporatesDashboard';
 import VolunteersDashboard from 'pages/dashboards/superadmin/VolunteersDashboard';
 
-import EventsDashboard from 'pages/dashboards/organization/EventsDashboard';
+// import EventsDashboard from 'pages/dashboards/organization/EventsDashboard';
 import PledgesDashboard from 'pages/dashboards/organization/PledgesDashboard';
 
 import Profile from 'pages/profile/Profile';
@@ -91,9 +91,9 @@ const App = () => (
         <PrivateRoute exact path="/dashboards/approvals">
           <ApprovalsDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboards/events">
+        {/* <PrivateRoute exact path="/dashboards/events">
           <EventsDashboard />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <PrivateRoute exact path="/dashboards/pledges">
           <PledgesDashboard />
         </PrivateRoute>
@@ -137,27 +137,27 @@ const App = () => (
         </PrivateRoute>
 
         {/* Dashboards */}
-        <PrivateRoute exact path="/dashboard/superadmin/approvals">
+        <PrivateRoute level="superadmin" exact path="/dashboard/manage/approvals">
           <ApprovalsDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/superadmin/beneficiaries">
+        <PrivateRoute level="superadmin" exact path="/dashboard/manage/beneficiaries">
           <BeneficiariesDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/superadmin/events">
+        <PrivateRoute level="moderator" exact path="/dashboard/manage/events">
           <EventsMonitorDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/superadmin/individuals">
+        <PrivateRoute level="superadmin" exact path="/dashboard/manage/individuals">
           <IndividualsDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/superadmin/corporates">
+        <PrivateRoute level="superadmin" exact path="/dashboard/manage/corporates">
           <CorporatesDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/superadmin/volunteers">
+        <PrivateRoute level="superadmin" exact path="/dashboard/manage/volunteers">
           <VolunteersDashboard />
         </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/organization/events">
+        {/* <PrivateRoute exact path="/dashboard/organization/events">
           <EventsDashboard />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <PrivateRoute exact path="/dashboard/organization/pledges">
           <PledgesDashboard />
         </PrivateRoute>

@@ -23,7 +23,7 @@ const ResourceTable = (props) => {
         accessor: 'unit',
       },
     ],
-    [],
+    [resources],
   );
   const tableInstance = useTable(
     { columns, data: resources },
