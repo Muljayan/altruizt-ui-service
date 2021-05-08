@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -28,5 +28,5 @@ jobs:
     - run: npm -v
     - run: node -v
     - run: npm run build
-    - run: pm2 restart AltruiztUI --update-env
+    - run: -pm2 restart AltruiztUI --update-env
         
