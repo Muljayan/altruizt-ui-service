@@ -6,6 +6,7 @@ import API from 'utils/API';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
 import { SET_CURRENT_USER } from 'actions/types';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const dispatchNotification = useNotificationDispatcher();
@@ -63,6 +64,13 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">LOGIN</button>
         </div>
       </form>
+      <div className="row mt-2">
+        <div className="col-12">
+          <Link to="/register" className="link h5">
+            Don&lsquo;t have an account? Register here.
+          </Link>
+        </div>
+      </div>
     </Body>
   );
 };

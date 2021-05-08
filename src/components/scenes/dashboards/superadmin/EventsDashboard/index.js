@@ -6,14 +6,15 @@ import Modal from 'components/common/modal';
 import EventsTable from './EventsTable';
 
 const EventsDashboard = () => {
+  const [selectedItemActiveState, setSelectedItemActiveState] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [reason, setReason] = useState('');
   const [data, setData] = useState([]);
 
   const toggleApprovalStatus = async () => {
     try {
-      await API.put(`organizations/profile/${selectedItem}/toggle-activation-status`);
-      const res = await API.get('/dashboards/organizations');
+      await API.put(`events/profile/${selectedItem}/toggle-activation-status`);
+      const res = await API.get('/dashboards/events');
       setData(res.data);
       setSelectedItem(null);
     } catch (err) {
@@ -23,6 +24,7 @@ const EventsDashboard = () => {
 
   const _openModal = (val) => {
     setSelectedItem(val.original.id);
+    setSelectedItemActiveState(val.original.isActive);
   };
 
   const _closeModal = () => {
@@ -60,14 +62,14 @@ const EventsDashboard = () => {
         />
       </Body>
       <Modal
-        open={selectedItem}
-        title="Warning!"
-        description="Are you sure you want revoke approval"
+        open={!!selectedItem}
+        title="Alert!"
+        description={selectedItemActiveState ? 'Are you sure you want to deactivate this event' : 'Do you want to reactivate this event'}
         closeModal={_closeModal}
-        buttonText="Revoke"
+        buttonText={selectedItemActiveState ? 'Deactivate' : 'Activate'}
         buttonFunction={toggleApprovalStatus}
-        text={reason}
-        onTextChange={setReason}
+        text={selectedItemActiveState ? reason : null}
+        onTextChange={selectedItemActiveState ? setReason : null}
       />
     </>
   );

@@ -10,9 +10,9 @@ const ApprovalToggle = (props) => {
   const {
     onClick, row,
   } = props;
-  let finalLabel = 'Approved';
-  if (!row.original.isActivated) {
-    finalLabel = 'Unapproved';
+  let finalLabel = 'Active';
+  if (!row.original.isActive) {
+    finalLabel = 'Deactivated';
   }
   return (
     <button
@@ -20,7 +20,7 @@ const ApprovalToggle = (props) => {
       onClick={() => {
         onClick(row);
       }}
-      className={`btn btn-${row.original.isActivated ? 'primary' : 'red'}`}
+      className={`btn btn-${row.original.isActive ? 'primary' : 'red'}`}
     >
       {finalLabel}
     </button>
@@ -37,7 +37,7 @@ const Button = (props) => {
     <button
       type="button"
       onClick={() => {
-        history.push(`/opportunities/profile/${clickParam.id}`);
+        history.push(`/events/profile/${clickParam.id}`);
       }}
       className="btn btn-primary"
     >
@@ -62,28 +62,8 @@ const EventsTable = (props) => {
         Header: 'Title',
         accessor: 'title', // accessor is the "key" in the data
       },
-      {
-        Header: 'Description',
-        accessor: 'description', // accessor is the "key" in the data
-      },
-      {
-        Header: 'Email',
-        accessor: 'email', // accessor is the "key" in the data
-      },
-      {
-        Header: 'Phone',
-        accessor: 'phone', // accessor is the "key" in the data
-      },
-      {
-        Header: 'Address',
-        accessor: 'address', // accessor is the "key" in the data
-      },
-      {
-        Header: '​Identification Number',
-        accessor: 'identificationNumber', // accessor is the "key" in the data
-      },
     ],
-    [],
+    [events],
   );
   const tableInstance = useTable(
     { columns, data: events },

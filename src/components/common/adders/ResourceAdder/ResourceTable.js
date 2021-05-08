@@ -10,6 +10,7 @@ const ResourceTable = (props) => {
     resourcesReceived, resources,
     removeResource,
   } = props;
+  console.log({ resourcesReceived });
   const columns = React.useMemo(
     () => [
       {
@@ -25,7 +26,7 @@ const ResourceTable = (props) => {
         accessor: 'unit',
       },
     ],
-    [],
+    [resources],
   );
   const tableInstance = useTable(
     { columns, data: resources },
@@ -52,7 +53,7 @@ const ResourceTable = (props) => {
           Cell: ({ row }) => (
             <button
               type="button"
-              disabled={!!resourcesReceived}
+              disabled={(resourcesReceived && resourcesReceived.length === 0)}
               onClick={() => {
                 removeResource(row.original);
               }}

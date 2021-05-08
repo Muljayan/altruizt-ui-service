@@ -52,7 +52,11 @@ const Home = () => {
         isMulti
       />
       <div className="row">
-        {eventPreviewList}
+        {
+          eventPreviewList.length > 0
+            ? eventPreviewList
+            : <h4 className="mx-1">No recommended events available</h4>
+        }
       </div>
     </Body>
   );

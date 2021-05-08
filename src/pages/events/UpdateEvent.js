@@ -17,10 +17,6 @@ const UpdateEvent = () => {
     console.log('_viewEvent');
   };
 
-  const _updateSuccess = (id) => {
-    setUpdatedEventId(id);
-  };
-
   return (
     <Body
       title={updatedEventId ? null : 'Create Event'}
@@ -39,7 +35,7 @@ const UpdateEvent = () => {
           )
           : (
             <UpdateForm
-              updateSuccess={_updateSuccess}
+              updateSuccess={setUpdatedEventId}
             />
           )
       }

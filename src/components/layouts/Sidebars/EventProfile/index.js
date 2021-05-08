@@ -7,29 +7,21 @@ import { useSelector } from 'react-redux';
 
 const getAuthStatus = createSelector(
   (state) => state.auth,
-  (auth) => auth.isAuthenticated,
+  (auth) => auth,
 );
 
 const EventSidebar = (props) => {
-  const { data } = props;
-  const isAuthenticated = useSelector(getAuthStatus);
-  const [pledged, setPledged] = useState(data.eventPledged);
+  const { data, pledged, togglePledge } = props;
+  const auth = useSelector(getAuthStatus);
+  const { isAuthenticated } = auth;
+  // const isOrganizer
+  // console.log({ auth, data });
   const [followed, setFollowed] = useState(data.eventFollowed);
   const {
     contactName, phone, location, bankName,
     bankNumber, bankBranch, startDate, endDate,
     // eventFollowed, eventPledged,
   } = data;
-  console.log(data);
-
-  const _pledge = async () => {
-    try {
-      await API.put(`/events/profile/${data.id}/pledge`);
-      setPledged(!pledged);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const _follow = async () => {
     try {
@@ -46,7 +38,7 @@ const EventSidebar = (props) => {
         isAuthenticated
         && (
           <div className="button-container">
-            <button onClick={_pledge} type="button" className={`btn btn-${pledged ? 'primary' : 'red'} mx-1 bold`}>{pledged ? 'Pledged' : 'Pledge'}</button>
+            <button onClick={togglePledge} type="button" className={`btn btn-${pledged ? 'primary' : 'red'} mx-1 bold`}>{pledged ? 'Pledged' : 'Pledge'}</button>
             <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Followed' : 'Follow'}</button>
           </div>
         )
@@ -68,9 +60,9 @@ const EventSidebar = (props) => {
             {bankBranch}
           </p>
           <div className="headings">Start Date</div>
-          <p>{startDate}</p>
+          <p>{new Date(startDate).toLocaleDateString()}</p>
           <div className="headings">End Date</div>
-          <p>{endDate}</p>
+          <p>{new Date(endDate).toLocaleDateString()}</p>
         </div>
       </div>
     </div>
@@ -79,6 +71,8 @@ const EventSidebar = (props) => {
 
 EventSidebar.propTypes = {
   data: PropTypes.object.isRequired,
+  pledged: PropTypes.bool.isRequired,
+  togglePledge: PropTypes.func.isRequired,
 };
 
 export default EventSidebar;

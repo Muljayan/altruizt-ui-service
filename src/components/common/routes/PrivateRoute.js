@@ -3,21 +3,36 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
+import NotFound from 'pages/errors/NotFound';
 
 const getAuthStatus = createSelector(
   (state) => state.auth,
-  (auth) => auth.isAuthenticated,
+  (auth) => auth,
 );
 
 const PrivateRoute = (props) => {
-  const { children, path } = props;
-  const isAuthenticated = useSelector(getAuthStatus);
+  const { children, path, level } = props;
+  const { isAuthenticated, isSuperAdmin, organization } = useSelector(getAuthStatus);
+
+  let component;
+  switch (level) {
+    case 'superadmin':
+      component = isSuperAdmin ? children : <NotFound />;
+      break;
+    case 'moderator':
+      component = (isSuperAdmin || organization) ? children : <NotFound />;
+      break;
+    default:
+      component = children;
+      break;
+  }
+
   return (
     <Route
       exact
       path={path}
       render={({ location }) => (isAuthenticated ? (
-        children
+        component
       ) : (
         <Redirect
           to={{
@@ -33,6 +48,11 @@ const PrivateRoute = (props) => {
 PrivateRoute.propTypes = {
   children: PropTypes.node.isRequired,
   path: PropTypes.string.isRequired,
+  level: PropTypes.string,
+};
+
+PrivateRoute.defaultProps = {
+  level: null,
 };
 
 export default PrivateRoute;

@@ -5,7 +5,6 @@ import ResourceItem from './ResourceItem';
 
 const ResourceList = (props) => {
   const { title, resources } = props;
-  console.log({ title, resources });
   const resourceList = resources.map((resource) => (
     <ResourceItem
       key={resource.id}
