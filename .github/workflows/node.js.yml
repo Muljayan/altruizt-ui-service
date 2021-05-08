@@ -28,5 +28,9 @@ jobs:
     - run: node -v
     - run: npm install
     - run: npm run build
-    - run: -pm2 restart AltruiztUI --update-env
+    - run: REACT_APP_BASE_URL=$REACT_APP_BASE_URL ESLINT_NO_DEV_ERRORS=$ESLINT_NO_DEV_ERRORS pm2 restart AltruiztUI --update-env
+      env:
+        REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+        ESLINT_NO_DEV_ERRORS: ${{ secrets.ESLINT_NO_DEV_ERRORS }}
+
         
