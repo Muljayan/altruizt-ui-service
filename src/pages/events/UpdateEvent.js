@@ -8,9 +8,9 @@ const UpdateEvent = () => {
   const history = useHistory();
   const [updatedEventId, setUpdatedEventId] = useState(null);
 
-  const _addNewEvent = () => {
-    setUpdatedEventId(null);
-  };
+  // const _addNewEvent = () => {
+  //   setUpdatedEventId(null);
+  // };
 
   const _viewEvent = () => {
     history.push(`/events/profile/${updatedEventId}`);
@@ -19,7 +19,7 @@ const UpdateEvent = () => {
 
   return (
     <Body
-      title={updatedEventId ? null : 'Create Event'}
+      title={updatedEventId ? null : 'Update Event'}
     >
       {
         updatedEventId
@@ -29,8 +29,8 @@ const UpdateEvent = () => {
               title1="Your event is updated!"
               buttonLabel1="View Event"
               buttonFunction1={_viewEvent}
-              buttonLabel2="Create Event"
-              buttonFunction2={_addNewEvent}
+            // buttonLabel2="Create Event"
+            // buttonFunction2={_addNewEvent}
             />
           )
           : (
