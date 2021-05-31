@@ -4,6 +4,7 @@ import API from 'utils/API';
 
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
+import CommonContainer from 'components/layouts/Containers/CommonContainer';
 
 const getAuthStatus = createSelector(
   (state) => state.auth,
@@ -12,10 +13,26 @@ const getAuthStatus = createSelector(
 
 const EventSidebar = (props) => {
   const { data, pledged, togglePledge } = props;
+  const {
+    // organizers,
+    mainOrganizer,
+  } = data;
   const auth = useSelector(getAuthStatus);
-  const { isAuthenticated } = auth;
+  const { isAuthenticated, organization } = auth;
+  console.log({ isAuthenticated, organization });
+  const isOrganizer = (organization && organization.id && organization.id === mainOrganizer.id);
+  // let filteredOrganization = [];
+
+  // if (organization && organization.id) {
+  //   if (organization.id === mainOrganizer.id) {
+  //     isOrganizer = true;
+  //   }
+  //   filteredOrganization = organizers
+  //     .filter((organizer) => organizer.id !== organization.id);
+  // }
+  // let found = false;
+
   // const isOrganizer
-  // console.log({ auth, data });
   const [followed, setFollowed] = useState(data.eventFollowed);
   const {
     contactName, phone, location, bankName,
@@ -34,6 +51,17 @@ const EventSidebar = (props) => {
 
   return (
     <div className="col-lg-3 sidebar p-1">
+      {
+        isOrganizer
+        && (
+          <CommonContainer
+            title="✏️ Update"
+            color="primary"
+            link={`/events/profile/${data.id}/update`}
+          />
+        )
+      }
+
       {
         isAuthenticated
         && (

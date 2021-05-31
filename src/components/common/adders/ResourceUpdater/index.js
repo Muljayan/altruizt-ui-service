@@ -7,7 +7,7 @@ import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 import ResourceTable from './ResourceTable';
 
-const ResourceAdder = (props) => {
+const ResourceUpdater = (props) => {
   const dispatchNotification = useNotificationDispatcher();
 
   const {
@@ -138,15 +138,15 @@ const ResourceAdder = (props) => {
   );
 };
 
-ResourceAdder.propTypes = {
+ResourceUpdater.propTypes = {
   label: PropTypes.string.isRequired,
   resources: PropTypes.array.isRequired,
   setResources: PropTypes.func.isRequired,
   resourcesReceived: PropTypes.array,
 };
 
-ResourceAdder.defaultProps = {
+ResourceUpdater.defaultProps = {
   resourcesReceived: null,
 };
 
-export default ResourceAdder;
+export default ResourceUpdater;

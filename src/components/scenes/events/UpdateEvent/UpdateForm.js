@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import TextField from 'components/common/input/TextField';
 import TextArea from 'components/common/input/TextArea';
-import ResourceAdder from 'components/common/adders/ResourceAdder';
+import ResourceUpdater from 'components/common/adders/ResourceUpdater';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
+import ImagePicker from 'components/common/input/ImagePicker';
 import API from 'utils/API';
 import { dateInputFormat, selectorDataFormat } from 'utils/formatters';
 import ResourceReceivers from 'components/common/adders/ResourceReceivers';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
+import * as linkGenerators from 'utils/linkGenerators';
 
 const UpdateForm = (props) => {
   const dispatchNotification = useNotificationDispatcher();
@@ -17,6 +19,11 @@ const UpdateForm = (props) => {
   const { id } = useParams();
 
   const { updateSuccess } = props;
+  const [initialImage, setInitialImage] = useState('');
+  const [image, setImage] = useState({
+    type: null,
+    value: null,
+  });
   const [loaded, setLoaded] = useState(false);
   const [title, setTitle] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -56,6 +63,7 @@ const UpdateForm = (props) => {
 
       const data = {
         title,
+        image,
         startDate,
         endDate,
         contactName,
@@ -87,10 +95,8 @@ const UpdateForm = (props) => {
   const _fetchData = async () => {
     try {
       const res = await API.get(`/events/profile/${id}`);
-      console.log({
-        data: res.data,
-      });
       setTitle(res.data.title);
+      setInitialImage(res.data.image);
       setStartDate(dateInputFormat(res.data.startDate));
       setEndDate(dateInputFormat(res.data.endDate));
       setLocation(res.data.location);
@@ -121,6 +127,15 @@ const UpdateForm = (props) => {
       <CommonContainer
         title="General Details"
       />
+      <div className="row">
+        <ImagePicker
+          id="profile-picture"
+          colSize={4}
+          initialImage={linkGenerators.eventImage(initialImage)}
+          image={image}
+          onChange={setImage}
+        />
+      </div>
       <div className="row mb-2">
         <TextField
           id="title"
@@ -210,7 +225,7 @@ const UpdateForm = (props) => {
         />
       </div>
 
-      <ResourceAdder
+      <ResourceUpdater
         label="Resources Needed"
         resources={resources}
         resourcesReceived={resourcesReceived}

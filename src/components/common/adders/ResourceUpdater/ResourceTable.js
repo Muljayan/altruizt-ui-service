@@ -7,8 +7,9 @@ import { useTable, useSortBy, useRowSelect } from 'react-table';
 
 const ResourceTable = (props) => {
   const {
-    resourcesReceived, resources,
-    removeResource,
+    // resourcesReceived,
+    resources,
+    // removeResource,
   } = props;
   const columns = React.useMemo(
     () => [
@@ -31,39 +32,39 @@ const ResourceTable = (props) => {
     { columns, data: resources },
     useSortBy,
     useRowSelect,
-    (hooks) => {
-      // eslint-disable-next-line no-shadow
-      hooks.visibleColumns.push((columns) => [
-        ...columns,
-        {
-          id: 'delete',
-          // Make this column a groupByBoundary. This ensures that groupBy columns
-          // are placed after it
-          groupByBoundary: true,
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: () => (
-            <div>
-              Delete
-            </div>
-          ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <button
-              type="button"
-              disabled={(resourcesReceived && resourcesReceived.length === 0)}
-              onClick={() => {
-                removeResource(row.original);
-              }}
-              className="btn btn-red"
-            >
-              Delete
-            </button>
-          ),
-        },
-      ]);
-    },
+    // (hooks) => {
+    //   // eslint-disable-next-line no-shadow
+    //   hooks.visibleColumns.push((columns) => [
+    //     ...columns,
+    //     {
+    //       id: 'delete',
+    //       // Make this column a groupByBoundary. This ensures that groupBy columns
+    //       // are placed after it
+    //       groupByBoundary: true,
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox
+    //       Header: () => (
+    //         <div>
+    //           Delete
+    //         </div>
+    //       ),
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <button
+    //           type="button"
+    //           disabled={(resourcesReceived && resourcesReceived.length === 0)}
+    //           onClick={() => {
+    //             removeResource(row.original);
+    //           }}
+    //           className="btn btn-red"
+    //         >
+    //           Delete
+    //         </button>
+    //       ),
+    //     },
+    //   ]);
+    // },
   );
 
   const {
