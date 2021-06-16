@@ -1,30 +1,23 @@
-Structure
-Dashboard
-- Organizations
-- Events
-- Approvals
-- Pledges
+Organization Dashboard
+->Reports
+---Events This month + Done
+---Number of approvals+ Done
+---Number of organizations + Done
+---Number of Corporates+ Done
+---Number of Volunteer Organizations+ Done
+---Number of Beneficiaries+Done
+---Your Events- Done
+---Completed Events- Done
+---Events in progress- Done
+---Total Pledges- /Your Pledges individual
+---Total Follows- /Your Follows individual
+---Most popular events-
+->Profile
+->Your Events / All Events+
+->Corporates+
+->Volunteer Organizations+
+->Beneficiaries+
 
-User login
-User registration
 
-Home
-
-Create Event
-Update Event
-Event View
-
-Opportunities
-OpportunitiesView
-
-Organizations
-Organizations View
-
-Profile
-
-Change log
-
-Changed tax_number => identification_number in database and uis (To get any unique number relevant to organization)
- 
-user_categories => organization_categories
-categories_followed
+=== Recommended Organizations based on resources available/needed
+=== Recommended Events based on resources available

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
-import Chart from './Chart';
+import Chart from '../../../../common/cards/Chart';
 
 const EventProgress = (props) => {
   const { resources } = props;
