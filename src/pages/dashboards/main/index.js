@@ -1,6 +1,5 @@
 import React from 'react';
 import Body from 'components/layouts/Body';
-import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import StatCard from 'components/common/cards/StatCard';
 import SuperAdminStats from './SuperAdminStats';
 import YourActivityStats from './YourActivityStats';
