@@ -1,1 +1,1 @@
-All sidebars are shown irrespective of their user level.
+All sidebars are shown irrespective of their user level. 

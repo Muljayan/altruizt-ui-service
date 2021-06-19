@@ -7,6 +7,8 @@ import {
 import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
 
+import './styles/global.scss';
+
 import Header from 'components/layouts/Header';
 
 import ApprovalsDashboard from 'pages/dashboards/superadmin/ApprovalsDashboard';
@@ -31,8 +33,8 @@ import Opportunities from 'pages/opportunities/Opportunities';
 import OpportunitiesProfile from 'pages/opportunities/OpportunitiesProfile';
 import Organizations from 'pages/organizations/Organizations';
 import OrganizationsProfile from 'pages/organizations/OrganizationsProfile';
+import MainDashboard from 'pages/dashboards/main';
 
-import './styles/global.scss';
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
 import NotFound from 'pages/errors/NotFound';
@@ -134,6 +136,10 @@ const App = () => (
         {/* Profile */}
         <PrivateRoute exact path="/profile">
           <Profile />
+        </PrivateRoute>
+        {/* Profile */}
+        <PrivateRoute exact path="/dashboard">
+          <MainDashboard />
         </PrivateRoute>
 
         {/* Dashboards */}
