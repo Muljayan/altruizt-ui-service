@@ -31,7 +31,7 @@ const Login = () => {
     } catch (err) {
       dispatchNotification({
         title: 'Alert',
-        message: err.response.data.message || 'Something went wrong',
+        message: err?.response?.data?.message || 'Something went wrong',
       });
     }
   };

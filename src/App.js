@@ -69,8 +69,7 @@ const App = () => (
   >
     <Router>
       <Header />
-      <Switch>
-        {/* Auth */}
+      {/* <Switch>
         <AuthRoute
           exact
           path="/login"
@@ -84,23 +83,17 @@ const App = () => (
           <Register />
         </AuthRoute>
 
-        {/* Home */}
         <Route exact path="/">
           <Home />
         </Route>
 
-        {/* Dashboards */}
         <PrivateRoute exact path="/dashboards/approvals">
           <ApprovalsDashboard />
         </PrivateRoute>
-        {/* <PrivateRoute exact path="/dashboards/events">
-          <EventsDashboard />
-        </PrivateRoute> */}
         <PrivateRoute exact path="/dashboards/pledges">
           <PledgesDashboard />
         </PrivateRoute>
 
-        {/* Events */}
         <Route exact path="/events">
           <Events />
         </Route>
@@ -117,7 +110,6 @@ const App = () => (
           <Followings />
         </PrivateRoute>
 
-        {/* Opportunities */}
         <Route exact path="/opportunities">
           <Opportunities />
         </Route>
@@ -125,7 +117,6 @@ const App = () => (
           <OpportunitiesProfile />
         </Route>
 
-        {/* Organizations */}
         <Route exact path="/organizations">
           <Organizations />
         </Route>
@@ -133,16 +124,13 @@ const App = () => (
           <OrganizationsProfile />
         </Route>
 
-        {/* Profile */}
         <PrivateRoute exact path="/profile">
           <Profile />
         </PrivateRoute>
-        {/* Profile */}
         <PrivateRoute exact path="/dashboard">
           <MainDashboard />
         </PrivateRoute>
 
-        {/* Dashboards */}
         <PrivateRoute level="superadmin" exact path="/dashboard/manage/approvals">
           <ApprovalsDashboard />
         </PrivateRoute>
@@ -161,15 +149,12 @@ const App = () => (
         <PrivateRoute level="superadmin" exact path="/dashboard/manage/volunteers">
           <VolunteersDashboard />
         </PrivateRoute>
-        {/* <PrivateRoute exact path="/dashboard/organization/events">
-          <EventsDashboard />
-        </PrivateRoute> */}
         <PrivateRoute exact path="/dashboard/organization/pledges">
           <PledgesDashboard />
         </PrivateRoute>
 
         <Route component={NotFound} />
-      </Switch>
+      </Switch> */}
       <GlobalNotifier />
     </Router>
   </Provider>

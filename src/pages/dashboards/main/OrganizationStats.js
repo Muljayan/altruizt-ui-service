@@ -13,25 +13,25 @@ const OrganizationStats = () => (
         label="Total Events"
         value="2000"
         link="Lolz"
-        linkLabel="View All"
+        linkLabel="View"
       />
       <StatCard
         label="Events Completed"
         value="2000"
         link="Lolz"
-        linkLabel="View All"
+        linkLabel="View"
       />
       <StatCard
         label="Events in Progress"
         value="2000"
         link="Lolz"
-        linkLabel="View All"
+        linkLabel="View"
       />
       <StatCard
         label="Total pledges received"
         value="2000"
         link="Lolz"
-        linkLabel="View All"
+        linkLabel="View"
       />
       <Chart
         // key={resource.id}

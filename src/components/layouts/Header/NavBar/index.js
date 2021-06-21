@@ -12,14 +12,14 @@ const getAuthStatus = createSelector(
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector(getAuthStatus);
+  const { isAuthenticated } = useSelector(getAuthStatus);
 
   const _logOut = () => {
     dispatch({ type: CLEAR_CURRENT_USER });
   };
 
   return (
-    <nav className="nav-bar">
+    <nav className="nav-bar hide-mobile">
       <ul className="main-links">
         <Link label="Home" to="/" />
         <Link label="Opportunities" to="/opportunities" />
@@ -31,7 +31,7 @@ const NavBar = () => {
         isAuthenticated
           ? (
             <ul>
-              <Link label={user.name} to="/profile" />
+              <Link label="Dashboard" to="/dashboard" />
             </ul>
           )
           : (

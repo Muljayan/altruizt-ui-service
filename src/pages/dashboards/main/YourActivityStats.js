@@ -1,33 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import StatCard from 'components/common/cards/StatCard';
 
-const YourActivityStats = () => (
-  <>
-    <CommonContainer
-      title="Your Activities"
-    />
-    <div className="row">
-      <StatCard
-        label="Events Followed"
-        value="2000"
-        link="Lolz"
-        linkLabel="View All"
+const YourActivityStats = (props) => {
+  const { data } = props;
+
+  return (
+    <>
+      <CommonContainer
+        title="Your Activities"
       />
-      <StatCard
-        label="Events Pledged"
-        value="2000"
-        link="Lolz"
-        linkLabel="View All"
-      />
-      <StatCard
-        label="Organizations Followed"
-        value="2000"
-        link="Lolz"
-        linkLabel="View All"
-      />
-    </div>
-  </>
-);
+      <div className="row">
+        <StatCard
+          label="Events Followed"
+          value={data.eventsFollowed}
+          link="Lolz"
+          linkLabel="View"
+        />
+        <StatCard
+          label="Events Pledged"
+          value={data.eventsPledged}
+          link="Lolz"
+          linkLabel="View"
+        />
+      </div>
+    </>
+  );
+};
+
+YourActivityStats.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default YourActivityStats;

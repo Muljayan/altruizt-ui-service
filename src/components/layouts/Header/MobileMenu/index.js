@@ -13,7 +13,7 @@ const getAuthStatus = createSelector(
 const MobileMenu = () => {
   const [checked, setchecked] = useState(false);
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector(getAuthStatus);
+  const { isAuthenticated } = useSelector(getAuthStatus);
 
   const _logOut = () => {
     dispatch({ type: CLEAR_CURRENT_USER });
@@ -42,7 +42,7 @@ const MobileMenu = () => {
         {
           isAuthenticated
             ? (
-              <Link hideMenu={_toggleChecked} label={user.name} to="/profile" />
+              <Link hideMenu={_toggleChecked} label="Dashboard" to="/dashboard" />
             )
             : (
               <Link hideMenu={_toggleChecked} label="Login" to="/login" />
@@ -51,14 +51,15 @@ const MobileMenu = () => {
         {
           isAuthenticated
           && (
-            <div className="logout-btn">
+            <div
+              className="logout-btn"
+              onClick={_logOut}
+              onKeyPress={_logOut}
+              role="button"
+              tabIndex="0"
+            >
               Logout
               <img
-                onClick={_logOut}
-                onKeyPress={_logOut}
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
-                role="button"
-                tabIndex="0"
                 src="/icons/logout.svg"
                 alt="logout"
               />

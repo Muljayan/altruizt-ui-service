@@ -155,3 +155,10 @@ table {
     // border-left: 1px solid $font-color;
   }
 }
+
+
+.hide-mobile {
+  @media (min-width: 0px) and (max-width:992px) {
+    display: none !important;
+  }
+}
