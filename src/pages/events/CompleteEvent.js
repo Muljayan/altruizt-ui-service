@@ -33,7 +33,7 @@ const CompleteEvent = () => {
           )
           : (
             <CompleteForm
-              updateSuccess={setCompletedEventId}
+              completeSuccess={setCompletedEventId}
             />
           )
       }
