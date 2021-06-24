@@ -16,14 +16,12 @@ const YourActivityStats = (props) => {
         <StatCard
           label="Events Followed"
           value={data.eventsFollowed}
-          link="Lolz"
+          link="/followings"
           linkLabel="View"
         />
         <StatCard
           label="Events Pledged"
           value={data.eventsPledged}
-          link="Lolz"
-          linkLabel="View"
         />
       </div>
     </>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import ResourceItem from './ResourceItem';
 
-const ResourceList = (props) => {
+const ResourceCard = (props) => {
   const { title, resources } = props;
   const resourceList = resources.map((resource) => (
     <ResourceItem
@@ -24,9 +24,9 @@ const ResourceList = (props) => {
   );
 };
 
-ResourceList.propTypes = {
+ResourceCard.propTypes = {
   title: PropTypes.string.isRequired,
   resources: PropTypes.array.isRequired,
 };
 
-export default ResourceList;
+export default ResourceCard;

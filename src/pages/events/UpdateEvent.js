@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import Body from 'components/layouts/Body';
 import UpdateForm from 'components/scenes/events/UpdateEvent/UpdateForm';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
-import { useHistory } from 'react-router-dom';
 
 const UpdateEvent = () => {
   const history = useHistory();
+  const { id } = useParams();
   const [updatedEventId, setUpdatedEventId] = useState(null);
 
   // const _addNewEvent = () => {
@@ -20,6 +21,9 @@ const UpdateEvent = () => {
   return (
     <Body
       title={updatedEventId ? null : 'Update Event'}
+      btnText="Complete Event"
+      btnLink={`/events/profile/${id}/complete`}
+      btnColor="red"
     >
       {
         updatedEventId

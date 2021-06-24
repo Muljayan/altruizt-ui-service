@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+import { useParams } from 'react-router-dom';
+import NotFound from 'pages/errors/NotFound';
 import Body from 'components/layouts/Body';
 import EventSidebar from 'components/layouts/Sidebars/EventProfile';
 import ResourceCard from 'components/common/cards/ResourceCard';
 import Description from 'components/scenes/events/EventProfile/Description';
 import EventProgress from 'components/scenes/events/EventProfile/Progress';
 import EventLogs from 'components/scenes/events/EventProfile/Logs';
-import API from 'utils/API';
-import { useParams } from 'react-router-dom';
-import NotFound from 'pages/errors/NotFound';
+import Modal from 'components/common/modal';
 import Loader from 'components/common/Loader';
 import * as linkGenerators from 'utils/linkGenerators';
-import Modal from 'components/common/modal';
+import API from 'utils/API';
+
+const getUserEmail = createSelector(
+  (state) => state.auth,
+  (auth) => auth.user?.email || '',
+);
 
 const EventProfile = () => {
+  const userEmail = useSelector(getUserEmail);
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [pledged, setPledged] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [contact, setContact] = useState('');
+  const [contact, setContact] = useState(userEmail);
   const [openModal, setOpenModal] = useState(false);
 
   const _closeModal = () => {
@@ -60,7 +68,7 @@ const EventProfile = () => {
   const _openModal = () => {
     setOpenModal(true);
   };
-
+  console.log({ data });
   return (
     <>
       <Body

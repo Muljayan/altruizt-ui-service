@@ -25,7 +25,7 @@ const SuperAdminStats = (props) => {
         <StatCard
           label="Total Individuals"
           value={individuals}
-          link="Lolz"
+          link="/dashboard/manage/individuals"
           linkLabel="View"
         />
         <StatCard

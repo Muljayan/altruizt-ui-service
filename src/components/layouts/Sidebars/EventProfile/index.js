@@ -19,31 +19,43 @@ const EventSidebar = (props) => {
   } = data;
   const auth = useSelector(getAuthStatus);
   const { isAuthenticated, organization } = auth;
-  console.log({ isAuthenticated, organization });
   const isOrganizer = (organization && organization.id && organization.id === mainOrganizer.id);
-  // let filteredOrganization = [];
 
-  // if (organization && organization.id) {
-  //   if (organization.id === mainOrganizer.id) {
-  //     isOrganizer = true;
-  //   }
-  //   filteredOrganization = organizers
-  //     .filter((organizer) => organizer.id !== organization.id);
-  // }
-  // let found = false;
-
-  // const isOrganizer
-  const [followed, setFollowed] = useState(data.eventFollowed);
   const {
     contactName, phone, location, bankName,
     bankNumber, bankBranch, startDate, endDate,
+    upvoted: uv, downvoted: dv,
     // eventFollowed, eventPledged,
   } = data;
+  console.log({ uv, dv });
+
+  const [followed, setFollowed] = useState(data.eventFollowed);
+  const [upvoted, setUpvoted] = useState(uv);
+  const [downvoted, setDownvoted] = useState(dv);
 
   const _follow = async () => {
     try {
       await API.put(`/events/profile/${data.id}/follow`);
       setFollowed(!followed);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const _upvote = async () => {
+    try {
+      await API.put(`/events/profile/${data.id}/upvote`);
+      setUpvoted(!upvoted);
+      setDownvoted(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const _downvote = async () => {
+    try {
+      await API.put(`/events/profile/${data.id}/downvote`);
+      setDownvoted(!downvoted);
+      setUpvoted(false);
     } catch (err) {
       console.log(err);
     }
@@ -65,10 +77,16 @@ const EventSidebar = (props) => {
       {
         isAuthenticated
         && (
-          <div className="button-container">
-            <button onClick={togglePledge} type="button" className={`btn btn-${pledged ? 'primary' : 'red'} mx-1 bold`}>{pledged ? 'Pledged' : 'Pledge'}</button>
-            <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Followed' : 'Follow'}</button>
-          </div>
+          <>
+            <div className="button-container">
+              <button onClick={togglePledge} type="button" className={`btn btn-${pledged ? 'primary' : 'red'} mx-1 bold`}>{pledged ? 'Pledged' : 'Pledge'}</button>
+              <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Followed' : 'Follow'}</button>
+            </div>
+            <div className="button-container my-1">
+              <button onClick={_upvote} type="button" className={`btn btn-outline-${upvoted ? 'primary' : 'red'} mx-1 bold`}>Upvote 👍</button>
+              <button onClick={_downvote} type="button" className={`btn btn-outline-${downvoted ? 'primary' : 'red'} mx-1 bold`}>Downvote 👎</button>
+            </div>
+          </>
         )
       }
       <div className="post-preview card mt-2 p-2 mb-2">

@@ -7,9 +7,9 @@ import * as linkGenerators from 'utils/linkGenerators';
 const OrganizationPreview = (props) => {
   const { data } = props;
   const {
-    name, id, categories, image,
+    name, id, categories, image, opportunities,
   } = data;
-  const categoriesList = categories.map((category) => (
+  const categoriesList = categories?.map((category) => (
     <div className="tag" key={category.id}>
       <Link
         to="#"
@@ -36,7 +36,7 @@ const OrganizationPreview = (props) => {
           </div>
           <div className="stats mb-1">
             <div className="stat">
-              <b>5</b>
+              <b>{opportunities}</b>
               {' '}
               Opportunities
             </div>

@@ -14,12 +14,15 @@ const getAuthStatus = createSelector(
 const Sidebar = () => {
   const { isAuthenticated, organization } = useSelector(getAuthStatus);
 
-  const [categories, setCategories] = useState([]);
+  const [data, setData] = useState({
+    categories: [],
+    suggestions: [],
+  });
 
   const _fetchData = async () => {
     try {
-      const res = await API.get('/events/suggestions');
-      setCategories(res.data);
+      const res = await API.get('/profile/sidebar');
+      setData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -29,8 +32,8 @@ const Sidebar = () => {
     _fetchData();
   }, []);
 
-  const suggestionList = categories.map((category) => (
-    <EventSuggestion key={category.id} data={category} />
+  const suggestionList = data.suggestions.map((suggestion) => (
+    <EventSuggestion key={suggestion.id} data={suggestion} />
   ));
 
   return (
@@ -50,7 +53,7 @@ const Sidebar = () => {
       {
         isAuthenticated
         && (
-          <YourCategories />
+          <YourCategories data={data.categories} />
         )
       }
       {suggestionList}

@@ -4,8 +4,6 @@ import StatCard from 'components/common/cards/StatCard';
 import SuperAdminStats from './SuperAdminStats';
 import YourActivityStats from './YourActivityStats';
 import OrganizationStats from './OrganizationStats';
-import ResourceStats from './ResourceStats';
-import ResourceSuggestion from './ResourceSuggestion';
 import API from '../../../utils/API';
 
 const MainDashboard = () => {
@@ -44,10 +42,7 @@ const MainDashboard = () => {
       </div>
       {data.superAdmin && <SuperAdminStats data={data.superAdmin} />}
       {data.yourActivities && <YourActivityStats data={data.yourActivities} />}
-      {data.yourOrganization && <OrganizationStats />}
-      <OrganizationStats />
-      <ResourceStats />
-      <ResourceSuggestion />
+      {data.yourOrganization && <OrganizationStats data={data.yourOrganization} />}
     </Body>
   );
 };

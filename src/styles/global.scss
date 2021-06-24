@@ -26,6 +26,12 @@ html {
   flex-direction: row;
   // justify-content: center;
   align-items: center;
+  
+
+  h1 {
+    flex: 1;
+    margin: 0;
+  }
 
   .image-container {
     width: 50px;
@@ -36,15 +42,23 @@ html {
     }
   }
 
+  .container-common {
+    align-items: flex-end;
+    display: flex;
+    margin: 0;
+    float: right;
+  }
+
 }
 
 // ---------------------------------------------
 // events
-.event-image{
-  img{
+.event-image {
+  img {
     width: 100%;
   }
 }
+
 // ---------------------------------------------
 
 

@@ -13,6 +13,11 @@ const UserProfileSidebar = () => {
   const auth = useSelector(getAuthStatus);
   return (
     <div className="col-lg-3 sidebar p-1">
+      <CommonContainer
+        title="⬅ Go to Dashboard"
+        color="secondary"
+        link="/dashboard"
+      />
       <CommonContainer>
         <div className="profile-nav">
           <b>Profile</b>
@@ -27,13 +32,6 @@ const UserProfileSidebar = () => {
             auth.organization
             && (
               <>
-                <b>Reports</b>
-                <ul>
-                  <Link
-                    name="Reports"
-                    link="#"
-                  />
-                </ul>
                 <b>Events</b>
                 <ul>
                   <Link

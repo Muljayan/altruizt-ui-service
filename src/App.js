@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,6 +29,8 @@ import Events from 'pages/events/Events';
 import CreateEvent from 'pages/events/CreateEvent';
 import EventProfile from 'pages/events/EventProfile';
 import UpdateEvent from 'pages/events/UpdateEvent';
+import CompleteEvent from 'pages/events/CompleteEvent';
+
 import Followings from 'pages/Followings/Followings';
 import Opportunities from 'pages/opportunities/Opportunities';
 import OpportunitiesProfile from 'pages/opportunities/OpportunitiesProfile';
@@ -64,101 +66,115 @@ if (token) {
   }
 }
 
-const App = () => (
-  <Provider
-    store={store}
-  >
-    <Router>
-      <Header />
-      {/* <Switch>
-        <AuthRoute
-          exact
-          path="/login"
-        >
-          <Login />
-        </AuthRoute>
-        <AuthRoute
-          exact
-          path="/register"
-        >
-          <Register />
-        </AuthRoute>
+const App = () => {
+  const [accepted, setaccepted] = useState(false);
+  return (
+    <Provider
+      store={store}
+    >
+      <Router>
+        {
+          accepted
+            ? (
+              <>
+                <Header />
+                <Switch>
+                  <AuthRoute
+                    exact
+                    path="/login"
+                  >
+                    <Login />
+                  </AuthRoute>
+                  <AuthRoute
+                    exact
+                    path="/register"
+                  >
+                    <Register />
+                  </AuthRoute>
 
-        <Route exact path="/">
-          <Home />
-        </Route>
+                  <Route exact path="/">
+                    <Home />
+                  </Route>
 
-        <PrivateRoute exact path="/dashboards/approvals">
-          <ApprovalsDashboard />
-        </PrivateRoute>
-        <PrivateRoute exact path="/dashboards/pledges">
-          <PledgesDashboard />
-        </PrivateRoute>
+                  <PrivateRoute exact path="/dashboards/approvals">
+                    <ApprovalsDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/dashboards/pledges">
+                    <PledgesDashboard />
+                  </PrivateRoute>
 
-        <Route exact path="/events">
-          <Events />
-        </Route>
-        <PrivateRoute exact path="/events/create">
-          <CreateEvent />
-        </PrivateRoute>
-        <Route exact path="/events/profile/:id">
-          <EventProfile />
-        </Route>
-        <PrivateRoute exact path="/events/profile/:id/update">
-          <UpdateEvent />
-        </PrivateRoute>
-        <PrivateRoute exact path="/followings">
-          <Followings />
-        </PrivateRoute>
+                  <Route exact path="/events">
+                    <Events />
+                  </Route>
+                  <PrivateRoute exact path="/events/create">
+                    <CreateEvent />
+                  </PrivateRoute>
+                  <Route exact path="/events/profile/:id">
+                    <EventProfile />
+                  </Route>
+                  <PrivateRoute exact path="/events/profile/:id/update">
+                    <UpdateEvent />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/events/profile/:id/complete">
+                    <CompleteEvent />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/followings">
+                    <Followings />
+                  </PrivateRoute>
 
-        <Route exact path="/opportunities">
-          <Opportunities />
-        </Route>
-        <Route exact path="/opportunities/profile/:id">
-          <OpportunitiesProfile />
-        </Route>
+                  <Route exact path="/opportunities">
+                    <Opportunities />
+                  </Route>
+                  <Route exact path="/opportunities/profile/:id">
+                    <OpportunitiesProfile />
+                  </Route>
 
-        <Route exact path="/organizations">
-          <Organizations />
-        </Route>
-        <Route exact path="/organizations/profile/:id">
-          <OrganizationsProfile />
-        </Route>
+                  <Route exact path="/organizations">
+                    <Organizations />
+                  </Route>
+                  <Route exact path="/organizations/profile/:id">
+                    <OrganizationsProfile />
+                  </Route>
 
-        <PrivateRoute exact path="/profile">
-          <Profile />
-        </PrivateRoute>
-        <PrivateRoute exact path="/dashboard">
-          <MainDashboard />
-        </PrivateRoute>
+                  <PrivateRoute exact path="/profile">
+                    <Profile />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/dashboard">
+                    <MainDashboard />
+                  </PrivateRoute>
 
-        <PrivateRoute level="superadmin" exact path="/dashboard/manage/approvals">
-          <ApprovalsDashboard />
-        </PrivateRoute>
-        <PrivateRoute level="superadmin" exact path="/dashboard/manage/beneficiaries">
-          <BeneficiariesDashboard />
-        </PrivateRoute>
-        <PrivateRoute level="moderator" exact path="/dashboard/manage/events">
-          <EventsMonitorDashboard />
-        </PrivateRoute>
-        <PrivateRoute level="superadmin" exact path="/dashboard/manage/individuals">
-          <IndividualsDashboard />
-        </PrivateRoute>
-        <PrivateRoute level="superadmin" exact path="/dashboard/manage/corporates">
-          <CorporatesDashboard />
-        </PrivateRoute>
-        <PrivateRoute level="superadmin" exact path="/dashboard/manage/volunteers">
-          <VolunteersDashboard />
-        </PrivateRoute>
-        <PrivateRoute exact path="/dashboard/organization/pledges">
-          <PledgesDashboard />
-        </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/approvals">
+                    <ApprovalsDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/beneficiaries">
+                    <BeneficiariesDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="moderator" exact path="/dashboard/manage/events">
+                    <EventsMonitorDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/individuals">
+                    <IndividualsDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/corporates">
+                    <CorporatesDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/volunteers">
+                    <VolunteersDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/dashboard/organization/pledges">
+                    <PledgesDashboard />
+                  </PrivateRoute>
 
-        <Route component={NotFound} />
-      </Switch> */}
-      <GlobalNotifier />
-    </Router>
-  </Provider>
-);
-
+                  <Route component={NotFound} />
+                </Switch>
+                <GlobalNotifier />
+              </>
+            ) : (
+              <h1 onClick={() => setaccepted(true)}>WARNING!!</h1>
+            )
+        }
+      </Router>
+    </Provider>
+  );
+};
 export default App;
