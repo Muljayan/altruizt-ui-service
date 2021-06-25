@@ -11,7 +11,6 @@ import * as linkGenerators from 'utils/linkGenerators';
 
 const OpportunitiesProfile = () => {
   const { id } = useParams();
-  console.log({ id });
   const [data, setData] = useState({
     name: '',
     image: '',

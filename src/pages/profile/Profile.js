@@ -97,7 +97,6 @@ const Profile = () => {
       });
     }
   };
-  console.log({ categoriesFollowed });
 
   return (
     <Body

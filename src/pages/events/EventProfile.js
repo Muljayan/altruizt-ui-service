@@ -68,7 +68,6 @@ const EventProfile = () => {
   const _openModal = () => {
     setOpenModal(true);
   };
-  console.log({ data });
   return (
     <>
       <Body
@@ -97,7 +96,7 @@ const EventProfile = () => {
         <EventProgress
           resources={data.resourcesProgress}
         />
-        <EventLogs />
+        <EventLogs logs={data?.logs || []} />
       </Body>
       <Modal
         open={openModal}

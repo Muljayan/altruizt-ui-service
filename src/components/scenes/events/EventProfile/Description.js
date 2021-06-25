@@ -4,7 +4,6 @@ import OrganizationCard from 'components/common/OrganizationCard';
 
 const Description = (props) => {
   const { data } = props;
-  console.log({ dataxx: data });
   const beneficiariesList = data.beneficiaries.map((beneficiary) => (
     <OrganizationCard key={beneficiary.id} data={beneficiary} />
   ));

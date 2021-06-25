@@ -27,7 +27,6 @@ const EventSidebar = (props) => {
     upvoted: uv, downvoted: dv,
     // eventFollowed, eventPledged,
   } = data;
-  console.log({ uv, dv });
 
   const [followed, setFollowed] = useState(data.eventFollowed);
   const [upvoted, setUpvoted] = useState(uv);
@@ -97,14 +96,21 @@ const EventSidebar = (props) => {
           <p>{phone}</p>
           <div className="headings">Event Location</div>
           <p>{location}</p>
-          <div className="headings">Bank Account</div>
-          <p>
-            {bankNumber}
-            <br />
-            {bankName}
-            <br />
-            {bankBranch}
-          </p>
+          {
+            bankNumber
+            && (
+              <>
+                <div className="headings">Bank Account</div>
+                <p>
+                  {bankNumber}
+                  <br />
+                  {bankName}
+                  <br />
+                  {bankBranch}
+                </p>
+              </>
+            )
+          }
           <div className="headings">Start Date</div>
           <p>{new Date(startDate).toLocaleDateString()}</p>
           <div className="headings">End Date</div>

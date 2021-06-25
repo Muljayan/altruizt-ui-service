@@ -4,6 +4,7 @@ import CommonContainer from 'components/layouts/Containers/CommonContainer';
 
 const EventLogs = (props) => {
   const { logs } = props;
+  console.log({ logs });
 
   const logsList = logs.map((log) => (
     <div key={log.id} className="event-update">

@@ -42,7 +42,6 @@ const ResourceReceivers = (props) => {
         quantity,
       });
     }
-    console.log({ filteredResources });
     setResources(filteredResources);
     return null;
   };

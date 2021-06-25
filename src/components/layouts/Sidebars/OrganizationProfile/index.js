@@ -18,7 +18,6 @@ const OrganizationProfileSidebar = (props) => {
     name, address, phone, website,
   } = data;
   const [followed, setFollowed] = useState(false);
-  console.log({ website });
 
   const _follow = () => {
     console.log('follow');

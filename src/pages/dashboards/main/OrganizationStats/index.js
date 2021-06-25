@@ -99,7 +99,7 @@ const OrganizationStats = (props) => {
       />
       <ResourceSuggestion
         title={
-          organizationType === 3 ? 'resourcesNeeded' : 'resourcesAvailable'
+          organizationType === 3 ? 'Organizations which have resources you need' : 'Organizations which need your resources'
         }
         data={suggestions}
       />
