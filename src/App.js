@@ -49,6 +49,7 @@ import { CLEAR_CURRENT_USER, SET_CURRENT_USER } from 'actions/types';
 
 import store from 'store';
 import GlobalNotifier from 'components/common/notifiers/GlobalNotifier';
+import Disclaimer from 'components/layouts/Disclaimer';
 
 // Check if token exists
 const token = localStorage.jwtToken;
@@ -68,6 +69,11 @@ if (token) {
 
 const App = () => {
   const [accepted, setaccepted] = useState(false);
+
+  const _close = () => {
+    setaccepted(true);
+  };
+
   return (
     <Provider
       store={store}
@@ -170,7 +176,7 @@ const App = () => {
                 <GlobalNotifier />
               </>
             ) : (
-              <h1 onClick={() => setaccepted(true)}>WARNING!!</h1>
+              <Disclaimer close={_close} />
             )
         }
       </Router>
