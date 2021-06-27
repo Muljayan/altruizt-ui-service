@@ -33,12 +33,11 @@ const MainDashboard = () => {
       <div className="row">
 
         <StatCard
-          label="Your Profile"
+          label={data?.user?.name}
           // value="2000"
           link="/profile"
-          linkLabel="View"
+          linkLabel="View Profile"
         />
-
       </div>
       {data.superAdmin && <SuperAdminStats data={data.superAdmin} />}
       {data.yourActivities && <YourActivityStats data={data.yourActivities} />}

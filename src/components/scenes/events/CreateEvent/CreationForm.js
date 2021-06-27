@@ -71,7 +71,11 @@ const CreationForm = (props) => {
       creationSuccess(res.data.eventId);
     } catch (err) {
       console.log(err);
-      console.log(err.response.data.message);
+      console.log(err?.response?.data?.message);
+      dispatchNotification({
+        title: 'Alert',
+        message: err?.response?.data?.message || 'something went wrong',
+      });
     }
   };
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLEAR_CURRENT_USER } from 'actions/types';
@@ -11,12 +12,14 @@ const getAuthStatus = createSelector(
 );
 
 const MobileMenu = () => {
+  const history = useHistory();
   const [checked, setchecked] = useState(false);
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector(getAuthStatus);
 
   const _logOut = () => {
     dispatch({ type: CLEAR_CURRENT_USER });
+    history.push('/login');
   };
 
   const _toggleChecked = () => {

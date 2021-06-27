@@ -1,6 +1,7 @@
 import React from 'react';
 import { createSelector } from 'reselect';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { CLEAR_CURRENT_USER } from 'actions/types';
 
 import Link from './Link';
@@ -12,10 +13,12 @@ const getAuthStatus = createSelector(
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { isAuthenticated } = useSelector(getAuthStatus);
 
   const _logOut = () => {
     dispatch({ type: CLEAR_CURRENT_USER });
+    history.push('/login');
   };
 
   return (

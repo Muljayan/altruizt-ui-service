@@ -73,6 +73,14 @@ const UserProfileSidebar = () => {
                     name="Events"
                     link="/dashboard/manage/events"
                   />
+                  <Link
+                    name="Resources"
+                    link="/dashboard/manage/resources"
+                  />
+                  <Link
+                    name="Categories"
+                    link="/dashboard/manage/categories"
+                  />
                 </ul>
               </>
             )

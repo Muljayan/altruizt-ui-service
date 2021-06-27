@@ -5,6 +5,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTable, useSortBy } from 'react-table';
 import { useHistory } from 'react-router-dom';
+import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
+
+const getAuthData = createSelector(
+  (state) => state.auth,
+  (auth) => auth,
+);
 
 const ApprovalToggle = (props) => {
   const {
@@ -47,6 +54,9 @@ const Button = (props) => {
 };
 
 const EventsTable = (props) => {
+  const auth = useSelector(getAuthData);
+  const { organization, isSuperAdmin } = auth;
+
   const {
     events,
     toggleApprovalStatus,
@@ -61,6 +71,10 @@ const EventsTable = (props) => {
       {
         Header: 'Title',
         accessor: 'title', // accessor is the "key" in the data
+      },
+      {
+        Header: 'Main Organizer',
+        accessor: 'mainOrganizer', // accessor is the "key" in the data
       },
     ],
     [events],
@@ -81,12 +95,19 @@ const EventsTable = (props) => {
               Status
             </div>
           ),
-          Cell: ({ row }) => (
-            <ApprovalToggle
-              onClick={toggleApprovalStatus}
-              row={row}
-            />
-          ),
+          Cell: ({ row }) => {
+            if (organization?.id === row.original.mainOrganizerId || isSuperAdmin) {
+              return ((
+                <ApprovalToggle
+                  onClick={toggleApprovalStatus}
+                  row={row}
+                />
+              ));
+            }
+            return (
+              <></>
+            );
+          },
         },
         {
           id: 'view',

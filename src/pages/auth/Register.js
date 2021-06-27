@@ -59,6 +59,13 @@ const Register = () => {
         });
         return;
       }
+      if (password && password.length < 8) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Password should be greater than 8 characters!',
+        });
+        return;
+      }
 
       const data = {
         name,

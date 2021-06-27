@@ -35,11 +35,18 @@ const OrganizationPreview = (props) => {
             {categoriesList}
           </div>
           <div className="stats mb-1">
-            <div className="stat">
-              <b>{opportunities}</b>
-              {' '}
-              Opportunities
-            </div>
+            {
+              opportunities
+              && (
+                <>
+                  <div className="stat">
+                    <b>{opportunities}</b>
+                    {' '}
+                    Opportunities
+                  </div>
+                </>
+              )
+            }
           </div>
           <div className="btn-container">
             <Link

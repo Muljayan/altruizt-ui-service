@@ -14,6 +14,8 @@ const SuperAdminStats = (props) => {
     volunteerOrganizations,
     beneficiaries,
     events,
+    resources,
+    categories,
   } = data;
   return (
     <>
@@ -22,12 +24,6 @@ const SuperAdminStats = (props) => {
       />
       {/* Super admin */}
       <div className="row">
-        <StatCard
-          label="Total Individuals"
-          value={individuals}
-          link="/dashboard/manage/individuals"
-          linkLabel="View"
-        />
         <StatCard
           label="Waiting for Approval"
           value={approvals}
@@ -53,9 +49,27 @@ const SuperAdminStats = (props) => {
           linkLabel="View"
         />
         <StatCard
+          label="Total Individuals"
+          value={individuals}
+          link="/dashboard/manage/individuals"
+          linkLabel="View"
+        />
+        <StatCard
           label="Events"
           value={events}
           link="/dashboard/manage/events"
+          linkLabel="View"
+        />
+        <StatCard
+          label="Resources"
+          value={resources}
+          link="/dashboard/manage/resources"
+          linkLabel="View"
+        />
+        <StatCard
+          label="Categories"
+          value={categories}
+          link="/dashboard/manage/categories"
           linkLabel="View"
         />
       </div>

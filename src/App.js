@@ -18,6 +18,8 @@ import EventsMonitorDashboard from 'pages/dashboards/superadmin/EventsDashboard'
 import IndividualsDashboard from 'pages/dashboards/superadmin/IndividualsDashboard';
 import CorporatesDashboard from 'pages/dashboards/superadmin/CorporatesDashboard';
 import VolunteersDashboard from 'pages/dashboards/superadmin/VolunteersDashboard';
+import ResourcesDashboard from 'pages/dashboards/superadmin/ResourcesDashboard';
+import CategoriesDashboard from 'pages/dashboards/superadmin/CategoriesDashboard';
 
 // import EventsDashboard from 'pages/dashboards/organization/EventsDashboard';
 import PledgesDashboard from 'pages/dashboards/organization/PledgesDashboard';
@@ -68,7 +70,7 @@ if (token) {
 }
 
 const App = () => {
-  const [accepted, setaccepted] = useState(false);
+  const [accepted, setaccepted] = useState(true);
 
   const _close = () => {
     setaccepted(true);
@@ -166,6 +168,12 @@ const App = () => {
                   </PrivateRoute>
                   <PrivateRoute level="superadmin" exact path="/dashboard/manage/volunteers">
                     <VolunteersDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/resources">
+                    <ResourcesDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="superadmin" exact path="/dashboard/manage/categories">
+                    <CategoriesDashboard />
                   </PrivateRoute>
                   <PrivateRoute exact path="/dashboard/organization/pledges">
                     <PledgesDashboard />
