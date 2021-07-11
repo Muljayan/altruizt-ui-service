@@ -31,13 +31,14 @@ StatCard.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   link: PropTypes.string,
   linkLabel: PropTypes.string,
 };
 
 StatCard.defaultProps = {
   link: null,
+  label: '',
   linkLabel: null,
 };
 

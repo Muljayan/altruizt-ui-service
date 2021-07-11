@@ -72,6 +72,16 @@ const EventSidebar = (props) => {
           />
         )
       }
+      {
+        isOrganizer
+        && (
+          <CommonContainer
+            title="🤝 View Pledges"
+            color="light-green"
+            link={`/events/profile/${data.id}/pledges`}
+          />
+        )
+      }
 
       {
         isAuthenticated

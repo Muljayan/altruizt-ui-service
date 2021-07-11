@@ -9,11 +9,21 @@ const Modal = (props) => {
     buttonText, buttonFunction,
     textPlaceholder,
     textRequired,
-    text, onTextChange,
+    text,
+    textType,
+    onTextChange,
+    text2,
+    textType2,
+    onTextChange2,
+    textRequired2,
+    textPlaceholder2,
   } = props;
 
   const _onChange = (e) => {
     onTextChange(e.target.value);
+  };
+  const _onChange2 = (e) => {
+    onTextChange2(e.target.value);
   };
 
   const _onSubmit = (e) => {
@@ -46,14 +56,53 @@ const Modal = (props) => {
                   {
                     (text || text === '')
                     && (
-                      <textarea
-                        type="text"
-                        className="mb-1"
-                        value={text}
-                        onChange={_onChange}
-                        required={textRequired}
-                        placeholder={textPlaceholder}
-                      />
+                      textType === 'area'
+                        ? (
+                          <textarea
+                            type="text"
+                            className="mb-1"
+                            value={text}
+                            onChange={_onChange}
+                            required={textRequired}
+                            placeholder={textPlaceholder}
+                          />
+                        )
+                        : (
+                          <input
+                            type={textType}
+                            className="mb-1"
+                            value={text}
+                            onChange={_onChange}
+                            required={textRequired}
+                            placeholder={textPlaceholder}
+                          />
+                        )
+                    )
+                  }
+                  {
+                    (text2 || text2 === '')
+                    && (
+                      textType2 === 'area'
+                        ? (
+                          <textarea
+                            type="text"
+                            className="mb-1"
+                            value={text2}
+                            onChange={_onChange2}
+                            required={textRequired2}
+                            placeholder={textPlaceholder2}
+                          />
+                        )
+                        : (
+                          <input
+                            type={textType2}
+                            className="mb-1"
+                            value={text2}
+                            onChange={_onChange2}
+                            required={textRequired2}
+                            placeholder={textPlaceholder2}
+                          />
+                        )
                     )
                   }
                   <div className="action-buttons">
@@ -74,7 +123,6 @@ const Modal = (props) => {
                       && (
                         <button
                           type="submit"
-                          // onClick={buttonFunctionbutton}
                           className="btn btn-outline-primary mx-1"
                         >
                           {buttonText}
@@ -100,9 +148,15 @@ Modal.propTypes = {
   buttonText: PropTypes.string,
   buttonFunction: PropTypes.func,
   text: PropTypes.string,
+  textType: PropTypes.string,
   onTextChange: PropTypes.func,
   textPlaceholder: PropTypes.string,
   textRequired: PropTypes.bool,
+  textType2: PropTypes.string,
+  text2: PropTypes.string,
+  onTextChange2: PropTypes.func,
+  textRequired2: PropTypes.bool,
+  textPlaceholder2: PropTypes.string,
 };
 
 Modal.defaultProps = {
@@ -111,9 +165,15 @@ Modal.defaultProps = {
   buttonText: null,
   buttonFunction: null,
   text: null,
+  textType: 'area',
   onTextChange: null,
   textRequired: false,
   textPlaceholder: null,
+  text2: null,
+  textType2: 'area',
+  onTextChange2: null,
+  textRequired2: false,
+  textPlaceholder2: null,
 };
 
 export default Modal;

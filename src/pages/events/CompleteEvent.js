@@ -8,10 +8,6 @@ const CompleteEvent = () => {
   const history = useHistory();
   const [completedEventId, setCompletedEventId] = useState(null);
 
-  // const _addNewEvent = () => {
-  //   setUpdatedEventId(null);
-  // };
-
   const _viewEvent = () => {
     history.push(`/events/profile/${completedEventId}`);
     console.log('_viewEvent');

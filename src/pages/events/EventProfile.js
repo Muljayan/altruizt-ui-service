@@ -25,7 +25,8 @@ const EventProfile = () => {
   const [data, setData] = useState(null);
   const [pledged, setPledged] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [contact, setContact] = useState(userEmail);
+  const [email, setEmail] = useState(userEmail);
+  const [phone, setPhone] = useState('');
   const [openModal, setOpenModal] = useState(false);
 
   const _closeModal = () => {
@@ -57,7 +58,8 @@ const EventProfile = () => {
 
   const _togglePledge = async () => {
     try {
-      await API.put(`/events/profile/${data.id}/pledge`);
+      const pledgeBody = { email, phone };
+      await API.put(`/events/profile/${data.id}/pledge`, pledgeBody);
       setPledged(!pledged);
       _closeModal();
     } catch (err) {
@@ -105,10 +107,15 @@ const EventProfile = () => {
         closeModal={_closeModal}
         buttonText={pledged ? 'Unpledge' : 'Pledge'}
         buttonFunction={_togglePledge}
-        textPlaceholder="Your email"
+        textPlaceholder="Your email*"
         textRequired
-        text={!pledged ? contact : null}
-        onTextChange={!pledged ? setContact : null}
+        textType="email"
+        textType2="text"
+        text={!pledged ? email : null}
+        onTextChange={!pledged ? setEmail : null}
+        textPlaceholder2="Your contact number"
+        text2={!pledged ? phone : null}
+        onTextChange2={!pledged ? setPhone : null}
       />
     </>
   );

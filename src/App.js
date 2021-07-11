@@ -31,6 +31,7 @@ import Events from 'pages/events/Events';
 import CreateEvent from 'pages/events/CreateEvent';
 import EventProfile from 'pages/events/EventProfile';
 import UpdateEvent from 'pages/events/UpdateEvent';
+import EventPledges from 'pages/events/EventPledges';
 import CompleteEvent from 'pages/events/CompleteEvent';
 
 import Followings from 'pages/Followings/Followings';
@@ -122,6 +123,9 @@ const App = () => {
                   </Route>
                   <PrivateRoute exact path="/events/profile/:id/update">
                     <UpdateEvent />
+                  </PrivateRoute>
+                  <PrivateRoute exact path="/events/profile/:id/pledges">
+                    <EventPledges />
                   </PrivateRoute>
                   <PrivateRoute exact path="/events/profile/:id/complete">
                     <CompleteEvent />
