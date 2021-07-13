@@ -167,6 +167,7 @@ const Register = () => {
                   id="password"
                   value={password}
                   onChange={setPassword}
+                  type="password"
                   colSize={6}
                   required
                 />

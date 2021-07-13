@@ -59,16 +59,25 @@ const EventSidebar = (props) => {
       console.log(err);
     }
   };
-
   return (
     <div className="col-lg-3 sidebar p-1">
       {
-        isOrganizer
+        isOrganizer && (!data.isComplete)
         && (
           <CommonContainer
             title="✏️ Update"
             color="primary"
             link={`/events/profile/${data.id}/update`}
+          />
+        )
+      }
+      {
+        data.isComplete
+        && (
+          <CommonContainer
+            title="⭐ Event Completed!"
+            color="dark"
+            link="#"
           />
         )
       }

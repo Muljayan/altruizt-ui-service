@@ -30,7 +30,7 @@ StatCard.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
   label: PropTypes.string,
   link: PropTypes.string,
   linkLabel: PropTypes.string,
@@ -38,6 +38,7 @@ StatCard.propTypes = {
 
 StatCard.defaultProps = {
   link: null,
+  value: '',
   label: '',
   linkLabel: null,
 };

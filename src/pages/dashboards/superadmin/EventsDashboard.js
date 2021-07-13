@@ -1,8 +1,8 @@
 import React from 'react';
 import EventsDashboard from 'components/scenes/dashboards/superadmin/EventsDashboard';
 
-const CorporatesDashboard = () => (
+const EventDashboard = () => (
   <EventsDashboard />
 );
 
-export default CorporatesDashboard;
+export default EventDashboard;

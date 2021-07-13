@@ -37,15 +37,15 @@ const UpdateEvent = () => {
   }
 
   // TODO Download as Excel
-  const _download = () => {
+  // const _download = () => {
 
-  };
+  // };
 
   return (
     <Body
-      btnLink={_download}
-      btnText={(data && data.length > 0) ? 'Download' : ''}
-      btnColor="primary"
+      // btnLink={_download}
+      // btnText={(data && data.length > 0) ? 'Download' : ''}
+      // btnColor="primary"
       title={(data && data.length > 0) ? 'Event Pledges' : ''}
     >
       {

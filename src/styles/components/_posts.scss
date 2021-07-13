@@ -32,6 +32,19 @@
 
     }
   }
+  .completion-indicator{
+    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    .text{
+      font-weight: bold;
+      margin: 0;
+      margin-left: 0.5rem;
+    }
+    img{
+      width: 2rem;
+    }
+  }
 }
 
 .event-suggestions {

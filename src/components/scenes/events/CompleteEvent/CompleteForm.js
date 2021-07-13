@@ -1,86 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
-import TextField from 'components/common/input/TextField';
 import TextArea from 'components/common/input/TextArea';
-import ResourceUpdater from 'components/common/adders/ResourceUpdater';
-import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
-import ImagePicker from 'components/common/input/ImagePicker';
 import API from 'utils/API';
-import { dateInputFormat, selectorDataFormat } from 'utils/formatters';
-import ResourceReceivers from 'components/common/adders/ResourceReceivers';
+import Loader from 'components/common/Loader';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
-import * as linkGenerators from 'utils/linkGenerators';
+import InPageNotifier from 'components/common/notifiers/InPageNotifier';
+import Select from 'components/common/input/selectors/Select';
+import Chart from 'components/common/cards/Chart';
+import CompletedResourcesTable from './CompletedResourcesTable';
 
 const CompleteForm = (props) => {
   const dispatchNotification = useNotificationDispatcher();
+  const history = useHistory();
+  const _goBack = () => {
+    history.goBack();
+  };
+  const _goHome = () => {
+    history.push('/');
+  };
 
   const { id } = useParams();
 
   const { completeSuccess } = props;
-  const [initialImage, setInitialImage] = useState('');
-  const [image, setImage] = useState({
-    type: null,
-    value: null,
-  });
   const [loaded, setLoaded] = useState(false);
-  const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [contactName, setContactName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [description, setDescription] = useState('');
-  const [categories, setCategories] = useState([]);
-  const [bankName, setBankName] = useState('');
-  const [bankBranch, setBankBranch] = useState('');
-  const [bankNumber, setBankNumber] = useState('');
-  const [resources, setResources] = useState([]);
-  const [resourcesReceived, setResourcesReceived] = useState([]);
-  const [collaborators, setCollaborators] = useState([]);
-  const [beneficiaries, setBeneficiaries] = useState([]);
-  const [updateDescription, setUpdateDescription] = useState('');
+  const [data, setData] = useState({
+    resources: [],
+    remainingResources: [],
+    organizers: [],
+    progress: 0,
+  });
+  const [organizers, setOrganizers] = useState(null);
+  const [closingNote, setclosingNote] = useState('');
+  const [warningChecked, setwarningChecked] = useState(false);
+
+  const toggleCheck = () => {
+    setwarningChecked(!warningChecked);
+  };
 
   const _onSubmit = async (e) => {
     try {
       e.preventDefault();
+      console.log({ organizers });
 
-      if (resources.length < 1) {
+      if (!warningChecked) {
         dispatchNotification({
           title: 'Alert',
-          message: 'You have not added any resources!',
-        });
-        return;
-      }
-      if (beneficiaries.length < 1) {
-        dispatchNotification({
-          title: 'Alert',
-          message: 'You have not added any beneficiaries!',
+          message: 'Please acknowledge the warning message!',
         });
         return;
       }
 
-      const data = {
-        title,
-        image,
-        startDate,
-        endDate,
-        contactName,
-        phone,
-        location,
-        categories,
-        description,
-        bankName,
-        bankBranch,
-        bankNumber,
-        resources,
-        resourcesReceived,
-        collaborators,
-        beneficiaries,
-        updateDescription,
+      if (data.remainingResources.length > 0 && !organizers) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Add an organizer to transfer resources!',
+        });
+        return;
+      }
+
+      const dataObj = {
+        transferToOrganization: organizers.value,
+        closingNote,
+        progress: data.progress,
+        remainingResources: data.remainingResources,
       };
-      await API.put(`/events/profile/${id}/update`, data);
+      await API.post(`/events/profile/${id}/complete`, dataObj);
       completeSuccess(id);
     } catch (err) {
       dispatchNotification({
@@ -94,27 +80,12 @@ const CompleteForm = (props) => {
 
   const _fetchData = async () => {
     try {
-      const res = await API.get(`/events/profile/${id}`);
-      setTitle(res.data.title);
-      setInitialImage(res.data.image);
-      setStartDate(dateInputFormat(res.data.startDate));
-      setEndDate(dateInputFormat(res.data.endDate));
-      setLocation(res.data.location);
-      setContactName(res.data.contactName);
-      setPhone(res.data.phone);
-      setDescription(res.data.description);
-      setCategories(selectorDataFormat(res.data.categories));
-      setBankName(res.data.bankName);
-      setBankBranch(res.data.bankBranch);
-      setBankNumber(res.data.bankNumber);
-      setResources(res.data.resourcesNeeded);
-      setResourcesReceived(res.data.resourcesReceived);
-      setCollaborators(selectorDataFormat(res.data.organizers));
-      setBeneficiaries(selectorDataFormat(res.data.beneficiaries));
+      const res = await API.get(`/events/profile/${id}/closure`);
+      setData(res.data);
       setLoaded(true);
     } catch (err) {
-      // setLoading(false);
       console.log(err);
+      setLoaded(true);
     }
   };
 
@@ -122,169 +93,71 @@ const CompleteForm = (props) => {
     _fetchData();
   }, []);
 
+  if (!loaded) {
+    return <Loader />;
+  }
+
+  if (data.resources && data.resources.length < 1) {
+    return (
+      <InPageNotifier
+        icon="error-404"
+        header="Page Not Found!"
+        title1="The page you're looking for is not found"
+        buttonLabel1="Go Back"
+        buttonFunction1={_goBack}
+        buttonLabel2="Go Home"
+        buttonFunction2={_goHome}
+      />
+    );
+  }
+
   return (
     <form onSubmit={_onSubmit}>
       <CommonContainer
-        title="General Details"
+        title="Event Progress"
       />
-      <div className="row">
-        <ImagePicker
-          id="profile-picture"
-          colSize={4}
-          initialImage={linkGenerators.eventImage(initialImage)}
-          image={image}
-          onChange={setImage}
-        />
-      </div>
-      <div className="row mb-2">
-        <TextField
-          id="title"
-          label="Event Title"
-          value={title}
-          onChange={setTitle}
-          required
-        />
-        <TextField
-          id="startDate"
-          label="Start Date"
-          colSize={6}
-          type="date"
-          value={startDate}
-          onChange={setStartDate}
-          required
-        />
-        <TextField
-          id="endDate"
-          label="End Date"
-          colSize={6}
-          type="date"
-          value={endDate}
-          onChange={setEndDate}
-          required
-        />
-        <TextField
-          id="location"
-          label="Event Location"
-          colSize={6}
-          value={location}
-          onChange={setLocation}
-        />
-        <TextField
-          id="contactName"
-          label="Contact Person Name"
-          colSize={6}
-          value={contactName}
-          onChange={setContactName}
-        />
-        <TextField
-          id="phone"
-          label="Contact Number"
-          colSize={6}
-          value={phone}
-          onChange={setPhone}
-        />
-        <DataFetchSelect
-          type="categories"
-          label="Which category does your event fall under?"
-          colSize={12}
-          value={categories}
-          onChange={setCategories}
-          isMulti
-        />
-        <TextArea
-          id="description"
-          label="Event Description"
-          value={description}
-          onChange={setDescription}
-        />
-      </div>
-
+      <Chart
+        key="ep"
+        label="Event Progress"
+        value={data.progress}
+      />
       <CommonContainer
-        title="Bank Details"
+        title="Resource Transfer"
       />
-      <div className="row mb-2">
-        <TextField
-          id="bankName"
-          label="Bank Name"
-          value={bankName}
-          onChange={setBankName}
-        />
-        <TextField
-          id="bankBranch"
-          label="Bank Branch"
-          colSize={6}
-          value={bankBranch}
-          onChange={setBankBranch}
-        />
-        <TextField
-          id="bankNumber"
-          label="Bank Number"
-          colSize={6}
-          value={bankNumber}
-          onChange={setBankNumber}
-        />
-      </div>
-
-      <ResourceUpdater
-        label="Resources Needed"
-        resources={resources}
-        resourcesReceived={resourcesReceived}
-        setResources={setResources}
-      />
-      <ResourceReceivers
-        label="Resources Received"
-        resourcesNeeded={resources}
-        resources={resourcesReceived}
-        setResources={setResourcesReceived}
-      />
-
+      <CompletedResourcesTable resources={data.resources} />
       {
-        loaded
+        data.remainingResources.length > 0
         && (
-          <>
-            <CommonContainer
-              title="Collaborators"
+          <div className="row mb-2">
+            <Select
+              id={id}
+              label="Who will manage the remaining resources from hereon"
+              options={data.organizers}
+              value={organizers}
+              onChange={setOrganizers}
             />
-            <div className="row mb-2">
-              <DataFetchSelect
-                type="organizers"
-                label="Who are your collaborators?"
-                value={collaborators}
-                onChange={setCollaborators}
-                isMulti
-              />
-            </div>
-
-            <CommonContainer
-              title="Beneficiaries"
-            />
-            <div className="row mb-2">
-              <DataFetchSelect
-                type="beneficiaries"
-                label="Who are your beneficiaries?"
-                value={beneficiaries}
-                onChange={setBeneficiaries}
-                isMulti
-              />
-            </div>
-          </>
+          </div>
         )
       }
-
       <CommonContainer
-        title="Update Description"
+        title="Closing Notes"
       />
       <TextArea
         id="description"
-        placeholder="What did you update?"
-        label="What did you update?"
-        value={updateDescription}
-        onChange={setUpdateDescription}
+        placeholder="Do you have any closing notes?"
+        label=""
+        value={closingNote}
+        onChange={setclosingNote}
         required
       />
       <div className="row">
         <div className="col-12">
           <div className="field mx-1">
+            <div className="confirmation-check mb-2">
+              <input type="checkbox" onChange={toggleCheck} checked={warningChecked} />
+              <p>Warning! You will not be able to update your event after this</p>
+            </div>
+
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </div>

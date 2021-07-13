@@ -24,7 +24,7 @@ const ResourceSuggestion = (props) => {
 
 ResourceSuggestion.propTypes = {
   title: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 export default ResourceSuggestion;

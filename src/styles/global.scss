@@ -188,5 +188,17 @@ table {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
 
+.confirmation-check{
+  display: flex!important;
+  flex-direction: row!important;
+  align-items: center;
+  display: block;
+  input{
+    width: auto;
+  }
+  p{
+    margin: 0;
+  }
 }

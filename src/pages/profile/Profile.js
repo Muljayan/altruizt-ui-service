@@ -166,6 +166,7 @@ const Profile = () => {
             id="password"
             value={password}
             onChange={setPassword}
+            type="password"
             colSize={6}
           />
           <TextField

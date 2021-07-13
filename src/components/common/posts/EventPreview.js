@@ -22,6 +22,18 @@ const EventPreview = (props) => {
         </div>
         <div className="col-lg-12 pl-1 content">
           <h3>{data.title}</h3>
+          {
+            (data && data.isComplete)
+              ? (
+                <div className="completion-indicator">
+                  <img src="/icons/star.svg" alt="star" />
+                  <span className="text">EVENT COMPLETED</span>
+                </div>
+              )
+              : (
+                <></>
+              )
+          }
           <div className="categories">
             {categoriesList}
           </div>

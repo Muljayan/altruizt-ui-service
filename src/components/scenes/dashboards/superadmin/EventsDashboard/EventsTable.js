@@ -14,6 +14,8 @@ const getAuthData = createSelector(
 );
 
 const ApprovalToggle = (props) => {
+  const auth = useSelector(getAuthData);
+  const { isSuperAdmin } = auth;
   const {
     onClick, row,
   } = props;
@@ -21,15 +23,18 @@ const ApprovalToggle = (props) => {
   if (!row.original.isActive) {
     finalLabel = 'Deactivated';
   }
+  const locked = (row.original.superadminDeactivation && !isSuperAdmin);
+
   return (
     <button
       type="button"
+      disabled={locked}
       onClick={() => {
         onClick(row);
       }}
-      className={`btn btn-${row.original.isActive ? 'primary' : 'red'}`}
+      className={`btn btn-${(!row.original.isActive || locked) ? 'red' : 'primary'}`}
     >
-      {finalLabel}
+      {locked ? 'Disabled' : finalLabel}
     </button>
   );
 };
@@ -106,6 +111,27 @@ const EventsTable = (props) => {
             }
             return (
               <></>
+            );
+          },
+        },
+        {
+          id: 'pledges',
+          groupByBoundary: true,
+          Header: () => (
+            <div>
+              Pledges
+            </div>
+          ),
+          Cell: ({ row }) => {
+            if (organization?.id === row.original.mainOrganizerId || isSuperAdmin) {
+              return (
+                <>
+                  {row.original.pledges}
+                </>
+              );
+            }
+            return (
+              <>-</>
             );
           },
         },

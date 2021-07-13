@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import NotFound from 'pages/errors/NotFound';
 import Body from 'components/layouts/Body';
 import EventSidebar from 'components/layouts/Sidebars/EventProfile';
@@ -13,6 +13,7 @@ import Modal from 'components/common/modal';
 import Loader from 'components/common/Loader';
 import * as linkGenerators from 'utils/linkGenerators';
 import API from 'utils/API';
+import InPageNotifier from 'components/common/notifiers/InPageNotifier';
 
 const getUserEmail = createSelector(
   (state) => state.auth,
@@ -28,6 +29,13 @@ const EventProfile = () => {
   const [email, setEmail] = useState(userEmail);
   const [phone, setPhone] = useState('');
   const [openModal, setOpenModal] = useState(false);
+  const history = useHistory();
+  const _goBack = () => {
+    history.goBack();
+  };
+  const _goHome = () => {
+    history.push('/');
+  };
 
   const _closeModal = () => {
     setOpenModal(false);
@@ -70,10 +78,28 @@ const EventProfile = () => {
   const _openModal = () => {
     setOpenModal(true);
   };
+  console.log(data);
+
+  if (data && !data.isActive) {
+    return (
+      <InPageNotifier
+        icon="alert"
+        header="Warning!"
+        title1="This event is deactivated"
+        buttonLabel1="Go Home"
+        buttonFunction1={_goHome}
+        buttonLabel2="Go Back"
+        buttonFunction2={_goBack}
+      />
+    );
+  }
+
   return (
     <>
       <Body
-        sidebar={<EventSidebar data={data} pledged={pledged} togglePledge={_openModal} />}
+        sidebar={
+          <EventSidebar data={data} pledged={pledged} togglePledge={_openModal} />
+        }
         title={data.title}
       >
         {
