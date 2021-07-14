@@ -11,6 +11,7 @@ const getAuthStatus = createSelector(
 
 const UserProfileSidebar = () => {
   const auth = useSelector(getAuthStatus);
+  console.log(auth.organization);
   return (
     <div className="col-lg-3 sidebar p-1">
       <CommonContainer
@@ -39,6 +40,17 @@ const UserProfileSidebar = () => {
                     link="/dashboard/manage/events"
                   />
                 </ul>
+                {
+                  auth.organization.organizationTypeId === 3
+                  && (
+                    <ul>
+                      <Link
+                        name="Events Benefitted"
+                        link="/dashboard/manage/events-benefitted"
+                      />
+                    </ul>
+                  )
+                }
               </>
             )
           }

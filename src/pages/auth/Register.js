@@ -67,6 +67,14 @@ const Register = () => {
         return;
       }
 
+      if (phone && phone.length < 8) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Phone Number should be greater than 8 characters!',
+        });
+        return;
+      }
+
       const data = {
         name,
         email,

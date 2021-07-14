@@ -26,7 +26,7 @@ const ResourcesDashboard = () => {
       title="Resources"
       sidebar={<Sidebar />}
     >
-      <ResourcesForm />
+      <ResourcesForm setData={setData} />
       <ResourcesTable
         resources={data}
       />

@@ -15,6 +15,7 @@ const OrganizationStats = (props) => {
     successfulEvents,
     totalRatings,
     totalRatingValue,
+    eventsBenefitted,
     highestRatedEvent,
     resourcesNeeded,
     resourcesAvailable,
@@ -59,13 +60,25 @@ const OrganizationStats = (props) => {
           value={totalPledges}
         />
         <StatCard
-          label="Total ratings received"
+          label="Total ratings count"
           value={totalRatings}
         />
         <StatCard
-          label="Total ratings received"
+          label="Total ratings value"
           value={totalRatingValue}
         />
+        {
+          organizationType === 3
+          && (
+            <StatCard
+              label="Events Benefitted"
+              value={eventsBenefitted}
+              link="/dashboard/manage/events-benefitted"
+              linkLabel="View"
+            />
+          )
+        }
+
         <Chart
           // key={resource.id}
           label="Total ratings score"

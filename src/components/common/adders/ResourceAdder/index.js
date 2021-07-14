@@ -5,6 +5,7 @@ import TextField from 'components/common/input/TextField';
 import Autofiller from 'components/common/autofiller';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
+import { categoriesTypeOptions } from 'utils/categoryOptions';
 import ResourceTable from './ResourceTable';
 
 const ResourceAdder = (props) => {
@@ -18,16 +19,6 @@ const ResourceAdder = (props) => {
   const [quantity, setQuantity] = useState('');
   const [unit, setUnits] = useState(null);
   const [disableUnitPicker, setDisableUnitPicker] = useState(false);
-  const categoriesTypeOptions = [
-    { value: 'kg', label: 'Kilograms' },
-    { value: 'g', label: 'grams' },
-    { value: 'l', label: 'Liters' },
-    { value: 'oz', label: 'Ounce' },
-    { value: 'm', label: 'Meter' },
-    { value: 'pieces', label: 'Pieces' },
-    { value: 'people', label: 'People' },
-    { value: 'units', label: 'Units' },
-  ];
 
   const _selectedFromSuggestions = (value, payload) => {
     if (payload) {
@@ -79,9 +70,6 @@ const ResourceAdder = (props) => {
   };
 
   const _removeResource = (selectedItem) => {
-    // TODO this function is bugged due to defect in table module
-    // When deleting everything other than 1st item gets deleted
-    console.log('remove');
     const filteredResources = [...resources]
       .filter((resource) => resource.name !== selectedItem.name);
     setResources(filteredResources);
@@ -112,7 +100,7 @@ const ResourceAdder = (props) => {
         <Select
           label="Unit (kg, l, m)"
           colSize={6}
-          options={categoriesTypeOptions}
+          options={[...categoriesTypeOptions]}
           value={unit}
           onChange={setUnits}
           disable={disableUnitPicker}

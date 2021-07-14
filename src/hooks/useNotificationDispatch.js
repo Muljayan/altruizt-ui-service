@@ -8,7 +8,6 @@ const useNotificationDispatcher = () => {
   const dispatch = useDispatch();
 
   return (payload) => {
-    console.log('fired');
     dispatch({
       type: SET_NOTIFICATION,
       payload,

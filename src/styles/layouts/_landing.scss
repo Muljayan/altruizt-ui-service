@@ -1,0 +1,15 @@
+.landing{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, black, rgba(69, 177, 92, 0.3)), url('./landing.jpg');
+  background-size: cover;
+  background-position: center;
+  h1,h4,p{
+    color: white;
+  }
+
+}

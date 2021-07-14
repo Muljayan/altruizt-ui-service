@@ -102,7 +102,7 @@ const EventSidebar = (props) => {
             </div>
             <div className="button-container my-1">
               <button onClick={_upvote} type="button" className={`btn btn-outline-${upvoted ? 'primary' : 'red'} mx-1 bold`}>Upvote 👍</button>
-              <button onClick={_downvote} type="button" className={`btn btn-outline-${downvoted ? 'primary' : 'red'} mx-1 bold`}>Downvote 👎</button>
+              <button onClick={_downvote} type="button" className={`btn btn-outline-${downvoted ? 'primary' : 'red'} mx-1 bold`}>{downvoted ? 'Flagged 🚩' : 'Flag 🚩'}</button>
             </div>
           </>
         )

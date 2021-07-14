@@ -5,39 +5,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTable, useSortBy } from 'react-table';
 import { useHistory } from 'react-router-dom';
-import { createSelector } from 'reselect';
-import { useSelector } from 'react-redux';
-
-const getAuthData = createSelector(
-  (state) => state.auth,
-  (auth) => auth,
-);
-
-const ApprovalToggle = (props) => {
-  const auth = useSelector(getAuthData);
-  const { isSuperAdmin } = auth;
-  const {
-    onClick, row,
-  } = props;
-  let finalLabel = 'Active';
-  if (!row.original.isActive) {
-    finalLabel = 'Deactivated';
-  }
-  const locked = (row.original.superadminDeactivation && !isSuperAdmin);
-
-  return (
-    <button
-      type="button"
-      disabled={locked}
-      onClick={() => {
-        onClick(row);
-      }}
-      className={`btn btn-${(!row.original.isActive || locked) ? 'red' : 'primary'}`}
-    >
-      {locked ? 'Disabled' : finalLabel}
-    </button>
-  );
-};
 
 const Button = (props) => {
   const history = useHistory();
@@ -59,12 +26,8 @@ const Button = (props) => {
 };
 
 const EventsTable = (props) => {
-  const auth = useSelector(getAuthData);
-  const { organization, isSuperAdmin } = auth;
-
   const {
     events,
-    toggleApprovalStatus,
   } = props;
 
   const columns = React.useMemo(
@@ -92,49 +55,6 @@ const EventsTable = (props) => {
       // eslint-disable-next-line no-shadow
       hooks.visibleColumns.push((columns) => [
         ...columns,
-        {
-          id: 'activity',
-          groupByBoundary: true,
-          Header: () => (
-            <div>
-              Status
-            </div>
-          ),
-          Cell: ({ row }) => {
-            if (organization?.id === row.original.mainOrganizerId || isSuperAdmin) {
-              return ((
-                <ApprovalToggle
-                  onClick={toggleApprovalStatus}
-                  row={row}
-                />
-              ));
-            }
-            return (
-              <></>
-            );
-          },
-        },
-        {
-          id: 'pledges',
-          groupByBoundary: true,
-          Header: () => (
-            <div>
-              Pledges
-            </div>
-          ),
-          Cell: ({ row }) => {
-            if (organization?.id === row.original.mainOrganizerId || isSuperAdmin) {
-              return (
-                <>
-                  {row.original.pledges}
-                </>
-              );
-            }
-            return (
-              <>-</>
-            );
-          },
-        },
         {
           id: 'view',
           groupByBoundary: true,

@@ -16,6 +16,8 @@ import ApprovalsDashboard from 'pages/dashboards/superadmin/ApprovalsDashboard';
 import BeneficiariesDashboard from 'pages/dashboards/superadmin/BeneficiariesDashboard';
 import EventsMonitorDashboard from 'pages/dashboards/superadmin/EventsDashboard';
 import IndividualsDashboard from 'pages/dashboards/superadmin/IndividualsDashboard';
+import EventsBenefittedDashboard from 'pages/dashboards/superadmin/EventsBenefittedDashboard';
+
 import CorporatesDashboard from 'pages/dashboards/superadmin/CorporatesDashboard';
 import VolunteersDashboard from 'pages/dashboards/superadmin/VolunteersDashboard';
 import ResourcesDashboard from 'pages/dashboards/superadmin/ResourcesDashboard';
@@ -163,6 +165,9 @@ const App = () => {
                   </PrivateRoute>
                   <PrivateRoute level="moderator" exact path="/dashboard/manage/events">
                     <EventsMonitorDashboard />
+                  </PrivateRoute>
+                  <PrivateRoute level="moderator" exact path="/dashboard/manage/events-benefitted">
+                    <EventsBenefittedDashboard />
                   </PrivateRoute>
                   <PrivateRoute level="superadmin" exact path="/dashboard/manage/individuals">
                     <IndividualsDashboard />

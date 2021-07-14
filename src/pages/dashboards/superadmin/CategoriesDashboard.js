@@ -3,6 +3,7 @@ import Sidebar from 'components/layouts/Sidebars/UserProfile';
 import Body from 'components/layouts/Body';
 import CategoriesTable from 'components/scenes/dashboards/superadmin/CategoriesTable';
 import API from 'utils/API';
+import CategoriesForm from 'components/scenes/dashboards/superadmin/CategoriesForm';
 
 const CategoriesDashboard = () => {
   const [data, setData] = useState([]);
@@ -25,6 +26,9 @@ const CategoriesDashboard = () => {
       title="Categories"
       sidebar={<Sidebar />}
     >
+      <CategoriesForm
+        setData={setData}
+      />
       <CategoriesTable
         categories={data}
       />

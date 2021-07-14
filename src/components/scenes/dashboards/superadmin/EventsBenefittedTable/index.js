@@ -5,7 +5,7 @@ import API from 'utils/API';
 import Modal from 'components/common/modal';
 import EventsTable from './EventsTable';
 
-const EventsDashboard = () => {
+const EventsBenefittedTable = () => {
   const [selectedItemActiveState, setSelectedItemActiveState] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [reason, setReason] = useState('');
@@ -14,7 +14,7 @@ const EventsDashboard = () => {
   const toggleApprovalStatus = async () => {
     try {
       await API.put(`events/profile/${selectedItem}/toggle-activation-status`, { reason });
-      const res = await API.get('/dashboards/events');
+      const res = await API.get('/dashboards/events-benefitted');
       setData(res.data);
       setSelectedItem(null);
     } catch (err) {
@@ -38,7 +38,7 @@ const EventsDashboard = () => {
 
   const _fetchData = async () => {
     try {
-      const res = await API.get('/dashboards/events');
+      const res = await API.get('/dashboards/events-benefitted');
       setData(res.data);
     } catch (err) {
       console.log(err);
@@ -75,4 +75,4 @@ const EventsDashboard = () => {
   );
 };
 
-export default EventsDashboard;
+export default EventsBenefittedTable;
