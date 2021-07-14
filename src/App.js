@@ -73,7 +73,7 @@ if (token) {
 }
 
 const App = () => {
-  const [accepted, setaccepted] = useState(true);
+  const [accepted, setaccepted] = useState(false);
 
   const _close = () => {
     setaccepted(true);
