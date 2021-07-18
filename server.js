@@ -26,6 +26,12 @@ app.use(helmet.contentSecurityPolicy({
     'https://api.altruizt.xyz',
     'https://altruizt.xyz',
   ],
+  contentSrc: [
+    '\'self\'',
+    '\'unsafe-inline\'',
+    'https://api.altruizt.xyz',
+    'https://altruizt.xyz',
+  ],
 }));
 
 const root = path.join(__dirname, 'build/');
