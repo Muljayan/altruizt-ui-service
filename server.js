@@ -1,10 +1,12 @@
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
+const helmet = require('helmet');
 
 const app = express();
 // Compression
 app.use(compression());
+app.use(helmet());
 
 const root = path.join(__dirname, 'build/');
 app.use(express.static(root));
