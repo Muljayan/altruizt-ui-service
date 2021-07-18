@@ -11,7 +11,6 @@ const getAuthStatus = createSelector(
 
 const UserProfileSidebar = () => {
   const auth = useSelector(getAuthStatus);
-  console.log(auth.organization);
   return (
     <div className="col-lg-3 sidebar p-1">
       <CommonContainer

@@ -78,12 +78,20 @@ const OpportunitiesProfile = () => {
 
       <h2 className="mb-2 mt-1">Current Events</h2>
       <div className="row">
-        {currentEventsList}
+        {
+          (currentEventsList && currentEventsList.length) > 0
+            ? currentEventsList
+            : <>This no events available</>
+        }
       </div>
 
       <h2 className="mb-2 mt-4">Past Events</h2>
       <div className="row">
-        {pastEventsList}
+        {
+          (pastEventsList && pastEventsList.length) > 0
+            ? pastEventsList
+            : <>This no events available</>
+        }
       </div>
     </Body>
   );

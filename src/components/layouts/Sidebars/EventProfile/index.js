@@ -62,7 +62,7 @@ const EventSidebar = (props) => {
   return (
     <div className="col-lg-3 sidebar p-1">
       {
-        isOrganizer && (!data.isComplete)
+        (isOrganizer && (!data.isComplete))
         && (
           <CommonContainer
             title="✏️ Update"
