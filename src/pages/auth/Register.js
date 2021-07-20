@@ -10,12 +10,13 @@ import API from 'utils/API';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
+import Loader from 'components/common/Loader';
 
 const Register = () => {
   const dispatchNotification = useNotificationDispatcher();
 
   const history = useHistory();
-
+  const [loading, setLoading] = useState(false);
   const [registered, setRegistered] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -44,12 +45,15 @@ const Register = () => {
   const _onSubmit = async (e) => {
     console.log('onsubmit');
     e.preventDefault();
+    setLoading(true);
+
     try {
       if (!userType) {
         dispatchNotification({
           title: 'Alert',
           message: 'User type not selected!',
         });
+        setLoading(false);
         return;
       }
       if (isAnOrganization && !organizationType) {
@@ -57,6 +61,7 @@ const Register = () => {
           title: 'Alert',
           message: 'Select type of organization!',
         });
+        setLoading(false);
         return;
       }
       if (password && password.length < 8) {
@@ -64,6 +69,7 @@ const Register = () => {
           title: 'Alert',
           message: 'Password should be greater than 8 characters!',
         });
+        setLoading(false);
         return;
       }
 
@@ -72,6 +78,7 @@ const Register = () => {
           title: 'Alert',
           message: 'Phone Number should be greater than 8 characters!',
         });
+        setLoading(false);
         return;
       }
 
@@ -92,7 +99,13 @@ const Register = () => {
       };
       await API.post('/auth/register', data);
       setRegistered(true);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Something went wrong!',
+      });
       console.log(err);
     }
   };
@@ -245,7 +258,15 @@ const Register = () => {
               <div className="row">
                 <div className="col-12">
                   <div className="field mx-1">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    {
+                      loading
+                        ? (
+                          <Loader />
+                        )
+                        : (
+                          <button type="submit" className="btn btn-primary">Submit</button>
+                        )
+                    }
                   </div>
                 </div>
               </div>

@@ -14,6 +14,7 @@ import Loader from 'components/common/Loader';
 import * as linkGenerators from 'utils/linkGenerators';
 import API from 'utils/API';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
+import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
 const getUserEmail = createSelector(
   (state) => state.auth,
@@ -21,6 +22,7 @@ const getUserEmail = createSelector(
 );
 
 const EventProfile = () => {
+  const dispatchNotification = useNotificationDispatcher();
   const userEmail = useSelector(getUserEmail);
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -65,6 +67,13 @@ const EventProfile = () => {
   }
 
   const _togglePledge = async () => {
+    if (phone && phone.length < 8) {
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Phone number is too short!',
+      });
+      return;
+    }
     try {
       const pledgeBody = { email, phone };
       await API.put(`/events/profile/${data.id}/pledge`, pledgeBody);

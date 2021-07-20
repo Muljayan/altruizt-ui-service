@@ -8,17 +8,21 @@ import OrganizationsTable from './OrganizationsTable';
 
 const OrganizationsDashboard = (props) => {
   const { title, type } = props;
+  const [loading, setloading] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [reason, setReason] = useState('');
   const [data, setData] = useState([]);
 
   const toggleApprovalStatus = async () => {
+    setloading(true);
     try {
       await API.put(`organizations/profile/${selectedItem}/toggle-activation-status`);
       const res = await API.get(`/dashboards/organizations/${type}`);
       setData(res.data);
       setSelectedItem(null);
+      setloading(false);
     } catch (err) {
+      setloading(false);
       console.log(err);
     }
   };
@@ -62,13 +66,15 @@ const OrganizationsDashboard = (props) => {
         />
       </Body>
       <Modal
-        open={selectedItem}
+        open={!!selectedItem}
         title="Warning!"
         description="Are you sure you want revoke approval"
         closeModal={_closeModal}
+        loading={loading}
         buttonText="Revoke"
         buttonFunction={toggleApprovalStatus}
         text={reason}
+        textRequired
         onTextChange={setReason}
       />
     </>

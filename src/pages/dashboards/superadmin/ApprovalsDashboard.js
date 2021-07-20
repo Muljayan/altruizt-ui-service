@@ -6,6 +6,7 @@ import API from 'utils/API';
 import Modal from 'components/common/modal';
 
 const ApprovalsDashboard = () => {
+  const [loading, setloading] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [data, setData] = useState([]);
 
@@ -18,13 +19,15 @@ const ApprovalsDashboard = () => {
   };
 
   const toggleApprovalStatus = async () => {
-    console.log('clicked');
+    setloading(true);
     try {
       const res = await API.put(`organizations/profile/${selectedItem}/toggle-activation-status`);
       setData(res.data);
       setSelectedItem(null);
+      setloading(false);
     } catch (err) {
       console.log(err);
+      setloading(false);
     }
   };
 
@@ -58,8 +61,9 @@ const ApprovalsDashboard = () => {
         />
       </Body>
       <Modal
-        open={selectedItem}
+        open={!!selectedItem}
         title="Alert!"
+        loading={loading}
         description="Are you sure you want approve this organization?"
         closeModal={_closeModal}
         buttonText="Approve"

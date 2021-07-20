@@ -73,13 +73,14 @@ const EventSidebar = (props) => {
       }
       {
         data.isComplete
-        && (
-          <CommonContainer
-            title="⭐ Event Completed!"
-            color="dark"
-            link="#"
-          />
-        )
+          ? (
+            <CommonContainer
+              title="⭐ Event Completed!"
+              color="dark"
+              link="#"
+            />
+          )
+          : (<></>)
       }
       {
         isOrganizer

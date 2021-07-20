@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from '../Loader';
 
 const Modal = (props) => {
   const {
+    loading,
     open,
     title, description,
     closeModal,
@@ -54,82 +56,94 @@ const Modal = (props) => {
                   </div>
                   <p className="mb-1">{description}</p>
                   {
-                    (text || text === '')
-                    && (
-                      textType === 'area'
-                        ? (
-                          <textarea
-                            type="text"
-                            className="mb-1"
-                            value={text}
-                            onChange={_onChange}
-                            required={textRequired}
-                            placeholder={textPlaceholder}
-                          />
-                        )
-                        : (
-                          <input
-                            type={textType}
-                            className="mb-1"
-                            value={text}
-                            onChange={_onChange}
-                            required={textRequired}
-                            placeholder={textPlaceholder}
-                          />
-                        )
-                    )
-                  }
-                  {
-                    (text2 || text2 === '')
-                    && (
-                      textType2 === 'area'
-                        ? (
-                          <textarea
-                            type="text"
-                            className="mb-1"
-                            value={text2}
-                            onChange={_onChange2}
-                            required={textRequired2}
-                            placeholder={textPlaceholder2}
-                          />
-                        )
-                        : (
-                          <input
-                            type={textType2}
-                            className="mb-1"
-                            value={text2}
-                            onChange={_onChange2}
-                            required={textRequired2}
-                            placeholder={textPlaceholder2}
-                          />
-                        )
-                    )
-                  }
-                  <div className="action-buttons">
-                    {
-                      (closeModal)
-                      && (
-                        <button
-                          type="button"
-                          onClick={closeModal}
-                          className="btn btn-red mx-1"
-                        >
-                          Close
-                        </button>
+                    loading
+
+                      ? (
+                        <Loader />
                       )
-                    }
-                    {
-                      (buttonText && buttonFunction)
-                      && (
-                        <button
-                          type="submit"
-                          className="btn btn-outline-primary mx-1"
-                        >
-                          {buttonText}
-                        </button>
+                      : (
+                        <>
+                          {
+                            (text || text === '')
+                            && (
+                              textType === 'area'
+                                ? (
+                                  <textarea
+                                    type="text"
+                                    className="mb-1"
+                                    value={text}
+                                    onChange={_onChange}
+                                    required={textRequired}
+                                    placeholder={textPlaceholder}
+                                  />
+                                )
+                                : (
+                                  <input
+                                    type={textType}
+                                    className="mb-1"
+                                    value={text}
+                                    onChange={_onChange}
+                                    required={textRequired}
+                                    placeholder={textPlaceholder}
+                                  />
+                                )
+                            )
+                          }
+                          {
+                            (text2 || text2 === '')
+                            && (
+                              textType2 === 'area'
+                                ? (
+                                  <textarea
+                                    type="text"
+                                    className="mb-1"
+                                    value={text2}
+                                    onChange={_onChange2}
+                                    required={textRequired2}
+                                    placeholder={textPlaceholder2}
+                                  />
+                                )
+                                : (
+                                  <input
+                                    type={textType2}
+                                    className="mb-1"
+                                    value={text2}
+                                    onChange={_onChange2}
+                                    required={textRequired2}
+                                    placeholder={textPlaceholder2}
+                                  />
+                                )
+                            )
+                          }
+                          <div className="action-buttons">
+                            {
+                              (closeModal)
+                              && (
+                                <button
+                                  type="button"
+                                  onClick={closeModal}
+                                  className="btn btn-red mx-1"
+                                >
+                                  Close
+                                </button>
+                              )
+                            }
+                            {
+                              (buttonText && buttonFunction)
+                              && (
+                                <button
+                                  type="submit"
+                                  className="btn btn-outline-primary mx-1"
+                                >
+                                  {buttonText}
+                                </button>
+                              )
+                            }
+                          </div>
+                        </>
                       )
-                    }
-                  </div>
+                  }
+
                 </div>
               </div>
             </form>
@@ -157,6 +171,7 @@ Modal.propTypes = {
   onTextChange2: PropTypes.func,
   textRequired2: PropTypes.bool,
   textPlaceholder2: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
 Modal.defaultProps = {
@@ -174,6 +189,7 @@ Modal.defaultProps = {
   onTextChange2: null,
   textRequired2: false,
   textPlaceholder2: null,
+  loading: false,
 };
 
 export default Modal;
