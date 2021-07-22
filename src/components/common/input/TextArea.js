@@ -20,7 +20,11 @@ const TextArea = (props) => {
     <div className={`col-md-${colSize}`}>
       <div className="field mx-1">
         <label htmlFor="">
-          <h4>{label}</h4>
+          <h4>
+            {label}
+            {' '}
+            {required ? '*' : ''}
+          </h4>
         </label>
         <textarea
           placeholder={placeholder}

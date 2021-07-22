@@ -55,7 +55,11 @@ const AutoFiller = (props) => {
     <div className={`col-md-${colSize}`}>
       <div className="field searcher mx-1">
         <label htmlFor={id}>
-          <h4>{label}</h4>
+          <h4>
+            {label}
+            {' '}
+            {required ? '*' : ''}
+          </h4>
         </label>
         <input
           onChange={_onChange}

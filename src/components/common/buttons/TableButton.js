@@ -30,6 +30,6 @@ TableButton.propTypes = {
   conditional: PropTypes.bool,
   label: PropTypes.string.isRequired,
   label2: PropTypes.string,
-}
+};
 
 export default TableButton;

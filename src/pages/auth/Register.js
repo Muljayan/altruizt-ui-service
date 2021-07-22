@@ -104,7 +104,7 @@ const Register = () => {
       setLoading(false);
       dispatchNotification({
         title: 'Alert',
-        message: 'Something went wrong!',
+        message: err?.response?.data.message || 'Something went wrong!',
       });
       console.log(err);
     }
@@ -146,21 +146,21 @@ const Register = () => {
               />
               <div className="row mb-2">
                 <Select
-                  label="Are you an Organization or an Individual"
+                  label="Are you an Organization or an Individual *"
                   options={userTypeOptions}
                   value={userType}
                   onChange={setUserType}
                 />
                 <DataFetchSelect
                   type="organization-types"
-                  label="What kind of organization do you represent?"
+                  label="What kind of organization do you represent? *"
                   value={organizationType}
                   onChange={setOrganizationType}
                   hide={!isAnOrganization}
                 />
                 <DataFetchSelect
                   type="categories"
-                  label="Which category does your organization fall under ?"
+                  label="Which category does your organization fall under ? *"
                   colSize={12}
                   value={categories}
                   onChange={setCategories}
@@ -215,7 +215,6 @@ const Register = () => {
                   value={website}
                   onChange={setWebsite}
                   colSize={6}
-                  required={isAnOrganization}
                   hide={!isAnOrganization}
                 />
 

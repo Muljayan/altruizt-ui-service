@@ -85,10 +85,10 @@ const UpdateForm = (props) => {
     } catch (err) {
       dispatchNotification({
         title: 'Alert',
-        message: err.response.data.message,
+        message: err?.response?.data?.message,
       });
       console.log(err);
-      console.log(err.response.data.message);
+      console.log(err?.response?.data?.message);
     }
   };
 

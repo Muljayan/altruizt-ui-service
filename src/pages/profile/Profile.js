@@ -93,7 +93,7 @@ const Profile = () => {
       console.log(err);
       dispatchNotification({
         title: 'Alert',
-        message: err.response.data.message,
+        message: err?.response?.data?.message,
       });
     }
   };
@@ -129,7 +129,7 @@ const Profile = () => {
           />
           <DataFetchSelect
             type="organization-types"
-            label="What kind of organization do you represent?"
+            label="What kind of organization do you represent? *"
             value={organizationType}
             onChange={setOrganizationType}
             hide={!isAnOrganization}

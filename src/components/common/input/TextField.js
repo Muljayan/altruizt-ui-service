@@ -26,7 +26,11 @@ const TextField = (props) => {
           <div className={`col-md-${colSize}`}>
             <div className="field mx-1">
               <label htmlFor={id}>
-                <h4>{label}</h4>
+                <h4>
+                  {label}
+                  {' '}
+                  {required ? '*' : ''}
+                </h4>
               </label>
               <input
                 id={id}

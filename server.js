@@ -1,12 +1,12 @@
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 
 const app = express();
 // Compression
 app.use(compression());
-// app.use(helmet());
+app.use(helmet());
 // app.use(helmet.contentSecurityPolicy({
 //   defaultSrc: [
 //     '*',
