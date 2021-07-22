@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const app = express();
 // Compression
 app.use(compression());
-app.use(helmet());
+// app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   defaultSrc: [
     '*',
