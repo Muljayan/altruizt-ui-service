@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import TextField from 'components/common/input/TextField';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 
 import Select from 'components/common/input/selectors/Select';
@@ -13,7 +12,6 @@ const ResourceForm = (props) => {
   const dispatchNotification = useNotificationDispatcher();
 
   const [name, setName] = useState('');
-  const [quantity, setQuantity] = useState('');
   const [unit, setUnits] = useState(null);
   const [disableUnitPicker, setDisableUnitPicker] = useState(false);
 
@@ -37,7 +35,7 @@ const ResourceForm = (props) => {
   const _onSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!name || !quantity || !unit) {
+      if (!name || !unit) {
         dispatchNotification({
           title: 'Alert',
           message: 'fields are empty!',
@@ -59,7 +57,6 @@ const ResourceForm = (props) => {
         message: 'Item Added Successfully!',
       });
       setName('');
-      setQuantity('');
       setUnits(null);
       setDisableUnitPicker(false);
       return null;
@@ -84,14 +81,6 @@ const ResourceForm = (props) => {
             onSuggestionSelect={_selectedFromSuggestions}
             searchText={name}
             setSearchText={setName}
-          />
-          <TextField
-            label="Quantity"
-            id="quantity"
-            colSize={6}
-            value={quantity}
-            onChange={setQuantity}
-            type="number"
           />
           <Select
             label="Unit (kg, l, m)"

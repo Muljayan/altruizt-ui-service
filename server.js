@@ -1,38 +1,10 @@
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
-// const helmet = require('helmet');
 
 const app = express();
 // Compression
 app.use(compression());
-// app.use(helmet());
-// app.use(helmet.contentSecurityPolicy({
-//   defaultSrc: [
-//     '*',
-//     'https://api.altruizt.xyz/*',
-//     'https://altruizt.xyz',
-//   ],
-//   styleSrc: [
-//     '\'self\'',
-//     '\'unsafe-inline\'',
-//     'https://*.googleapis.com',
-//     'https://api.altruizt.xyz/*',
-//     'https://altruizt.xyz',
-//   ],
-//   scriptSrc: [
-//     '\'self\'',
-//     '\'unsafe-inline\'',
-//     'https://api.altruizt.xyz/*',
-//     'https://altruizt.xyz',
-//   ],
-//   contentSrc: [
-//     '\'self\'',
-//     '\'unsafe-inline\'',
-//     'https://api.altruizt.xyz/*',
-//     'https://altruizt.xyz',
-//   ],
-// }));
 
 const root = path.join(__dirname, 'build/');
 app.use(express.static(root));
