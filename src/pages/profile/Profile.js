@@ -192,7 +192,6 @@ const Profile = () => {
             value={website}
             onChange={setWebsite}
             colSize={6}
-            required={isAnOrganization}
             hide={!isAnOrganization}
           />
 
