@@ -25,6 +25,9 @@
   display: flex;
 
   textarea,input {
+    &:invalid{
+      border: 1px solid $red;
+    }
     width: 100%;
     background-color: $off-white;
     outline: none;

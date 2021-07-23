@@ -49,23 +49,24 @@ const ResourceAdder = (props) => {
       });
       return null;
     }
-
-    const filteredResources = [...resources]
-      .filter((resource) => resource.name === name);
-
-    if (filteredResources.length === 0) {
+    let found = false;
+    const mappedResource = [...resources].map((resource) => {
+      if (resource.name === name) {
+        found = true;
+        return { ...resource, quantity };
+      }
+      return resource;
+    });
+    if (found) {
+      setResources(mappedResource);
+    } else {
       const data = {
         name,
         quantity,
         unit: unit.value,
       };
       setResources([...resources, data]);
-      return null;
     }
-    dispatchNotification({
-      title: 'Alert',
-      message: 'Item already added!',
-    });
     return null;
   };
 

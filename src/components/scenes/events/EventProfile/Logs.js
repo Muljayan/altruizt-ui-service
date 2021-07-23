@@ -6,12 +6,17 @@ const EventLogs = (props) => {
   const { logs } = props;
   console.log({ logs });
 
-  const logsList = logs.map((log) => (
-    <div key={log.id} className="event-update">
-      <b>{log.date}</b>
-      <p>{log.entry}</p>
-    </div>
-  ));
+  const logsList = logs.map((log) => {
+    const date = new Date(log.date);
+    return (
+      <div key={log.id} className="event-update">
+        <b>
+          {date.toLocaleDateString()}
+        </b>
+        <p>{log.entry}</p>
+      </div>
+    );
+  });
 
   return (
     <CommonContainer

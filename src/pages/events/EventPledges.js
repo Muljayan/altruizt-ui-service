@@ -6,9 +6,10 @@ import API from 'utils/API';
 import PledgesTable from 'components/scenes/events/EventPledges/PledgesTable';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
 
-const UpdateEvent = () => {
+const EventPledges = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [errorFound, setErrorFound] = useState(false);
   const { id } = useParams();
   const history = useHistory();
   const _goBack = () => {
@@ -25,6 +26,7 @@ const UpdateEvent = () => {
       setLoading(false);
     } catch (err) {
       setLoading(false);
+      setErrorFound(true);
     }
   };
 
@@ -49,7 +51,7 @@ const UpdateEvent = () => {
       title={(data && data.length > 0) ? 'Event Pledges' : ''}
     >
       {
-        data && data.length > 0
+        !errorFound
           ? (
             <PledgesTable pledges={data} />
           )
@@ -69,4 +71,4 @@ const UpdateEvent = () => {
   );
 };
 
-export default UpdateEvent;
+export default EventPledges;

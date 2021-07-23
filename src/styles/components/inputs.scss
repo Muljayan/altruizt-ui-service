@@ -10,6 +10,9 @@
   textarea,
   input,
   .dropzone {
+    &:invalid{
+      border: 1px solid $red;
+    }
     border-radius: 0.5rem;
     background-color: $off-white;
     color: $font-color;

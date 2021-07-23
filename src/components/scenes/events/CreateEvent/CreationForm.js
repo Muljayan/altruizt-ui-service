@@ -49,6 +49,29 @@ const CreationForm = (props) => {
         });
         return;
       }
+      if (categories.length < 1) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Please add atleast one category!',
+        });
+        return;
+      }
+      const bankAnd = (!!bankName && !!bankNumber && !!bankBranch);
+      const bankOr = (!!bankName || !!bankNumber || !!bankBranch);
+      const partialDetails = !bankAnd && bankOr;
+      if (partialDetails) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Please fill in all bank details!',
+        });
+        return;
+      }
+      if (bankAnd && bankNumber && bankNumber.length < 8) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Bank Number should be greater than 8 digits!',
+        });
+      }
 
       const data = {
         title,
@@ -131,6 +154,7 @@ const CreationForm = (props) => {
           colSize={6}
           value={contactName}
           onChange={setContactName}
+          required
         />
         <TextField
           id="phone"
@@ -138,6 +162,7 @@ const CreationForm = (props) => {
           colSize={6}
           value={phone}
           onChange={setPhone}
+          required
         />
         <DataFetchSelect
           type="categories"

@@ -74,6 +74,7 @@ const OrganizationsDashboard = (props) => {
         buttonText="Revoke"
         buttonFunction={toggleApprovalStatus}
         text={reason}
+        textPlaceholder="reason for revoking"
         textRequired
         onTextChange={setReason}
       />

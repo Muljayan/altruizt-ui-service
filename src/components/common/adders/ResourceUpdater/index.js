@@ -49,30 +49,28 @@ const ResourceUpdater = (props) => {
       });
       return null;
     }
-
-    const filteredResources = [...resources]
-      .filter((resource) => resource.name === name);
-
-    if (filteredResources.length === 0) {
+    let found = false;
+    const mappedResource = [...resources].map((resource) => {
+      if (resource.name === name) {
+        found = true;
+        return { ...resource, quantity };
+      }
+      return resource;
+    });
+    if (found) {
+      setResources(mappedResource);
+    } else {
       const data = {
         name,
         quantity,
         unit: unit.value,
       };
       setResources([...resources, data]);
-      return null;
     }
-    dispatchNotification({
-      title: 'Alert',
-      message: 'Item already added!',
-    });
     return null;
   };
 
   const _removeResource = (selectedItem) => {
-    // TODO this function is bugged due to defect in table module
-    // When deleting everything other than 1st item gets deleted
-    console.log('remove');
     const filteredResources = [...resources]
       .filter((resource) => resource.name !== selectedItem.name);
     setResources(filteredResources);

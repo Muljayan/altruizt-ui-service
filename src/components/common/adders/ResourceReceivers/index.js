@@ -26,7 +26,6 @@ const ResourceReceivers = (props) => {
     let found = false;
     const filteredResources = [...resources]
       .map((resource) => {
-        console.log(resource);
         if (resource.name.toLowerCase() === activeResource.value) {
           found = true;
           return {
