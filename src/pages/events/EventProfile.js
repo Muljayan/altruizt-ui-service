@@ -87,7 +87,6 @@ const EventProfile = () => {
   const _openModal = () => {
     setOpenModal(true);
   };
-  console.log(data);
 
   if (data && !data.isActive) {
     return (

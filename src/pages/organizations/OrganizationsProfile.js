@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Sidebar from 'components/layouts/Sidebars/OrganizationProfile';
 import Body from 'components/layouts/Body';
 import ResourceCard from 'components/common/cards/ResourceCard';
@@ -8,6 +8,7 @@ import StatCard from 'components/common/cards/StatCard';
 import EventPreview from 'components/common/posts/EventPreview';
 import API from 'utils/API';
 import * as linkGenerators from 'utils/linkGenerators';
+import InPageNotifier from 'components/common/notifiers/InPageNotifier';
 
 const OpportunitiesProfile = () => {
   const { id } = useParams();
@@ -22,7 +23,15 @@ const OpportunitiesProfile = () => {
     pastEvents: [],
     currentEvents: [],
     type: 0,
+    isActive: false,
   });
+  const history = useHistory();
+  const _goBack = () => {
+    history.goBack();
+  };
+  const _goHome = () => {
+    history.push('/');
+  };
 
   const _fetchData = async () => {
     try {
@@ -38,12 +47,30 @@ const OpportunitiesProfile = () => {
   }, []);
 
   const sidebarData = {
+    id,
     name: data.name,
     address: data.address,
     phone: data.phone,
     website: data.website,
+    organizationFollowed: data.organizationFollowed,
+    downvoted: data.downvoted,
+    upvoted: data.upvoted,
   };
-  console.log({});
+
+  if (data && !data.isActive) {
+    return (
+      <InPageNotifier
+        icon="alert"
+        header="Warning!"
+        title1="This organization is not active"
+        buttonLabel1="Go Home"
+        buttonFunction1={_goHome}
+        buttonLabel2="Go Back"
+        buttonFunction2={_goBack}
+      />
+    );
+  }
+
   const currentEventsList = data.currentEvents.map((event) => (
     <EventPreview key={event.id} data={event} />
   ));

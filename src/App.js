@@ -55,6 +55,7 @@ import { CLEAR_CURRENT_USER, SET_CURRENT_USER } from 'actions/types';
 import store from 'store';
 import GlobalNotifier from 'components/common/notifiers/GlobalNotifier';
 import Disclaimer from 'components/layouts/Disclaimer';
+import OrganizationsFollowed from 'pages/organizations/OrganizationsFollowed';
 
 // Check if token exists
 const token = localStorage.jwtToken;
@@ -138,6 +139,10 @@ const App = () => {
 
                   <Route exact path="/opportunities">
                     <Opportunities />
+                  </Route>
+
+                  <Route exact path="/followed-organization">
+                    <OrganizationsFollowed />
                   </Route>
                   <Route exact path="/opportunities/profile/:id">
                     <OpportunitiesProfile />

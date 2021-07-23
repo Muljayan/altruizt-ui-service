@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
+import API from 'utils/API';
 
 const getAuthStatus = createSelector(
   (state) => state.auth,
@@ -15,13 +16,39 @@ const OrganizationProfileSidebar = (props) => {
   } = props;
   const isAuthenticated = useSelector(getAuthStatus);
   const {
-    name, address, phone, website,
+    id, name, address, phone, website,
+    upvoted: uv, downvoted: dv,
   } = data;
-  const [followed, setFollowed] = useState(false);
+  const [followed, setFollowed] = useState(data.organizationFollowed);
+  const [upvoted, setUpvoted] = useState(uv);
+  const [downvoted, setDownvoted] = useState(dv);
 
-  const _follow = () => {
-    console.log('follow');
-    setFollowed(!followed);
+  const _follow = async () => {
+    try {
+      await API.put(`/organizations/profile/${id}/follow`);
+      setFollowed(!followed);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const _upvote = async () => {
+    try {
+      await API.put(`/organizations/profile/${id}/upvote`);
+      setUpvoted(!upvoted);
+      setDownvoted(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const _downvote = async () => {
+    try {
+      await API.put(`/organizations/profile/${id}/downvote`);
+      setDownvoted(!downvoted);
+      setUpvoted(false);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -29,9 +56,15 @@ const OrganizationProfileSidebar = (props) => {
       {
         isAuthenticated
         && (
-          <div className="button-container mb-2">
-            <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Unfollow' : 'Follow'}</button>
-          </div>
+          <>
+            <div className="button-container">
+              <button onClick={_follow} type="button" className={`btn btn-${followed ? 'primary' : 'red'} mx-1 bold`}>{followed ? 'Followed' : 'Follow'}</button>
+            </div>
+            <div className="button-container my-1">
+              <button onClick={_upvote} type="button" className={`btn btn-outline-${upvoted ? 'primary' : 'red'} mx-1 bold`}>Upvote 👍</button>
+              <button onClick={_downvote} type="button" className={`btn btn-outline-${downvoted ? 'primary' : 'red'} mx-1 bold`}>{downvoted ? 'Flagged 🚩' : 'Flag 🚩'}</button>
+            </div>
+          </>
         )
       }
 

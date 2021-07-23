@@ -4,17 +4,15 @@ import SearchBar from 'components/SearchBar';
 import OrganizationPreview from 'components/common/posts/OrganizationPreview';
 import Body from 'components/layouts/Body';
 import API from 'utils/API';
-import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 
-const Organizations = () => {
+const OrganizationsFollowed = () => {
   const [searchString, setSearchString] = useState('');
   const [organizations, setOrganizations] = useState([]);
-  const [resources, setResources] = useState([]);
 
   const _fetchData = async () => {
     try {
-      const data = { searchString, resources, isBeneficiary: false };
-      const res = await API.post('/organizations', data);
+      const data = { searchString };
+      const res = await API.post('/organizations/followed', data);
       setOrganizations(res.data);
     } catch (err) {
       console.log(err);
@@ -23,7 +21,7 @@ const Organizations = () => {
 
   useEffect(() => {
     _fetchData();
-  }, [searchString, resources]);
+  }, [searchString]);
 
   const organizationList = organizations.map((organization) => (
     <OrganizationPreview key={organization.id} data={organization} />
@@ -41,16 +39,6 @@ const Organizations = () => {
           onChange={setSearchString}
         />
       </div>
-      <DataFetchSelect
-        label=""
-        colSize={12}
-        // type="beneficiaries"
-        type="resources"
-        placeholder="Search by what youre looking"
-        value={resources}
-        onChange={setResources}
-        isMulti
-      />
       <div className="row organizations-list">
         {organizationList}
       </div>
@@ -58,4 +46,4 @@ const Organizations = () => {
   );
 };
 
-export default Organizations;
+export default OrganizationsFollowed;

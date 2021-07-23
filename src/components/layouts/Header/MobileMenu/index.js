@@ -40,8 +40,9 @@ const MobileMenu = () => {
         <Link hideMenu={_toggleChecked} label="Home" to="/" />
         <Link hideMenu={_toggleChecked} label="Opportunities" to="/opportunities" />
         <Link hideMenu={_toggleChecked} label="Organizations" to="/organizations" />
-        <Link hideMenu={_toggleChecked} hide={!isAuthenticated} label="Events" to="/events" />
-        <Link hideMenu={_toggleChecked} hide={!isAuthenticated} label="Followings" to="/followings" />
+        <Link hideMenu={_toggleChecked} hide={!isAuthenticated} label="All Events" to="/events" />
+        <Link hideMenu={_toggleChecked} hide={!isAuthenticated} label="Events Followed" to="/followings" />
+        <Link hideMenu={_toggleChecked} hide={!isAuthenticated} label="Organizations Followed" to="/followed-organization" />
         {
           isAuthenticated
             ? (
