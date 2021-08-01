@@ -8,7 +8,7 @@ const app = express();
 app.use(compression());
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
-  useDefaults: 'true',
+  useDefaults: 'false',
   directives: {
     defaultSrc: [
       '*',
