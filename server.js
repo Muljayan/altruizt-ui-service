@@ -1,39 +1,39 @@
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 
 const app = express();
 // Compression
 app.use(compression());
-app.use(helmet());
-app.use(helmet.contentSecurityPolicy({
-  defaultSrc: [
-    '*',
-    '\'self\'',
-    'altruizt.xyz',
-    'api.altruizt.xyz/*',
-  ],
-  styleSrc: [
-    '\'self\'',
-    '\'unsafe-inline\'',
-    '*.googleapis.com',
-    'altruizt.xyz',
-    'api.altruizt.xyz/*',
-  ],
-  scriptSrc: [
-    '\'self\'',
-    // '\'unsafe-inline\'',
-    'altruizt.xyz',
-    'api.altruizt.xyz/*',
-  ],
-  contentSrc: [
-    '\'self\'',
-    // '\'unsafe-inline\'',
-    'altruizt.xyz',
-    'api.altruizt.xyz/*',
-  ],
-}));
+// app.use(helmet());
+// app.use(helmet.contentSecurityPolicy({
+//   defaultSrc: [
+//     '*',
+//     '\'self\'',
+//     'https://api.altruizt.xyz/*',
+//     'https://altruizt.xyz',
+//   ],
+//   styleSrc: [
+//     '\'self\'',
+//     '\'unsafe-inline\'',
+//     'https://*.googleapis.com',
+//     'https://api.altruizt.xyz/*',
+//     'https://altruizt.xyz',
+//   ],
+//   scriptSrc: [
+//     '\'self\'',
+//     '\'unsafe-inline\'',
+//     'https://api.altruizt.xyz/*',
+//     'https://altruizt.xyz',
+//   ],
+//   contentSrc: [
+//     '\'self\'',
+//     '\'unsafe-inline\'',
+//     'https://api.altruizt.xyz/*',
+//     'https://altruizt.xyz',
+//   ],
+// }));
 
 const root = path.join(__dirname, 'build/');
 app.use(express.static(root));
