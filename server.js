@@ -11,27 +11,27 @@ app.use(helmet.contentSecurityPolicy({
   defaultSrc: [
     '*',
     '\'self\'',
-    'https://api.altruizt.xyz/*',
-    'https://altruizt.xyz',
+    'altruizt.xyz',
+    'api.altruizt.xyz/*',
   ],
   styleSrc: [
     '\'self\'',
     '\'unsafe-inline\'',
-    'https://*.googleapis.com',
-    'https://api.altruizt.xyz/*',
-    'https://altruizt.xyz',
+    '*.googleapis.com',
+    'altruizt.xyz',
+    'api.altruizt.xyz/*',
   ],
   scriptSrc: [
     '\'self\'',
-    '\'unsafe-inline\'',
-    'https://api.altruizt.xyz/*',
-    'https://altruizt.xyz',
+    // '\'unsafe-inline\'',
+    'altruizt.xyz',
+    'api.altruizt.xyz/*',
   ],
   contentSrc: [
     '\'self\'',
-    '\'unsafe-inline\'',
-    'https://api.altruizt.xyz/*',
-    'https://altruizt.xyz',
+    // '\'unsafe-inline\'',
+    'altruizt.xyz',
+    'api.altruizt.xyz/*',
   ],
 }));
 
