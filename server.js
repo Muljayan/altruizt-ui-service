@@ -35,9 +35,10 @@ app.use(helmet.contentSecurityPolicy({
       'https://api.altruizt.xyz',
       'https://altruizt.xyz',
     ],
-    imageSrc: [
+    'img-src': [
       '\'self\'',
       '\'unsafe-inline\'',
+      'data:',
       'https://api.altruizt.xyz',
       'https://altruizt.xyz',
     ],
