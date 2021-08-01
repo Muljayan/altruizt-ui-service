@@ -19,7 +19,7 @@ app.use(helmet.contentSecurityPolicy({
     styleSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
-      'https:/.googleapis.com',
+      'https://*.googleapis.com',
       'https://api.altruizt.xyz',
       'https://altruizt.xyz',
     ],
@@ -43,6 +43,7 @@ app.use(helmet.contentSecurityPolicy({
     ],
     connectSrc: [
       '\'self\'',
+      '\'unsafe-inline\'',
       'https://api.altruizt.xyz',
       'https://altruizt.xyz',
     ],
