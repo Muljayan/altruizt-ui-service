@@ -10,7 +10,6 @@ const getAuthStatus = createSelector(
 
 const Landing = () => {
   const isAuthenticated = useSelector(getAuthStatus);
-  console.log({ isAuthenticated });
   if (isAuthenticated) {
     return <></>;
   }

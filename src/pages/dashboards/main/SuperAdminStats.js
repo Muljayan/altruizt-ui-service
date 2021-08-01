@@ -33,7 +33,7 @@ const SuperAdminStats = (props) => {
         <StatCard
           label="Corporates"
           value={corporates}
-          link="/dashboard/manage/approvals"
+          link="/dashboard/manage/corporates"
           linkLabel="View"
         />
         <StatCard

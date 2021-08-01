@@ -5,6 +5,7 @@ import API from 'utils/API';
 import { createSelector } from 'reselect';
 import { useSelector } from 'react-redux';
 import CommonContainer from 'components/layouts/Containers/CommonContainer';
+import SocialShare from './SocialShare';
 
 const getAuthStatus = createSelector(
   (state) => state.auth,
@@ -92,7 +93,6 @@ const EventSidebar = (props) => {
           />
         )
       }
-
       {
         isAuthenticated
         && (
@@ -136,6 +136,10 @@ const EventSidebar = (props) => {
           <div className="headings">End Date</div>
           <p>{new Date(endDate).toLocaleDateString()}</p>
         </div>
+      </div>
+      <div className="post-preview card mt-2 p-2 mb-2">
+        <h4>Share Event</h4>
+        <SocialShare />
       </div>
     </div>
   );
