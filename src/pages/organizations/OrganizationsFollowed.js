@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from 'components/layouts/Sidebars/Common';
-import SearchBar from 'components/SearchBar';
+import SearchBar from 'components/layouts/SearchBar';
 import OrganizationPreview from 'components/common/posts/OrganizationPreview';
 import Body from 'components/layouts/Body';
 import API from 'utils/API';

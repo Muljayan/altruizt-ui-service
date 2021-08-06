@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from 'components/layouts/Sidebars/Common';
-import SearchBar from 'components/SearchBar';
+import SearchBar from 'components/layouts/SearchBar';
 import EventPreview from 'components/common/posts/EventPreview';
 import Body from 'components/layouts/Body';
 import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
