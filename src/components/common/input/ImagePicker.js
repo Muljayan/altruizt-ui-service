@@ -32,6 +32,7 @@ const ImagePicker = (props) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: 'image/jpeg, image/png, image/jpg',
+    maxSize: 1000000,
   });
 
   return (
@@ -54,7 +55,7 @@ const ImagePicker = (props) => {
                 )
               )
           }
-          <p>Drag and drop your image here</p>
+          <p>Drag and drop your image here (jpg,jpeg,png). 500KB or less</p>
         </div>
       </div>
     </div>

@@ -99,7 +99,7 @@ const ResourceAdder = (props) => {
           type="number"
         />
         <Select
-          label="Unit (kg, l, m)"
+          label="Unit (kg, l, m, unit, people, pieces, etc)"
           colSize={6}
           options={[...categoriesTypeOptions]}
           value={unit}

@@ -17,7 +17,7 @@ const SearchBar = (props) => {
         className="bold"
         type="text"
       />
-      <button type="submit">
+      <button type="button">
         <img src="/icons/search.svg" alt="search-icon" />
       </button>
     </form>
