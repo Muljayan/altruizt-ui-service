@@ -22,6 +22,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [identificationNumber, setIdentificationNumber] = useState('');
@@ -69,6 +70,15 @@ const Register = () => {
         dispatchNotification({
           title: 'Alert',
           message: 'Password should be greater than 8 characters!',
+        });
+        setLoading(false);
+        return;
+      }
+
+      if (password !== password2) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Passwords do not match!',
         });
         setLoading(false);
         return;
@@ -195,6 +205,14 @@ const Register = () => {
                   required
                 />
                 <TextField
+                  label="Telephone Number"
+                  id="phone"
+                  value={phone}
+                  onChange={setPhone}
+                  colSize={6}
+                  required={isAnOrganization}
+                />
+                <TextField
                   label="Password"
                   id="password"
                   value={password}
@@ -204,12 +222,13 @@ const Register = () => {
                   required
                 />
                 <TextField
-                  label="Telephone Number"
-                  id="phone"
-                  value={phone}
-                  onChange={setPhone}
+                  label="Retype Password"
+                  id="password"
+                  value={password2}
+                  onChange={setPassword2}
+                  type="password"
                   colSize={6}
-                  required={isAnOrganization}
+                  required
                 />
                 <TextField
                   label="Address"
