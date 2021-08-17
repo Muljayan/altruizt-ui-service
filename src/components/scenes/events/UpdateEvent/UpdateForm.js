@@ -12,6 +12,7 @@ import { dateInputFormat, selectorDataFormat } from 'utils/formatters';
 import ResourceReceivers from 'components/common/adders/ResourceReceivers';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 import * as linkGenerators from 'utils/linkGenerators';
+import { isPhoneNumber } from 'class-validator';
 
 const UpdateForm = (props) => {
   const dispatchNotification = useNotificationDispatcher();
@@ -45,7 +46,13 @@ const UpdateForm = (props) => {
   const _onSubmit = async (e) => {
     try {
       e.preventDefault();
-
+      if (phone && phone.length < 10 && !isPhoneNumber(phone)) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Phone Number is invalid!',
+        });
+        return;
+      }
       if (resources.length < 1) {
         dispatchNotification({
           title: 'Alert',

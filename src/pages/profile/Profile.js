@@ -12,6 +12,7 @@ import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import ImagePicker from 'components/common/input/ImagePicker';
 import * as linkGenerators from 'utils/linkGenerators';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
+import { isPhoneNumber, isURL } from 'class-validator';
 
 const Profile = () => {
   const dispatchNotification = useNotificationDispatcher();
@@ -67,6 +68,29 @@ const Profile = () => {
 
   const _onSubmit = async (e) => {
     e.preventDefault();
+    if (website && !isURL(website)) {
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Website is invalid!',
+      });
+      return;
+    }
+    if (phone && phone.length < 10 && !isPhoneNumber(phone)) {
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Phone Number is invalid!',
+      });
+      return;
+    }
+
+    if (password && password.length < 8) {
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Password should be greater than 8 characters!',
+      });
+      return;
+    }
+
     try {
       const data = {
         image,

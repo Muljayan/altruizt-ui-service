@@ -15,6 +15,7 @@ import * as linkGenerators from 'utils/linkGenerators';
 import API from 'utils/API';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
+import { isPhoneNumber } from 'class-validator';
 
 const getUserEmail = createSelector(
   (state) => state.auth,
@@ -67,10 +68,10 @@ const EventProfile = () => {
   }
 
   const _togglePledge = async () => {
-    if (phone && phone.length < 8) {
+    if (phone && phone.length < 10 && !isPhoneNumber(phone)) {
       dispatchNotification({
         title: 'Alert',
-        message: 'Phone number is too short!',
+        message: 'Phone number is invalid',
       });
       return;
     }

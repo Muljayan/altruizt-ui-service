@@ -11,6 +11,7 @@ import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import InPageNotifier from 'components/common/notifiers/InPageNotifier';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
 import Loader from 'components/common/Loader';
+import { isPhoneNumber, isURL } from 'class-validator';
 
 const Register = () => {
   const dispatchNotification = useNotificationDispatcher();
@@ -73,10 +74,20 @@ const Register = () => {
         return;
       }
 
-      if (phone && phone.length < 8) {
+      if (website && !isURL(website)) {
         dispatchNotification({
           title: 'Alert',
-          message: 'Phone Number should be greater than 8 characters!',
+          message: 'Website is invalid!',
+        });
+        setLoading(false);
+        return;
+      }
+      console.log({ phone });
+      if (phone && (phone.length < 10) && !isPhoneNumber(phone)) {
+        console.log('valid');
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Phone Number is invalid!',
         });
         setLoading(false);
         return;

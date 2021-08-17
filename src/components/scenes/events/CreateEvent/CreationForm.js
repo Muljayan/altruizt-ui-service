@@ -8,6 +8,7 @@ import DataFetchSelect from 'components/common/input/selectors/DataFetchSelect';
 import API from 'utils/API';
 import ImagePicker from 'components/common/input/ImagePicker';
 import useNotificationDispatcher from 'hooks/useNotificationDispatch';
+import { isPhoneNumber } from 'class-validator';
 
 const CreationForm = (props) => {
   const dispatchNotification = useNotificationDispatcher();
@@ -34,7 +35,13 @@ const CreationForm = (props) => {
   const _onSubmit = async (e) => {
     try {
       e.preventDefault();
-
+      if (phone && phone.length < 10 && !isPhoneNumber(phone)) {
+        dispatchNotification({
+          title: 'Alert',
+          message: 'Phone Number is invalid!',
+        });
+        return;
+      }
       if (resources.length < 1) {
         dispatchNotification({
           title: 'Alert',
