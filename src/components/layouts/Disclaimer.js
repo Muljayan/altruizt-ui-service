@@ -17,6 +17,7 @@ const Disclaimer = (props) => {
         <br />
         If you wish to see the project fully feel free to contact the developer.
       </div>
+      <h4>Validations Added!</h4>
       <button type="button" onClick={close} className="btn btn-primary">I understand</button>
     </div>
   );
