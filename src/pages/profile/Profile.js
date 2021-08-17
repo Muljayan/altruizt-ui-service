@@ -25,6 +25,7 @@ const Profile = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [identificationNumber, setIdentificationNumber] = useState('');
@@ -87,6 +88,14 @@ const Profile = () => {
       dispatchNotification({
         title: 'Alert',
         message: 'Password should be greater than 8 characters!',
+      });
+      return;
+    }
+
+    if (password && (password !== password2)) {
+      dispatchNotification({
+        title: 'Alert',
+        message: 'Passwords do not match!',
       });
       return;
     }
@@ -193,6 +202,20 @@ const Profile = () => {
             type="password"
             colSize={6}
           />
+          {
+            password
+            && (
+              <TextField
+                placeholder="WARNING! For new password only!"
+                label="Retype Password"
+                id="password2"
+                value={password2}
+                onChange={setPassword2}
+                type="password"
+                colSize={6}
+              />
+            )
+          }
           <TextField
             label="Telephone Number"
             id="phone"

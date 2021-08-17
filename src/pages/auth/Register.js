@@ -92,9 +92,7 @@ const Register = () => {
         setLoading(false);
         return;
       }
-      console.log({ phone });
       if (phone && (phone.length < 10) && !isPhoneNumber(phone)) {
-        console.log('valid');
         dispatchNotification({
           title: 'Alert',
           message: 'Phone Number is invalid!',
