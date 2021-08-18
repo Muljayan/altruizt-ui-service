@@ -221,7 +221,7 @@ const Register = () => {
                 />
                 <TextField
                   label="Retype Password"
-                  id="password"
+                  id="password2"
                   value={password2}
                   onChange={setPassword2}
                   type="password"

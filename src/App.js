@@ -45,6 +45,8 @@ import MainDashboard from 'pages/dashboards/main';
 
 import Login from 'pages/auth/Login';
 import Register from 'pages/auth/Register';
+import ResetToken from 'pages/auth/ResetToken';
+import ResetPassword from 'pages/auth/ResetPassword';
 import NotFound from 'pages/errors/NotFound';
 
 import PrivateRoute from 'components/common/routes/PrivateRoute';
@@ -102,6 +104,18 @@ const App = () => {
                     path="/register"
                   >
                     <Register />
+                  </AuthRoute>
+                  <AuthRoute
+                    exact
+                    path="/reset-token"
+                  >
+                    <ResetToken />
+                  </AuthRoute>
+                  <AuthRoute
+                    exact
+                    path="/reset-password"
+                  >
+                    <ResetPassword />
                   </AuthRoute>
 
                   <Route exact path="/">
