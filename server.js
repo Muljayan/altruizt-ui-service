@@ -2,6 +2,14 @@ const path = require('path');
 const express = require('express');
 const compression = require('compression');
 const helmet = require('helmet');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
+const {
+  SERVER_URI,
+  CLIENT_URI,
+} = process.env;
 
 const app = express();
 // Compression
@@ -13,40 +21,40 @@ app.use(helmet.contentSecurityPolicy({
     defaultSrc: [
       '*',
       '\'self\'',
-      'https://api.altruizt.xyz',
-      'https://altruizt.xyz',
+      SERVER_URI,
+      CLIENT_URI,
     ],
     styleSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
       'https://*.googleapis.com',
-      'https://api.altruizt.xyz',
-      'https://altruizt.xyz',
+      SERVER_URI,
+      CLIENT_URI,
     ],
     scriptSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
-      'https://api.altruizt.xyz',
-      'https://altruizt.xyz',
+      SERVER_URI,
+      CLIENT_URI,
     ],
     contentSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
-      'https://api.altruizt.xyz',
-      'https://altruizt.xyz',
+      SERVER_URI,
+      CLIENT_URI,
     ],
     'img-src': [
       '\'self\'',
       '\'unsafe-inline\'',
       'data:',
-      'https://api.altruizt.xyz',
-      'https://altruizt.xyz',
+      SERVER_URI,
+      CLIENT_URI,
     ],
     connectSrc: [
       '\'self\'',
       '\'unsafe-inline\'',
-      'https://api.altruizt.xyz',
-      'https://altruizt.xyz',
+      SERVER_URI,
+      CLIENT_URI,
     ],
   },
 }));
